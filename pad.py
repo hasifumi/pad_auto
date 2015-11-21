@@ -115,12 +115,14 @@ def search(goal_drops, path, prev_drops, adjacent):
 
 
 #lst = create_drops_random(4, 3, "bgr")
+lst = create_drops_random(d="123456")
 #dct = pivot_drops(lst)
 #max_cmb = max_combo(dct)
 #lst2 = sort_drops(dct)
 #lst3 = create_goal_drops(lst2, max_cmb)
 #
-#print lst
+print lst
+print "".join(lst)
 #print len(lst)
 #print dct
 #print max_cmb
@@ -132,10 +134,10 @@ def search(goal_drops, path, prev_drops, adjacent):
 #lst2 = "abc"
 #print isEqual_list(lst1, lst2)
 
-lst1 = ["a", "b", "a", "c", "a", "a"]
-lst2 = ["a", "c", "b", "a", "a", "a"]
-
-for x in range(len(lst2)):
-    search(lst1, [x], lst2, adjacent_3x2)
+#lst1 = ["a", "b", "a", "c", "a", "a"]
+#lst2 = ["a", "c", "b", "a", "a", "a"]
+#
+#for x in range(len(lst2)):
+#    search(lst1, [x], lst1, adjacent_3x2)
 
 #print exchange(["a", "b", "c", "d", "e"], 3, 2)
