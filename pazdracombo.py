@@ -5,6 +5,7 @@
 
 import itertools
 import copy
+import pad
 
 class PazdraComboChecker():
 
@@ -46,7 +47,7 @@ clllll
     pdc_combo_table = pdc_combo_ascii_table
 
     adjacent_6x5 = [
-            [1, 6],
+            [1, 6],             # 0
             [0, 2, 7],
             [1, 3, 8],
             [2, 4, 9],
@@ -258,25 +259,28 @@ clllll
         strs = "".join(list(itertools.chain.from_iterable(lst)))
         for h in range(self.height):
             print strs[h*self.width:h*self.width+self.width]
-        return
+        #return
 
     def calc_combo(self):
         #cmb_kinsetsu = 0
         cmb = 0
         for i, v in enumerate(self.combo):
-            cmb += 1
+            #print "v[4]: " + str(v[4])
+            if cmb < v[5]:
+                cmb += 1
             #print i
             #print v
+            #print "i: " + str(i) + ", v:" + str(v)
             for i2, v2 in enumerate(self.combo[i+1:]):
-                #print v2
+                #print "v2:" + str(v2)
                 if v[4] == v2[4]:   # 同色か？
                     # vの各ドロップの近接リストにcmb2の各ドロップがいるか？
                     if self.isKinsetsu(v[1], v[2], v[3], v2[1], v2[2], v2[3]):
                         #self.combo[i+1][5] = self.combo[i][5]
                         #cmb -= 1
-                        #print "cmb:" + str(cmb) + ", i:" + str(i) + ", i2:" + str(i2) + ", i+i2+1:" + str(i+i2+1)
                         self.combo[i][5] = cmb
                         self.combo[i+i2+1][5] = cmb
+                        #print "cmb:" + str(cmb) + ", i:" + str(i) + ", i2:" + str(i2) + ", i+i2+1:" + str(i+i2+1) + ", self.combo[i+i2+1][5]: " + str(self.combo[i+i2+1][5])
         #return len(self.combo) - cmb_kinsetsu
         return
 
@@ -293,6 +297,7 @@ clllll
                     #print "j:" + str(j)
                     if v2 == "h":
                         for k in self.renketsu_6x5_h[idx2]:
+                            #print "k:" + str(k)
                             if j == k:
                                 return True
                     elif v2 == "v":
@@ -340,16 +345,18 @@ clllll
             return False
 
 
-pdc = PazdraComboChecker(6, 5)
+pdc = PazdraComboChecker(6, 5, pad.create_drops_random(6, 5, "rbgldc"))
+#print pdc.board_l
+print "[board]"
 print pdc.print_lst2str("board")
-print pdc.board_l
-print pdc.board_l[0][1]
-#print pdc.isRenketsu(0,1,"h")
+#print pdc.board_l[0][1]
+##print pdc.isRenketsu(0,1,"h")
 pdc.check_erasable()
-print pdc.erase_l
-print pdc.print_lst2str("erase")
-print pdc.combo
+#print pdc.erase_l
+#print pdc.print_lst2str("erase")
+#print pdc.combo
 pdc.calc_combo()
-print pdc.combo
-
+#print pdc.combo
+#
+print "[combo]"
 pdc.print_combo()
