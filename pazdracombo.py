@@ -1,3 +1,4 @@
+# vim: foldmethod=marker  :
 # -*- coding: utf-8 -*-
 
 # A tiny combo checker for Puzzle & Dragons
@@ -320,17 +321,13 @@ clllll
 
     def print_combo(self):
         cmb_l = list(self.board)
-        #print cmb_str
         for i in self.combo:
             if i[3] == "h":
                 for j in self.renketsu_6x5_h[self.xy2idx(i[1], i[2])]:
-                    #print i
-                    #print j
                     cmb_l[j] = self.str_e(i[5])
             elif i[3] == "v":
                 for j in self.renketsu_6x5_v[self.xy2idx(i[1], i[2])]:
                     cmb_l[j] = self.str_e(i[5])
-        #return cmb_l
         strs = "".join(cmb_l)
         for h in range(self.height):
             print strs[h*self.width:h*self.width+self.width]
@@ -346,17 +343,14 @@ clllll
 
 
 pdc = PazdraComboChecker(6, 5, pad.create_drops_random(6, 5, "rbgldc"))
-#print pdc.board_l
-print "[board]"
-print pdc.print_lst2str("board")
-#print pdc.board_l[0][1]
-##print pdc.isRenketsu(0,1,"h")
+
+# 確認用
+#print "[board]"
+#print pdc.print_lst2str("board")
+
 pdc.check_erasable()
-#print pdc.erase_l
-#print pdc.print_lst2str("erase")
-#print pdc.combo
 pdc.calc_combo()
-#print pdc.combo
-#
+
+# 確認用
 print "[combo]"
 pdc.print_combo()
