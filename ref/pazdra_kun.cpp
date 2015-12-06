@@ -52,7 +52,7 @@ void dfs(int now_row, int now_col, int depth);
 void Nbeam();
 int check2(int play);
 void solve2(int num);
-void solve_b(int num, char *p);
+void solve_b(char *p);
 
 int max_count;
 
@@ -99,13 +99,13 @@ struct member{
 //
 int main(int argc, char *argv[]){
 
-	sample(argv[1]);
+	// sample(argv[1]);
 
 	srand((unsigned)time(NULL));
 
 	// solve2(5);
 
-	solve_b(3, argv[1]);
+	solve_b(argv[1]);
 
 	return 0;
 }
@@ -115,7 +115,7 @@ void sample(char *p){
 
 }
 
-void solve_b(int num, char *p){
+void solve_b(char *p){
 
 	// init();
 	init2(p);
@@ -160,14 +160,14 @@ void solve_b(int num, char *p){
 	memcpy(field, f_field, sizeof(f_field));
 
 	// printf("t=%d\n", t + 1);
-	printf("input=\n");
-	for (int row = 0; row < ROW; row++){
-		for (int col = 0; col < COL; col++){
-			printf("%d", field[row][col]);
-		}
-		printf("\n");
-	}
-	printf("\n");
+	// printf("input=\n");
+	// for (int row = 0; row < ROW; row++){
+	// 	for (int col = 0; col < COL; col++){
+	// 		printf("%d", field[row][col]);
+	// 	}
+	// 	printf("\n");
+	// }
+	// printf("\n");
 
 	printf("x=%d,y=%d\n", start[1], start[0]);
 
@@ -178,14 +178,14 @@ void solve_b(int num, char *p){
 		}
 	}
 	printf("x=%d,y=%d\n", goal[1], goal[0]);
-	printf("\n");
-
-	fff = 1;
-	operation();
-	fff = 0;
-	int x = sum_evalute();
-	printf("sum_evalute=%d\n", x);
-	printf("\n");
+	// printf("\n");
+        //
+	// fff = 1;
+	// operation();
+	// fff = 0;
+	// int x = sum_evalute();
+	// printf("sum_evalute=%d\n", x);
+	// printf("\n");
 
 }
 
@@ -353,8 +353,18 @@ void init2(char *p){
 	int i = 0;
 	char c[1];
 	// printf("init2 p:%s\n", p);
-	for (int row = 0; row < ROW; row++){
-		for (int col = 0; col < COL; col++){
+	// for (int row = 0; row < ROW; row++){
+	// 	for (int col = 0; col < COL; col++){
+	// 		// field[row][col] = rnd(1, 6);
+	// 		// printf("row: %d, col: %d, p[%d]: %s\n", row, col, i, p[i]);
+	// 		memcpy(c, &p[i], 1);
+	//                 // printf("init2 c:%s\n", c);
+	// 		field[row][col] = atoi(c);
+	// 		i++;
+	// 	}
+	// }
+	for (int col = 0; col < COL; col++){
+		for (int row = 0; row < ROW; row++){
 			// field[row][col] = rnd(1, 6);
 			// printf("row: %d, col: %d, p[%d]: %s\n", row, col, i, p[i]);
 			memcpy(c, &p[i], 1);

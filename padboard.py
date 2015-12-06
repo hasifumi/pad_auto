@@ -16,12 +16,18 @@ def get_rgb(pic, box=""):
 
 def color(array):
     col = {}
-    col["red"] = [205, 110, 130]
-    col["blue"] = [100, 140, 190]
-    col["green"] = [100, 160, 120]
-    col["light"] = [200, 175, 110]
-    col["dark"] = [165, 90, 170]
-    col["cure"] = [200, 100, 150]
+    # col["red"] = [205, 110, 130]
+    # col["blue"] = [100, 140, 190]
+    # col["green"] = [100, 160, 120]
+    # col["light"] = [200, 175, 110]
+    # col["dark"] = [165, 90, 170]
+    # col["cure"] = [200, 100, 150]
+    col["1"] = [205, 110, 130]
+    col["2"] = [100, 140, 190]
+    col["3"] = [100, 160, 120]
+    col["4"] = [200, 175, 110]
+    col["5"] = [165, 90, 170]
+    col["6"] = [200, 100, 150]
 
     max = 0
     result = ""
@@ -38,6 +44,7 @@ def __round(array):
 
 def check_board(xa, ya, xb, yb, xs, ys, path, cols, rows):
     pic = Image.open(path, 'r')
+    board = ""
     for i in range(cols):
         for j in range(rows):
             box = (xa + xs*i,
@@ -45,7 +52,10 @@ def check_board(xa, ya, xb, yb, xs, ys, path, cols, rows):
                    xb + xs*i,
                    yb + ys*j)
             rgb = get_rgb(pic, box)
-            print color(rgb)
+            # print color(rgb)
+            board = board + color(rgb)
+    return board
+
 
 #xa = 40
 #ya = 400
