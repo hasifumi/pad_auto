@@ -1,0 +1,123 @@
+!_TAG_FILE_ENCODING	cp932	//
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_JP_AUTHOR	HIGASHI Hirohito	/Twitter: @h_east/
+!_TAG_PROGRAM_JP_URL	http://hp.vector.co.jp/authors/VA025040/	//
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8J2	//
+COL	.\pazdra_kun.cpp	23;"	d	file:
+COL	.\pazdra_kun_orig.cpp	22;"	d	file:
+DEPTH	.\pazdra_kun.cpp	24;"	d	file:
+DEPTH	.\pazdra_kun_orig.cpp	23;"	d	file:
+MAX_CHAIN	.\pazdra_kun.cpp	29;"	d	file:
+MAX_CHAIN	.\pazdra_kun_orig.cpp	28;"	d	file:
+MAX_TURN	.\pazdra_kun.cpp	30;"	d	file:
+MAX_TURN	.\pazdra_kun_orig.cpp	29;"	d	file:
+Nbeam	.\pazdra_kun.cpp	/^void Nbeam(){$/;"	f
+Nbeam	.\pazdra_kun_orig.cpp	/^void Nbeam(){$/;"	f
+PLAY	.\pazdra_kun.cpp	28;"	d	file:
+PLAY	.\pazdra_kun_orig.cpp	27;"	d	file:
+PLAYNUM	.\pazdra_kun.cpp	31;"	d	file:
+PLAYNUM	.\pazdra_kun_orig.cpp	30;"	d	file:
+ROW	.\pazdra_kun.cpp	22;"	d	file:
+ROW	.\pazdra_kun_orig.cpp	21;"	d	file:
+ans	.\pazdra_kun.cpp	/^int ans[MAX_TURN][2];\/\/solution move point$/;"	v
+ans	.\pazdra_kun_orig.cpp	/^int ans[MAX_TURN][2];\/\/solution move point$/;"	v
+ans_goal	.\pazdra_kun.cpp	/^int ans_goal[2];\/\/solution end point$/;"	v
+ans_goal	.\pazdra_kun_orig.cpp	/^int ans_goal[2];\/\/solution end point$/;"	v
+ans_start	.\pazdra_kun.cpp	/^int ans_start[2];\/\/solution start point$/;"	v
+ans_start	.\pazdra_kun_orig.cpp	/^int ans_start[2];\/\/solution start point$/;"	v
+chain	.\pazdra_kun.cpp	/^void chain(int now_row, int now_col, int d, int count){$/;"	f
+chain	.\pazdra_kun_orig.cpp	/^void chain(int now_row, int now_col, int d, int count){$/;"	f
+chainflag	.\pazdra_kun.cpp	/^int chainflag[ROW][COL];$/;"	v
+chainflag	.\pazdra_kun_orig.cpp	/^int chainflag[ROW][COL];$/;"	v
+check	.\pazdra_kun.cpp	/^int check(){$/;"	f
+check	.\pazdra_kun_orig.cpp	/^int check(){$/;"	f
+check2	.\pazdra_kun.cpp	/^int check2(int play){$/;"	f
+check2	.\pazdra_kun_orig.cpp	/^int check2(int play){$/;"	f
+d_rnd	.\pazdra_kun.cpp	/^double d_rnd(double mini, double maxi){$/;"	f
+d_rnd	.\pazdra_kun_orig.cpp	/^double d_rnd(double mini, double maxi){$/;"	f
+dfs	.\pazdra_kun.cpp	/^void dfs(int now_row, int now_col, int depth){$/;"	f
+dfs	.\pazdra_kun_orig.cpp	/^void dfs(int now_row, int now_col, int depth){$/;"	f
+dum	.\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+dum	.\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+dummy	.\pazdra_kun.cpp	/^int dummy[ROW][COL];$/;"	v
+dummy	.\pazdra_kun_orig.cpp	/^int dummy[ROW][COL];$/;"	v
+evalute	.\pazdra_kun.cpp	/^int evalute(){$/;"	f
+evalute	.\pazdra_kun_orig.cpp	/^int evalute(){$/;"	f
+f_field	.\pazdra_kun.cpp	/^int f_field[ROW][COL];$/;"	v
+f_field	.\pazdra_kun_orig.cpp	/^int f_field[ROW][COL];$/;"	v
+fall	.\pazdra_kun.cpp	/^void fall(){$/;"	f
+fall	.\pazdra_kun_orig.cpp	/^void fall(){$/;"	f
+fff	.\pazdra_kun.cpp	/^int fff = 0;$/;"	v
+fff	.\pazdra_kun_orig.cpp	/^int fff = 0;$/;"	v
+field	.\pazdra_kun.cpp	/^int field[ROW][COL];$/;"	v
+field	.\pazdra_kun_orig.cpp	/^int field[ROW][COL];$/;"	v
+g_turn	.\pazdra_kun.cpp	/^int g_turn;\/\/solution end turn$/;"	v
+g_turn	.\pazdra_kun_orig.cpp	/^int g_turn;\/\/solution end turn$/;"	v
+goal	.\pazdra_kun.cpp	/^	int goal[2];\/\/end point$/;"	m	struct:member	file:
+goal	.\pazdra_kun.cpp	/^int goal[2];\/\/end point$/;"	v
+goal	.\pazdra_kun_orig.cpp	/^	int goal[2];\/\/end point$/;"	m	struct:member	file:
+goal	.\pazdra_kun_orig.cpp	/^int goal[2];\/\/end point$/;"	v
+hill_climb	.\pazdra_kun.cpp	/^void hill_climb(){$/;"	f
+hill_climb	.\pazdra_kun_orig.cpp	/^void hill_climb(){$/;"	f
+init	.\pazdra_kun.cpp	/^void init(){$/;"	f
+init	.\pazdra_kun_orig.cpp	/^void init(){$/;"	f
+init2	.\pazdra_kun.cpp	/^void init2(char *p){$/;"	f
+main	.\pazdra_kun.cpp	/^int main(int argc, char *argv[]){$/;"	f
+main	.\pazdra_kun_orig.cpp	/^int main(){$/;"	f
+main	.\sample.cpp	/^int main(int argc,char *argv[])$/;"	f
+main	.\sample2.cpp	/^int main(int argc,char *argv[])$/;"	f
+max_count	.\pazdra_kun.cpp	/^int max_count;$/;"	v
+max_count	.\pazdra_kun_orig.cpp	/^int max_count;$/;"	v
+max_score	.\pazdra_kun.cpp	/^int max_score;$/;"	v
+max_score	.\pazdra_kun_orig.cpp	/^int max_score;$/;"	v
+member	.\pazdra_kun.cpp	/^struct member{$/;"	s	file:
+member	.\pazdra_kun_orig.cpp	/^struct member{$/;"	s	file:
+monte_carlo	.\pazdra_kun.cpp	/^void monte_carlo(){$/;"	f
+monte_carlo	.\pazdra_kun_orig.cpp	/^void monte_carlo(){$/;"	f
+movei	.\pazdra_kun.cpp	/^	int movei[MAX_TURN][2];\/\/move point$/;"	m	struct:member	file:
+movei	.\pazdra_kun.cpp	/^int movei[MAX_TURN][2];\/\/move point$/;"	v
+movei	.\pazdra_kun_orig.cpp	/^	int movei[MAX_TURN][2];\/\/move point$/;"	m	struct:member	file:
+movei	.\pazdra_kun_orig.cpp	/^int movei[MAX_TURN][2];\/\/move point$/;"	v
+node	.\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+node	.\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+nowC	.\pazdra_kun.cpp	/^	int nowC;$/;"	m	struct:member	file:
+nowC	.\pazdra_kun_orig.cpp	/^	int nowC;$/;"	m	struct:member	file:
+nowR	.\pazdra_kun.cpp	/^	int nowR;$/;"	m	struct:member	file:
+nowR	.\pazdra_kun_orig.cpp	/^	int nowR;$/;"	m	struct:member	file:
+operation	.\pazdra_kun.cpp	/^void operation(){$/;"	f
+operation	.\pazdra_kun_orig.cpp	/^void operation(){$/;"	f
+player	.\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+player	.\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+rnd	.\pazdra_kun.cpp	/^unsigned int rnd(int mini, int maxi){$/;"	f
+rnd	.\pazdra_kun_orig.cpp	/^unsigned int rnd(int mini, int maxi){$/;"	f
+sample	.\pazdra_kun.cpp	/^void sample(char *p){$/;"	f
+sample	.\sample2.cpp	/^void sample(char *p){$/;"	f
+save	.\pazdra_kun.cpp	/^double save;$/;"	v
+save	.\pazdra_kun_orig.cpp	/^double save;$/;"	v
+score	.\pazdra_kun.cpp	/^	int score;$/;"	m	struct:member	file:
+score	.\pazdra_kun_orig.cpp	/^	int score;$/;"	m	struct:member	file:
+set	.\pazdra_kun.cpp	/^void set(){$/;"	f
+set	.\pazdra_kun_orig.cpp	/^void set(){$/;"	f
+similarity_rate	.\pazdra_kun.cpp	/^const double similarity_rate = 0.8;$/;"	v
+similarity_rate	.\pazdra_kun_orig.cpp	/^const double similarity_rate = 0.8;$/;"	v
+solve	.\pazdra_kun.cpp	/^void solve(int num){$/;"	f
+solve	.\pazdra_kun_orig.cpp	/^void solve(int num){$/;"	f
+solve2	.\pazdra_kun.cpp	/^void solve2(int num){$/;"	f
+solve2	.\pazdra_kun_orig.cpp	/^void solve2(int num){$/;"	f
+solve_b	.\pazdra_kun.cpp	/^void solve_b(int num, char *p){$/;"	f
+start	.\pazdra_kun.cpp	/^	int start[2];\/\/start point$/;"	m	struct:member	file:
+start	.\pazdra_kun.cpp	/^int start[2];\/\/start point$/;"	v
+start	.\pazdra_kun_orig.cpp	/^	int start[2];\/\/start point$/;"	m	struct:member	file:
+start	.\pazdra_kun_orig.cpp	/^int start[2];\/\/start point$/;"	v
+sum_e	.\pazdra_kun.cpp	/^int sum_e(){\/\/evalute_ver$/;"	f
+sum_e	.\pazdra_kun_orig.cpp	/^int sum_e(){\/\/evalute_ver$/;"	f
+sum_evalute	.\pazdra_kun.cpp	/^int sum_evalute(){\/\/real_ver$/;"	f
+sum_evalute	.\pazdra_kun_orig.cpp	/^int sum_evalute(){\/\/real_ver$/;"	f
+t_erase	.\pazdra_kun.cpp	/^int t_erase[ROW][COL];$/;"	v
+t_erase	.\pazdra_kun_orig.cpp	/^int t_erase[ROW][COL];$/;"	v
+temp	.\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+temp	.\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
