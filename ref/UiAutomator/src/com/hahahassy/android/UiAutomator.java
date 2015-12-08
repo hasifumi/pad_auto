@@ -22,7 +22,7 @@ public class UiAutomator extends UiAutomatorTestCase {
 	            Integer.parseInt(x.nextToken()), Integer.parseInt(y.nextToken()));
 	        i++;
 	    }
-	    getUiDevice().swipe(point, 50);
+	    getUiDevice().swipe(point, 10);
 	}
 
 }

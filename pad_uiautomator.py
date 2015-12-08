@@ -18,9 +18,8 @@ def adb_cmd(device, cmd, *parm):
     return [s.decode("utf-8") for s in device.server.adb.cmd(*c).communicate()]
 
 #adb_cmd(device, "shell", "screencap /sdcard/screen.png")
-adb_cmd(device, "pull", "sdcard/screen.png")
-
-
+#adb_cmd(device, "pull", "sdcard/screen.png")
+adb_cmd(device, "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e", "\"x\"", "\"90,350,90\"", "-e", "\"y\"", "\"625,625,755\"")
 
 #ss = server.adb
 #if ss is None:

@@ -1,2 +1,2 @@
-c:\pleiades\workspace\UiAutomator\bin\classes.dex : \
-c:\pleiades\workspace\UiAutomator\bin\classes\com\hahahassy\android\UiAutomator.class \
+C:\pleiades\workspace\UiAutomator\bin\classes.dex : \
+C:\pleiades\workspace\UiAutomator\bin\classes\com\hahahassy\android\UiAutomator.class \
