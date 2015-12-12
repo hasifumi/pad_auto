@@ -438,30 +438,6 @@ int evalute(){
 
 	return value;
 }
-int evalute_light(){
-
-	int value = 0;
-
-	memset(chainflag, 0, sizeof(chainflag));
-
-	for (int row = 0; row < ROW; row++){
-		for (int col = 0; col < COL; col++){
-			if (chainflag[row][col] == 0 && field[row][col] != 0){
-				max_count = 0;
-				memset(dummy, 0, sizeof(dummy));
-				chain(row, col, field[row][col], 1);
-				if (max_count >= 3){
-					if (check() == 1){ value++; }
-				}
-				if (max_count >= 4 && field[row][col] == 4){
-					if (check() == 1){ value += 10; }
-				}
-			}
-		}
-	}
-
-	return value;
-}
 int sum_evalute(){//real_ver
 
 	int a;
@@ -470,8 +446,7 @@ int sum_evalute(){//real_ver
 	while (1){
 
 		memset(t_erase, 0, sizeof(t_erase));
-		// a = evalute();
-		a = evalute_light();
+		a = evalute();
 
 		if (a == 0){ break; }
 
@@ -813,11 +788,6 @@ void Nbeam(){
 	int dx[4] = { 0, -1, 1, 0};
 	int dy[4] = { -1, 0, 0, 1};
 
-	int not_dx[4] = { 0, 1, -1, 0};
-	int not_dy[4] = { 1, 0, 0, -1};
-
-	int old_j = 0;
-
 	for (int i = 0; i <= MAX_TURN; i++){
 		dumsize = 0;
 		for (int k = 0; k < size; k++){
@@ -826,7 +796,6 @@ void Nbeam(){
 				temp = node[k];
 				memcpy(field, f_field, sizeof(f_field));
 				if (0 <= temp.nowC + dx[j] && temp.nowC + dx[j]<COL && 0 <= temp.nowR + dy[j] && temp.nowR + dy[j]<ROW){
-				// if (0 <= temp.nowC + dx[j] && temp.nowC + dx[j]<COL && 0 <= temp.nowR + dy[j] && temp.nowR + dy[j]<ROW && dx[j] != not_dx[old_j] && dy[j] != not_dy[old_j]){
 					start[0] = temp.start[0];
 					start[1] = temp.start[1];
 					memcpy(movei, temp.movei, sizeof(movei));
@@ -855,7 +824,6 @@ void Nbeam(){
 						}
 					}
 				}
-				// old_j = j;
 			}
 		}
 		for (int x = 0; x<dumsize; x++){
