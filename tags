@@ -1,0 +1,317 @@
+!_TAG_FILE_ENCODING	cp932	//
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_JP_AUTHOR	HIGASHI Hirohito	/Twitter: @h_east/
+!_TAG_PROGRAM_JP_URL	http://hp.vector.co.jp/authors/VA025040/	//
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8J2	//
+$/;"	f
+COL	.\pad_search.py	/^COL = 6$/;"	v
+COL	.\ref\pazdra_kun.cpp	23;"	d	file:
+COL	.\ref\pazdra_kun_old.cpp	23;"	d	file:
+COL	.\ref\pazdra_kun_orig.cpp	22;"	d	file:
+DEPTH	.\ref\pazdra_kun.cpp	24;"	d	file:
+DEPTH	.\ref\pazdra_kun_old.cpp	24;"	d	file:
+DEPTH	.\ref\pazdra_kun_orig.cpp	23;"	d	file:
+Image	.\padboard.py	/^from PIL import Image$/;"	i
+MAX_CHAIN	.\ref\pazdra_kun.cpp	29;"	d	file:
+MAX_CHAIN	.\ref\pazdra_kun_old.cpp	29;"	d	file:
+MAX_CHAIN	.\ref\pazdra_kun_orig.cpp	28;"	d	file:
+MAX_TURN	.\pad_search.py	/^MAX_TURN = 20$/;"	v
+MAX_TURN	.\ref\pazdra_kun.cpp	30;"	d	file:
+MAX_TURN	.\ref\pazdra_kun_old.cpp	30;"	d	file:
+MAX_TURN	.\ref\pazdra_kun_orig.cpp	29;"	d	file:
+Nbeam	.\pad_search.py	/^def Nbeam():$/;"	f
+Nbeam	.\ref\pazdra_kun.cpp	/^void Nbeam(){$/;"	f
+Nbeam	.\ref\pazdra_kun_old.cpp	/^void Nbeam(){$/;"	f
+Nbeam	.\ref\pazdra_kun_orig.cpp	/^void Nbeam(){$/;"	f
+Node	.\pad_search.py	/^class Node():# {{{$/;"	c
+PLAY	.\ref\pazdra_kun.cpp	28;"	d	file:
+PLAY	.\ref\pazdra_kun_old.cpp	28;"	d	file:
+PLAY	.\ref\pazdra_kun_orig.cpp	27;"	d	file:
+PLAYNUM	.\pad_search.py	/^PLAYNUM = 5000$/;"	v
+PLAYNUM	.\ref\pazdra_kun.cpp	31;"	d	file:
+PLAYNUM	.\ref\pazdra_kun_old.cpp	31;"	d	file:
+PLAYNUM	.\ref\pazdra_kun_orig.cpp	30;"	d	file:
+PazdraComboChecker	.\pazdracombo.py	/^class PazdraComboChecker():$/;"	c
+ROW	.\pad_search.py	/^ROW = 5$/;"	v
+ROW	.\ref\pazdra_kun.cpp	22;"	d	file:
+ROW	.\ref\pazdra_kun_old.cpp	22;"	d	file:
+ROW	.\ref\pazdra_kun_orig.cpp	21;"	d	file:
+Static1	.\pad_thinter.py	/^Static1 = Tkinter.Label(text=str(max_cmb))$/;"	v
+Tkinter	.\pad_thinter.py	/^import Tkinter$/;"	i
+UiAutomator	.\ref\UiAutomator\src\com\hahahassy\android\UiAutomator.java	/^public class UiAutomator extends UiAutomatorTestCase {$/;"	c
+__init__	.\pad_search.py	/^    def __init__(self):$/;"	m	class:Node
+__init__	.\pazdracombo.py	/^    def __init__(self, width, height, param=None):$/;"	f
+__round	.\padboard.py	/^def __round(array):$/;"	f	file:
+adb_cmd	.\pad_auto_old.py	/^def adb_cmd(device, cmd, *parm):$/;"	f
+adb_cmd	.\pad_uiautomator.py	/^def adb_cmd(device, cmd, *parm):$/;"	f
+adjacent_3x2	.\pad.py	/^adjacent_3x2 = ((1, 3),         # 0$/;"	v
+adjacent_6x5	.\pazdracombo.py	/^    adjacent_6x5 = [$/;"	v
+ans	.\pad_search.py	/^ans = [MAX_TURN][2]$/;"	v
+ans	.\ref\pazdra_kun.cpp	/^int ans[MAX_TURN][2];\/\/solution move point$/;"	v
+ans	.\ref\pazdra_kun_old.cpp	/^int ans[MAX_TURN][2];\/\/solution move point$/;"	v
+ans	.\ref\pazdra_kun_orig.cpp	/^int ans[MAX_TURN][2];\/\/solution move point$/;"	v
+ans_goal	.\pad_search.py	/^ans_goal = [2]$/;"	v
+ans_goal	.\ref\pazdra_kun.cpp	/^int ans_goal[2];\/\/solution end point$/;"	v
+ans_goal	.\ref\pazdra_kun_old.cpp	/^int ans_goal[2];\/\/solution end point$/;"	v
+ans_goal	.\ref\pazdra_kun_orig.cpp	/^int ans_goal[2];\/\/solution end point$/;"	v
+ans_start	.\pad_search.py	/^ans_start = [2]$/;"	v
+ans_start	.\ref\pazdra_kun.cpp	/^int ans_start[2];\/\/solution start point$/;"	v
+ans_start	.\ref\pazdra_kun_old.cpp	/^int ans_start[2];\/\/solution start point$/;"	v
+ans_start	.\ref\pazdra_kun_orig.cpp	/^int ans_start[2];\/\/solution start point$/;"	v
+board	.\pad_auto.py	/^board = padboard.check_board(xa, ya, xb, yb, xs, ys, ".\\screen.png", 6, 5)$/;"	v
+c	.\pad_auto.py	/^    c = p.stdout.readline()$/;"	v
+c1	.\pad_thinter.py	/^c1 = Tkinter.Canvas(root, width=width*circle_height, height=height*2*circle_height+50)$/;"	v
+c1_circles	.\pad_thinter.py	/^c1_circles = []$/;"	v
+c2_circles	.\pad_thinter.py	/^c2_circles = []$/;"	v
+calc_combo	.\pazdracombo.py	/^    def calc_combo(self):$/;"	f
+calc_i	.\pad_auto.py	/^def calc_i(flag, ary):$/;"	f
+calc_i	.\test1.py	/^def calc_i(flag, ary):$/;"	f
+chain	.\ref\pazdra_kun.cpp	/^void chain(int now_row, int now_col, int d, int count){$/;"	f
+chain	.\ref\pazdra_kun_old.cpp	/^void chain(int now_row, int now_col, int d, int count){$/;"	f
+chain	.\ref\pazdra_kun_orig.cpp	/^void chain(int now_row, int now_col, int d, int count){$/;"	f
+chainflag	.\pad_search.py	/^chainflag = [ROW][COL]$/;"	v
+chainflag	.\ref\pazdra_kun.cpp	/^int chainflag[ROW][COL];$/;"	v
+chainflag	.\ref\pazdra_kun_old.cpp	/^int chainflag[ROW][COL];$/;"	v
+chainflag	.\ref\pazdra_kun_orig.cpp	/^int chainflag[ROW][COL];$/;"	v
+check	.\ref\pazdra_kun.cpp	/^int check(){$/;"	f
+check	.\ref\pazdra_kun_old.cpp	/^int check(){$/;"	f
+check	.\ref\pazdra_kun_orig.cpp	/^int check(){$/;"	f
+check2	.\ref\pazdra_kun.cpp	/^int check2(int play){$/;"	f
+check2	.\ref\pazdra_kun_old.cpp	/^int check2(int play){$/;"	f
+check2	.\ref\pazdra_kun_orig.cpp	/^int check2(int play){$/;"	f
+check_board	.\padboard.py	/^def check_board(xa, ya, xb, yb, xs, ys, path, cols, rows):$/;"	f
+check_erasable	.\pazdracombo.py	/^    def check_erasable(self, width=6, height=5):$/;"	f
+circle_height	.\pad_thinter.py	/^circle_height = 50$/;"	v
+color	.\padboard.py	/^def color(array):$/;"	f
+com.hahahassy.android	.\ref\UiAutomator\src\com\hahahassy\android\UiAutomator.java	/^package com.hahahassy.android;$/;"	p
+conv_x	.\pad_auto.py	/^def conv_x(i):$/;"	f
+conv_x	.\test1.py	/^def conv_x(i):$/;"	f
+conv_y	.\pad_auto.py	/^def conv_y(i):$/;"	f
+conv_y	.\test1.py	/^def conv_y(i):$/;"	f
+copy	.\pad.py	/^import copy$/;"	i
+copy	.\pazdracombo.py	/^import copy$/;"	i
+create_drops_random	.\pad.py	/^def create_drops_random(w=6, h=5, d="rbgldc"):$/;"	f
+create_goal_drops	.\pad.py	/^def create_goal_drops(sorted_drops_lst, max_combo):$/;"	f
+d_rnd	.\ref\pazdra_kun.cpp	/^double d_rnd(double mini, double maxi){$/;"	f
+d_rnd	.\ref\pazdra_kun_old.cpp	/^double d_rnd(double mini, double maxi){$/;"	f
+d_rnd	.\ref\pazdra_kun_orig.cpp	/^double d_rnd(double mini, double maxi){$/;"	f
+dct	.\pad_thinter.py	/^dct = pad.pivot_drops(lst1)$/;"	v
+device	.\pad_auto_old.py	/^device = uiautomator.Device()$/;"	v
+device	.\pad_uiautomator.py	/^device = uiautomator.Device()$/;"	v
+dfs	.\ref\pazdra_kun.cpp	/^void dfs(int now_row, int now_col, int depth){$/;"	f
+dfs	.\ref\pazdra_kun_old.cpp	/^void dfs(int now_row, int now_col, int depth){$/;"	f
+dfs	.\ref\pazdra_kun_orig.cpp	/^void dfs(int now_row, int now_col, int depth){$/;"	f
+draw_circles	.\pad_thinter.py	/^def draw_circles(circles, x, y):$/;"	f
+dum	.\ref\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+dum	.\ref\pazdra_kun_old.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+dum	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+dummy	.\pad_search.py	/^dummy = [ROW][COL]$/;"	v
+dummy	.\ref\pazdra_kun.cpp	/^int dummy[ROW][COL];$/;"	v
+dummy	.\ref\pazdra_kun_old.cpp	/^int dummy[ROW][COL];$/;"	v
+dummy	.\ref\pazdra_kun_orig.cpp	/^int dummy[ROW][COL];$/;"	v
+elapsed_time	.\pad_auto.py	/^elapsed_time = time.time() - start_time$/;"	v
+elapsed_time	.\pad_auto_old.py	/^elapsed_time = time.time() - start_time$/;"	v
+evalute	.\ref\pazdra_kun.cpp	/^int evalute(){$/;"	f
+evalute	.\ref\pazdra_kun_old.cpp	/^int evalute(){$/;"	f
+evalute	.\ref\pazdra_kun_orig.cpp	/^int evalute(){$/;"	f
+evalute_light	.\ref\pazdra_kun.cpp	/^int evalute_light(){$/;"	f
+exchange	.\pad.py	/^def exchange(lst, ex1, ex2):  # 0:first_item$/;"	f
+f_field	.\pad_search.py	/^f_field = [ROW][COL]$/;"	v
+f_field	.\ref\pazdra_kun.cpp	/^int f_field[ROW][COL];$/;"	v
+f_field	.\ref\pazdra_kun_old.cpp	/^int f_field[ROW][COL];$/;"	v
+f_field	.\ref\pazdra_kun_orig.cpp	/^int f_field[ROW][COL];$/;"	v
+fall	.\ref\pazdra_kun.cpp	/^void fall(){$/;"	f
+fall	.\ref\pazdra_kun_old.cpp	/^void fall(){$/;"	f
+fall	.\ref\pazdra_kun_orig.cpp	/^void fall(){$/;"	f
+fff	.\pad_search.py	/^fff = 0$/;"	v
+fff	.\ref\pazdra_kun.cpp	/^int fff = 0;$/;"	v
+fff	.\ref\pazdra_kun_old.cpp	/^int fff = 0;$/;"	v
+fff	.\ref\pazdra_kun_orig.cpp	/^int fff = 0;$/;"	v
+field	.\pad_search.py	/^field = [ROW][COL]$/;"	v
+field	.\ref\pazdra_kun.cpp	/^int field[ROW][COL];$/;"	v
+field	.\ref\pazdra_kun_old.cpp	/^int field[ROW][COL];$/;"	v
+field	.\ref\pazdra_kun_orig.cpp	/^int field[ROW][COL];$/;"	v
+fill_circles	.\pad_thinter.py	/^def fill_circles(circles, lst, cvs):$/;"	f
+g_turn	.\pad_search.py	/^g_turn = 0$/;"	v
+g_turn	.\ref\pazdra_kun.cpp	/^int g_turn;\/\/solution end turn$/;"	v
+g_turn	.\ref\pazdra_kun_old.cpp	/^int g_turn;\/\/solution end turn$/;"	v
+g_turn	.\ref\pazdra_kun_orig.cpp	/^int g_turn;\/\/solution end turn$/;"	v
+get_rgb	.\padboard.py	/^def get_rgb(pic, box=""):$/;"	f
+goal	.\pad_search.py	/^goal = [2]$/;"	v
+goal	.\ref\pazdra_kun.cpp	/^	int goal[2];\/\/end point$/;"	m	struct:member	file:
+goal	.\ref\pazdra_kun.cpp	/^int goal[2];\/\/end point$/;"	v
+goal	.\ref\pazdra_kun_old.cpp	/^	int goal[2];\/\/end point$/;"	m	struct:member	file:
+goal	.\ref\pazdra_kun_old.cpp	/^int goal[2];\/\/end point$/;"	v
+goal	.\ref\pazdra_kun_orig.cpp	/^	int goal[2];\/\/end point$/;"	m	struct:member	file:
+goal	.\ref\pazdra_kun_orig.cpp	/^int goal[2];\/\/end point$/;"	v
+height	.\pad_thinter.py	/^height = 6$/;"	v
+hill_climb	.\ref\pazdra_kun.cpp	/^void hill_climb(){$/;"	f
+hill_climb	.\ref\pazdra_kun_old.cpp	/^void hill_climb(){$/;"	f
+hill_climb	.\ref\pazdra_kun_orig.cpp	/^void hill_climb(){$/;"	f
+idx2xy	.\pazdracombo.py	/^    def idx2xy(self, idx):$/;"	f
+init	.\ref\pazdra_kun.cpp	/^void init(){$/;"	f
+init	.\ref\pazdra_kun_old.cpp	/^void init(){$/;"	f
+init	.\ref\pazdra_kun_orig.cpp	/^void init(){$/;"	f
+init2	.\ref\pazdra_kun.cpp	/^void init2(char *p){$/;"	f
+init2	.\ref\pazdra_kun_old.cpp	/^void init2(char *p){$/;"	f
+isEqual_list	.\pad.py	/^def isEqual_list(lst1, lst2):$/;"	f
+isKinsetsu	.\pazdracombo.py	/^    def isKinsetsu(self, x1, y1, v1, x2, y2, v2):  # x:x座標、y:y座標, v:方向
+isRenketsu	.\pazdracombo.py	/^    def isRenketsu(self, x, y, vector="h"):$/;"	f
+itertools	.\pazdracombo.py	/^import itertools$/;"	i
+lst	.\pad_thinter.py	/^lst = pad.create_goal_drops(lst2, max_cmb)$/;"	v
+lst1	.\pad_thinter.py	/^lst1 = pad.create_drops_random(width, height, "bgr")$/;"	v
+lst2	.\pad_thinter.py	/^lst2 = pad.sort_drops(dct)$/;"	v
+main	.\ref\pazdra_kun.cpp	/^int main(int argc, char *argv[]){$/;"	f
+main	.\ref\pazdra_kun_old.cpp	/^int main(int argc, char *argv[]){$/;"	f
+main	.\ref\pazdra_kun_orig.cpp	/^int main(){$/;"	f
+main	.\ref\sample.cpp	/^int main(int argc,char *argv[])$/;"	f
+main	.\ref\sample2.cpp	/^int main(int argc,char *argv[])$/;"	f
+max_cmb	.\pad_thinter.py	/^max_cmb = pad.max_combo(dct)$/;"	v
+max_combo	.\pad.py	/^def max_combo(pivoted_drops_dct):$/;"	f
+max_count	.\pad_search.py	/^max_count = 0$/;"	v
+max_count	.\ref\pazdra_kun.cpp	/^int max_count;$/;"	v
+max_count	.\ref\pazdra_kun_old.cpp	/^int max_count;$/;"	v
+max_count	.\ref\pazdra_kun_orig.cpp	/^int max_count;$/;"	v
+max_score	.\ref\pazdra_kun.cpp	/^int max_score;$/;"	v
+max_score	.\ref\pazdra_kun_old.cpp	/^int max_score;$/;"	v
+max_score	.\ref\pazdra_kun_orig.cpp	/^int max_score;$/;"	v
+member	.\ref\pazdra_kun.cpp	/^struct member{$/;"	s	file:
+member	.\ref\pazdra_kun_old.cpp	/^struct member{$/;"	s	file:
+member	.\ref\pazdra_kun_orig.cpp	/^struct member{$/;"	s	file:
+monte_carlo	.\ref\pazdra_kun.cpp	/^void monte_carlo(){$/;"	f
+monte_carlo	.\ref\pazdra_kun_old.cpp	/^void monte_carlo(){$/;"	f
+monte_carlo	.\ref\pazdra_kun_orig.cpp	/^void monte_carlo(){$/;"	f
+movei	.\pad_search.py	/^movei = [MAX_TURN][2]$/;"	v
+movei	.\ref\pazdra_kun.cpp	/^	int movei[MAX_TURN][2];\/\/move point$/;"	m	struct:member	file:
+movei	.\ref\pazdra_kun.cpp	/^int movei[MAX_TURN][2];\/\/move point$/;"	v
+movei	.\ref\pazdra_kun_old.cpp	/^	int movei[MAX_TURN][2];\/\/move point$/;"	m	struct:member	file:
+movei	.\ref\pazdra_kun_old.cpp	/^int movei[MAX_TURN][2];\/\/move point$/;"	v
+movei	.\ref\pazdra_kun_orig.cpp	/^	int movei[MAX_TURN][2];\/\/move point$/;"	m	struct:member	file:
+movei	.\ref\pazdra_kun_orig.cpp	/^int movei[MAX_TURN][2];\/\/move point$/;"	v
+node	.\ref\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+node	.\ref\pazdra_kun_old.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+node	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+nowC	.\ref\pazdra_kun.cpp	/^	int nowC;$/;"	m	struct:member	file:
+nowC	.\ref\pazdra_kun_old.cpp	/^	int nowC;$/;"	m	struct:member	file:
+nowC	.\ref\pazdra_kun_orig.cpp	/^	int nowC;$/;"	m	struct:member	file:
+nowR	.\ref\pazdra_kun.cpp	/^	int nowR;$/;"	m	struct:member	file:
+nowR	.\ref\pazdra_kun_old.cpp	/^	int nowR;$/;"	m	struct:member	file:
+nowR	.\ref\pazdra_kun_orig.cpp	/^	int nowR;$/;"	m	struct:member	file:
+numpy	.\padboard.py	/^import numpy$/;"	i
+operation	.\pad_search.py	/^def operation():$/;"	f
+operation	.\ref\pazdra_kun.cpp	/^void operation(){$/;"	f
+operation	.\ref\pazdra_kun_old.cpp	/^void operation(){$/;"	f
+operation	.\ref\pazdra_kun_orig.cpp	/^void operation(){$/;"	f
+p	.\pad_auto.py	/^p = subprocess.Popen(["c:\/Users\/fumio\/MyProject\/python\/pad_auto\/ref\/pazdra_kun.exe", board], stdout=subprocess.PIPE)$/;"	v
+pad	.\pad_thinter.py	/^import pad$/;"	i
+pad	.\pazdracombo.py	/^import pad$/;"	i
+padboard	.\pad_auto.py	/^import padboard$/;"	i
+padboard	.\pad_auto_old.py	/^import padboard$/;"	i
+pdc	.\pazdracombo.py	/^pdc = PazdraComboChecker(6, 5, pad.create_drops_random(6, 5, "rbgldc"))$/;"	v
+pdc_combo_ascii_table	.\pazdracombo.py	/^    pdc_combo_ascii_table = list("abcdefghij")$/;"	v
+pdc_combo_table	.\pazdracombo.py	/^    pdc_combo_table = pdc_combo_ascii_table$/;"	v
+pdc_output_ascii_table	.\pazdracombo.py	/^    pdc_output_ascii_table = {$/;"	v	class:PazdraComboChecker
+pdc_output_table	.\pazdracombo.py	/^    pdc_output_table = pdc_output_ascii_table$/;"	v
+pdc_sym_table	.\pazdracombo.py	/^    pdc_sym_table = {$/;"	v	class:PazdraComboChecker
+pdc_valid	.\pazdracombo.py	/^    def pdc_valid(self, sym):$/;"	f
+pivot_drops	.\pad.py	/^def pivot_drops(drops_lst):$/;"	f
+player	.\ref\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+player	.\ref\pazdra_kun_old.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+player	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+pos_x	.\pad_auto.py	/^pos_x = calc_i("x", x)$/;"	v
+pos_x	.\pad_auto_old.py	/^pos_x = "470,600,600,470,470,470,470,600,600,470,470,340,340,340,340,340,210,80,80,80,80,210"$/;"	v
+pos_x	.\test1.py	/^pos_x = "470,600,600,470,470,470,470,600,600,470,470,340,340,340,340,340,210,80,80,80,80,210"$/;"	v
+pos_y	.\pad_auto.py	/^pos_y = calc_i("y", y)$/;"	v
+pos_y	.\pad_auto_old.py	/^pos_y = "1015,1015,1145,1145,1015,885,755,755,625,625,755,755,885,755,885,1015,1015,1015,885,755,625,625"$/;"	v
+pos_y	.\test1.py	/^pos_y = "1015,1015,1145,1145,1015,885,755,755,625,625,755,755,885,755,885,1015,1015,1015,885,755,625,625"$/;"	v
+print_combo	.\pazdracombo.py	/^    def print_combo(self):$/;"	f
+print_lst2str	.\pazdracombo.py	/^    def print_lst2str(self, mod="board"):$/;"	f
+pull_cmd	.\pad_auto.py	/^pull_cmd = ["adb", "pull", "\/sdcard\/screen.png"]$/;"	v
+random	.\pad.py	/^import random$/;"	i
+renketsu_6x5_h	.\pazdracombo.py	/^    renketsu_6x5_h = [$/;"	v
+renketsu_6x5_v	.\pazdracombo.py	/^    renketsu_6x5_v = [$/;"	v
+rnd	.\ref\pazdra_kun.cpp	/^unsigned int rnd(int mini, int maxi){$/;"	f
+rnd	.\ref\pazdra_kun_old.cpp	/^unsigned int rnd(int mini, int maxi){$/;"	f
+rnd	.\ref\pazdra_kun_orig.cpp	/^unsigned int rnd(int mini, int maxi){$/;"	f
+root	.\pad_thinter.py	/^root = Tkinter.Tk()$/;"	v
+sample	.\ref\pazdra_kun.cpp	/^void sample(char *p){$/;"	f
+sample	.\ref\pazdra_kun_old.cpp	/^void sample(char *p){$/;"	f
+sample	.\ref\sample2.cpp	/^void sample(char *p){$/;"	f
+save	.\ref\pazdra_kun.cpp	/^double save;$/;"	v
+save	.\ref\pazdra_kun_old.cpp	/^double save;$/;"	v
+save	.\ref\pazdra_kun_orig.cpp	/^double save;$/;"	v
+score	.\ref\pazdra_kun.cpp	/^	int score;$/;"	m	struct:member	file:
+score	.\ref\pazdra_kun_old.cpp	/^	int score;$/;"	m	struct:member	file:
+score	.\ref\pazdra_kun_orig.cpp	/^	int score;$/;"	m	struct:member	file:
+screencap_cmd	.\pad_auto.py	/^screencap_cmd = ["adb", "shell", "screencap", "\/sdcard\/screen.png"]$/;"	v
+search	.\pad.py	/^def search(goal_drops, path, prev_drops, adjacent):$/;"	f
+server	.\pad_auto_old.py	/^server = uiautomator.AutomatorServer()$/;"	v
+server	.\pad_uiautomator.py	/^server = uiautomator.AutomatorServer()$/;"	v
+set	.\ref\pazdra_kun.cpp	/^void set(){$/;"	f
+set	.\ref\pazdra_kun_old.cpp	/^void set(){$/;"	f
+set	.\ref\pazdra_kun_orig.cpp	/^void set(){$/;"	f
+similarity_rate	.\ref\pazdra_kun.cpp	/^const double similarity_rate = 0.8;$/;"	v
+similarity_rate	.\ref\pazdra_kun_old.cpp	/^const double similarity_rate = 0.8;$/;"	v
+similarity_rate	.\ref\pazdra_kun_orig.cpp	/^const double similarity_rate = 0.8;$/;"	v
+solve	.\ref\pazdra_kun.cpp	/^void solve(int num){$/;"	f
+solve	.\ref\pazdra_kun_old.cpp	/^void solve(int num){$/;"	f
+solve	.\ref\pazdra_kun_orig.cpp	/^void solve(int num){$/;"	f
+solve2	.\ref\pazdra_kun.cpp	/^void solve2(int num){$/;"	f
+solve2	.\ref\pazdra_kun_old.cpp	/^void solve2(int num){$/;"	f
+solve2	.\ref\pazdra_kun_orig.cpp	/^void solve2(int num){$/;"	f
+solve_b	.\ref\pazdra_kun.cpp	/^void solve_b(char *p){$/;"	f
+solve_b	.\ref\pazdra_kun_old.cpp	/^void solve_b(char *p){$/;"	f
+sort_drops	.\pad.py	/^def sort_drops(pivoted_drops_dct):$/;"	f
+sout	.\pad_auto.py	/^sout = []$/;"	v
+start	.\pad_search.py	/^start = []$/;"	v
+start	.\ref\pazdra_kun.cpp	/^	int start[2];\/\/start point$/;"	m	struct:member	file:
+start	.\ref\pazdra_kun.cpp	/^int start[2];\/\/start point$/;"	v
+start	.\ref\pazdra_kun_old.cpp	/^	int start[2];\/\/start point$/;"	m	struct:member	file:
+start	.\ref\pazdra_kun_old.cpp	/^int start[2];\/\/start point$/;"	v
+start	.\ref\pazdra_kun_orig.cpp	/^	int start[2];\/\/start point$/;"	m	struct:member	file:
+start	.\ref\pazdra_kun_orig.cpp	/^int start[2];\/\/start point$/;"	v
+start_time	.\pad_auto.py	/^start_time = time.time()$/;"	v
+start_time	.\pad_auto_old.py	/^start_time = time.time()$/;"	v
+str2lst	.\pazdracombo.py	/^    def str2lst(self, param, width, height):$/;"	f
+str_e	.\pazdracombo.py	/^    def str_e(self,e):$/;"	f
+subprocess	.\pad_auto.py	/^import subprocess$/;"	i
+subprocess	.\pad_auto_old.py	/^import subprocess$/;"	i
+subprocess	.\test1.py	/^import subprocess$/;"	i
+sum_e	.\ref\pazdra_kun.cpp	/^int sum_e(){\/\/evalute_ver$/;"	f
+sum_e	.\ref\pazdra_kun_old.cpp	/^int sum_e(){\/\/evalute_ver$/;"	f
+sum_e	.\ref\pazdra_kun_orig.cpp	/^int sum_e(){\/\/evalute_ver$/;"	f
+sum_evalute	.\ref\pazdra_kun.cpp	/^int sum_evalute(){\/\/real_ver$/;"	f
+sum_evalute	.\ref\pazdra_kun_old.cpp	/^int sum_evalute(){\/\/real_ver$/;"	f
+sum_evalute	.\ref\pazdra_kun_orig.cpp	/^int sum_evalute(){\/\/real_ver$/;"	f
+swipe	.\ref\UiAutomator\src\com\hahahassy\android\UiAutomator.java	/^	public void swipe(){$/;"	m	class:UiAutomator
+sys	.\pad_thinter.py	/^import sys$/;"	i
+t_erase	.\pad_search.py	/^t_erase = [ROW][COL]$/;"	v
+t_erase	.\ref\pazdra_kun.cpp	/^int t_erase[ROW][COL];$/;"	v
+t_erase	.\ref\pazdra_kun_old.cpp	/^int t_erase[ROW][COL];$/;"	v
+t_erase	.\ref\pazdra_kun_orig.cpp	/^int t_erase[ROW][COL];$/;"	v
+temp	.\ref\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+temp	.\ref\pazdra_kun_old.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+temp	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+time	.\pad_auto.py	/^import time$/;"	i
+time	.\pad_auto_old.py	/^import time$/;"	i
+time	.\pad_uiautomator.py	/^import time$/;"	i
+uiautomator	.\pad_auto_old.py	/^import uiautomator$/;"	i
+uiautomator	.\pad_uiautomator.py	/^import uiautomator$/;"	i
+uiautomator_cmd	.\pad_auto.py	/^uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\\"x\\"", pos_x, "-e","\\"y\\"", pos_y]$/;"	v
+uiautomator_cmd	.\pad_auto_old.py	/^uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\\"x\\"", pos_x, "-e","\\"y\\"", pos_y]$/;"	v
+width	.\pad_thinter.py	/^width = 7$/;"	v
+x	.\pad_auto.py	/^x = []$/;"	v
+x	.\test1.py	/^x = ['1', '0', '1', '2', '2', '2']$/;"	v
+xa	.\pad_auto.py	/^xa = 15$/;"	v
+xb	.\pad_auto.py	/^xb = 145$/;"	v
+xs	.\pad_auto.py	/^xs = 130$/;"	v
+xy2idx	.\pazdracombo.py	/^    def xy2idx(self, x, y):$/;"	f
+y	.\pad_auto.py	/^y = []$/;"	v
+y	.\test1.py	/^y = ['0', '0', '0', '0', '1', '2']$/;"	v
+ya	.\pad_auto.py	/^ya = 560$/;"	v
+yb	.\pad_auto.py	/^yb = 690$/;"	v
+ys	.\pad_auto.py	/^ys = 130$/;"	v

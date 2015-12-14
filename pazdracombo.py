@@ -7,6 +7,9 @@
 import itertools
 import copy
 import pad
+import padboard
+import subprocess
+import time
 
 class PazdraComboChecker():
 
@@ -171,6 +174,14 @@ clllll
                 for w in range(width):
                     ret[h][w] = param[i]
                     i += 1
+        # ret = [[0 for row in range(height)] for col in range(width)]
+        # if len(param) == width * height:
+        #     i = 0
+        #     for w in range(width):
+        #         for h in range(height):
+        #             ret[w][h] = param[i]
+        #             i += 1
+        print ret
         return ret
 
     # ユーティリティ関数
@@ -341,8 +352,64 @@ clllll
         else:
             return False
 
+def convert_h_w(lst):
+    lst2 = []
+    lst2.append(lst[0])
+    lst2.append(lst[5])
+    lst2.append(lst[10])
+    lst2.append(lst[15])
+    lst2.append(lst[20])
+    lst2.append(lst[25])
+    lst2.append(lst[1])
+    lst2.append(lst[6])
+    lst2.append(lst[11])
+    lst2.append(lst[16])
+    lst2.append(lst[21])
+    lst2.append(lst[26])
+    lst2.append(lst[2])
+    lst2.append(lst[7])
+    lst2.append(lst[12])
+    lst2.append(lst[17])
+    lst2.append(lst[22])
+    lst2.append(lst[27])
+    lst2.append(lst[3])
+    lst2.append(lst[8])
+    lst2.append(lst[13])
+    lst2.append(lst[18])
+    lst2.append(lst[23])
+    lst2.append(lst[28])
+    lst2.append(lst[4])
+    lst2.append(lst[9])
+    lst2.append(lst[14])
+    lst2.append(lst[19])
+    lst2.append(lst[24])
+    lst2.append(lst[29])
+    print lst2
+    strs = "".join(list(itertools.chain.from_iterable(lst2)))
+    return strs
 
-pdc = PazdraComboChecker(6, 5, pad.create_drops_random(6, 5, "rbgldc"))
+#pdc = PazdraComboChecker(6, 5, pad.create_drops_random(6, 5, "rbgldc"))
+
+start_time = time.time()
+screencap_cmd = ["adb", "shell", "screencap", "/sdcard/screen.png"]
+subprocess.check_call(screencap_cmd, shell=True)
+
+pull_cmd = ["adb", "pull", "/sdcard/screen.png"]
+subprocess.check_call(pull_cmd, shell=True)
+
+# Nexus7(2012)
+xa = 15
+ya = 560
+xb = 145
+yb = 690
+xs = 130
+ys = 130
+
+board = padboard.check_board(xa, ya, xb, yb, xs, ys, ".\screen.png", 6, 5)
+print board
+board2 = convert_h_w(board)
+print board2
+pdc = PazdraComboChecker(6, 5, board2)
 
 # 確認用
 #print "[board]"
