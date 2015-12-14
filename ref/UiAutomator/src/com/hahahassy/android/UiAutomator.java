@@ -12,6 +12,8 @@ public class UiAutomator extends UiAutomatorTestCase {
 	    Bundle args = this.getParams();
 	    String x_str = args.getString("x");
 	    String y_str = args.getString("y");
+	    String t_str = args.getString("t");
+	    int t = Integer.parseInt(t_str);
 	    StringTokenizer x = new StringTokenizer(x_str, ",");
 	    StringTokenizer y = new StringTokenizer(y_str, ",");
 	    assertTrue(x.countTokens() == y.countTokens());
@@ -22,7 +24,7 @@ public class UiAutomator extends UiAutomatorTestCase {
 	            Integer.parseInt(x.nextToken()), Integer.parseInt(y.nextToken()));
 	        i++;
 	    }
-	    getUiDevice().swipe(point, 10);
+	    getUiDevice().swipe(point, t);
 	}
 
 }
