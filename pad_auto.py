@@ -3,6 +3,7 @@ import padboard
 import time
 import subprocess
 import os
+from PIL import Image
 
 start_time = time.time()
 
@@ -12,16 +13,15 @@ subprocess.check_call(screencap_cmd, shell=True)
 pull_cmd = ["adb", "pull", "/sdcard/screen.png"]
 subprocess.check_call(pull_cmd, shell=True)
 
-# Nexus7(2012)
-xa = 15
-ya = 560
-xb = 145
-yb = 690
-xs = 130
-ys = 130
+path = "C:/Users/hassy/MyProject/python/pad_auto/screen.png"
+pic = Image.open(path, 'r')
+if pic.width == 800:
+    is_nexus = True
+else:
+    is_nexus = False
 
-
-board = padboard.check_board(xa, ya, xb, yb, xs, ys, ".\screen.png", 6, 5)
+#board = padboard.check_board(xa, ya, xb, yb, xs, ys, ".\screen.png", 6, 5)
+board = padboard.check_board(".\screen.png", 6, 5)
 
 p = subprocess.Popen(["c:/Users/hassy/MyProject/python/pad_auto/ref/pazdra_kun.exe", board], stdout=subprocess.PIPE)
 # p = subprocess.Popen(["c:/Users/fumio/MyProject/python/pad_auto/ref/pazdra_kun_old.exe", board], stdout=subprocess.PIPE)
@@ -43,10 +43,18 @@ print x
 print y
 
 def conv_x(i):
-    return 15 + 65 + 130 * (int(i))
+    #return 15 + 65 + 130 * (int(i))
+    if is_nexus:
+        return 15 + 65 + 130 * (int(i))
+    else:
+        return 5 + 90 + 180 * (int(i))
 
 def conv_y(i):
-    return 560 + 65 + 130 * (int(i))
+    #return 560 + 65 + 130 * (int(i))
+    if is_nexus:
+        return 560 + 65 + 130 * (int(i))
+    else:
+        return 850 + 90 + 180 * (int(i))
 
 def calc_i(flag, ary):
     pos_i = "\""

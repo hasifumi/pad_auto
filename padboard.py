@@ -14,20 +14,28 @@ def get_rgb(pic, box=""):
             __round(rgb[:,1]),
             __round(rgb[:,2])]
 
-def color(array):
+def color(array, flg=1):
     col = {}
-    # col["red"] = [205, 110, 130]
-    # col["blue"] = [100, 140, 190]
-    # col["green"] = [100, 160, 120]
-    # col["light"] = [200, 175, 110]
-    # col["dark"] = [165, 90, 170]
-    # col["cure"] = [200, 100, 150]
-    col["1"] = [205, 110, 130]
-    col["2"] = [100, 140, 190]
-    col["3"] = [100, 160, 120]
-    col["4"] = [200, 175, 110]
-    col["5"] = [165, 90, 170]
-    col["6"] = [200, 100, 150]
+    if flg == 0:
+        # col["red"] = [205, 110, 130]
+        # col["blue"] = [100, 140, 190]
+        # col["green"] = [100, 160, 120]
+        # col["light"] = [200, 175, 110]
+        # col["dark"] = [165, 90, 170]
+        # col["cure"] = [200, 100, 150]
+        col["r"] = [205, 110, 130]
+        col["b"] = [100, 140, 190]
+        col["g"] = [100, 160, 120]
+        col["l"] = [200, 175, 110]
+        col["d"] = [165, 90, 170]
+        col["c"] = [200, 100, 150]
+    else:
+        col["1"] = [205, 110, 130]
+        col["2"] = [100, 140, 190]
+        col["3"] = [100, 160, 120]
+        col["4"] = [200, 175, 110]
+        col["5"] = [165, 90, 170]
+        col["6"] = [200, 100, 150]
 
     max = 0
     result = ""
@@ -39,11 +47,28 @@ def color(array):
     return result
 
 def __round(array):
-    #return int(round(np.average(array)))
     return int(round(numpy.average(array)))
 
-def check_board(xa, ya, xb, yb, xs, ys, path, cols, rows):
+#def check_board(xa, ya, xb, yb, xs, ys, path, cols, rows, flg=1):
+def check_board(path, cols, rows, flg=1):
     pic = Image.open(path, 'r')
+    if pic.width == 800:
+        # Nexus7(2012)
+        xa = 15
+        ya = 560
+        xb = 145
+        yb = 690
+        xs = 130
+        ys = 130
+    else:
+        # SH-01F
+        xa = 5
+        ya = 850
+        xb = 185
+        yb = 1030
+        xs = 180
+        ys = 180
+
     board = ""
     for i in range(cols):
         for j in range(rows):
@@ -53,16 +78,10 @@ def check_board(xa, ya, xb, yb, xs, ys, path, cols, rows):
                    yb + ys*j)
             rgb = get_rgb(pic, box)
             # print color(rgb)
-            board = board + color(rgb)
+            board = board + color(rgb, flg)
     return board
 
 
-#xa = 40
-#ya = 400
-#xb = 95
-#yb = 455
-#xs = 65
-#ys = 65
 #path = "C:/Users/fumio/MyProject/python/pad_auto/image/pazdra_board.png"
 #check_board(xa, ya, xb, yb, xs, ys, path, 6, 5)
 

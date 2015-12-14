@@ -397,15 +397,16 @@ subprocess.check_call(screencap_cmd, shell=True)
 pull_cmd = ["adb", "pull", "/sdcard/screen.png"]
 subprocess.check_call(pull_cmd, shell=True)
 
-# Nexus7(2012)
-xa = 15
-ya = 560
-xb = 145
-yb = 690
-xs = 130
-ys = 130
-
-board = padboard.check_board(xa, ya, xb, yb, xs, ys, ".\screen.png", 6, 5)
+## Nexus7(2012)
+#xa = 15
+#ya = 560
+#xb = 145
+#yb = 690
+#xs = 130
+#ys = 130
+#
+#board = padboard.check_board(xa, ya, xb, yb, xs, ys, ".\screen.png", 6, 5, 0)
+board = padboard.check_board(".\screen.png", 6, 5, 0)
 print board
 board2 = convert_h_w(board)
 print board2
