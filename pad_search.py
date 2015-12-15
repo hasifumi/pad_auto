@@ -1,130 +1,100 @@
 # -*- coding: utf-8 -*-
 # vim:set foldmethod=marker:
 
-ROW = 5
-COL = 6
-
-MAX_TURN = 20
+#MAX_TURN = 20
+MAX_TURN = 2
 PLAYNUM = 5000
 
-max_count = 0
-start = []
-start.append(11)
-start.append(12)
-print start
+# 隣接リスト
+adjacent_4x3 = [
+        [1, 4],             #0
+        [0, 2, 5],
+        [1, 3, 6],
+        [2, 7],
+        [0, 5, 8],
+        [1, 4, 6,  9],
+        [2, 5, 7, 10],
+        [3, 6, 11],
+        [4, 9],
+        [5, 8, 10],
+        [6, 9, 11],
+        [7, 10]
+    ]
 
-movei = [MAX_TURN][2]
-goal = [2]
+adjacent_6x5 = [
+        [1, 6],             # 0
+        [0, 2, 7],
+        [1, 3, 8],
+        [2, 4, 9],
+        [3, 5, 10],
+        [4, 11],
+        [0, 7, 12],
+        [1, 6, 8, 13],
+        [2, 7, 9, 14],
+        [3, 8, 10, 15],
+        [4, 9, 11, 16],
+        [5, 10, 17],
+        [6, 13, 18],
+        [7, 12, 14, 19],
+        [8, 13, 15, 20],
+        [9, 14, 16, 21],
+        [10, 15, 17, 22],
+        [11, 16, 23],
+        [12, 19, 24],
+        [13, 18, 20, 25],
+        [14, 19, 21, 26],
+        [15, 20, 22, 27],
+        [16, 21, 23, 28],
+        [17, 22, 29],
+        [18, 25],
+        [19, 24, 26],
+        [20, 25, 27],
+        [21, 26, 28],
+        [22, 27, 29],
+        [23, 28]
+]
 
-ans_start = [2]
-ans = [MAX_TURN][2]
-ans_goal = [2]
-g_turn = 0
 
-field = [ROW][COL]
-chainflag = [ROW][COL]
-t_erase = [ROW][COL]
-dummy = [ROW][COL]
-f_field = [ROW][COL]
-fff = 0
+class Node:
+    def __init__(self, start, board):
+        self.score = 0
+        self.movei = [ 0 for i in range(MAX_TURN)]
+        self.movei[0] = start
+        self.board = board
 
-class Node():# {{{
-    def __init__(self):
-        self.start[2]
-        self.goal[2]
-        self.movei[MAX_TURN][2]
-        self.score
-        self.nowR
-        self.nowC# }}}
-
-def Nbeam():
-    """ Nbeam """
+def Nbeam(width, height, start_board):
     node_array = []
-    node_dum = []
 
-    for i in range(PLAYNUM):# {{{
-        n = Node()
-        n.score = 0
+    for i in range(width * height):
+        n = Node(i, i, start_board)
+        #print n.movei
+        node_array.append(n)
+
+    for n in range(len(node_array)):
+        prev_turn = n
+        node = node_array[n]
         for t in range(MAX_TURN):
-            n.movie[t][0] = -1
-            n.movie[t][1] = -1
-        node_array.append(n)# }}}
+            if width == 4:
+                for j in adjacent_4x3[prev_turn]:
+                    #print "n: " + str(n) + ", adjacent_4x3[n]: " + str(adjacent_4x3[k]) + ", j:" + str(j)
+                    next_board = swap(prev_turn, j, node.movei.board)
+                    score = combo(next_board)
 
-    size = ROW * COL
 
-    cnt = 0
-    for i in range(ROW):# {{{
-        for j in range(COL):
-            node_array[cnt].start[1] = j
-            node_array[cnt].start[0] = i
-            node_array[cnt].nowC = j
-            node_array[cnt].nowR = i
-            cnt += 1# }}}
-
-    dx[4] = [ 0, -1, 1, 0]
-    dy[4] = [-1,  0, 0, 1]
 
     for i in range(MAX_TURN):
-        dumsize = 0
-        for k in range(size):
-            for j in range(len(dx)):
-                temp = node_array[k]
-                if (0 <= temp.nowC + dx[j]) and (temp.nowC + dx[j] < COL) and (0 <= temp.nowR + dy[j]) and (temp.nowR + dy[j] < ROW):
-                    start[0] = temp.start[0]
-                    start[1] = temp.start[1]
-                    movei = temp.movei
-                    temp.nowC += dx[j]
-                    temp.nowR += dy[j]
-                    goal[0] = temp.nowR
-                    goal[1] = temp.nowC
-
-                    if (i == MAX_TURN):
-                        temp.goal[0] = temp.nowR
-                        temp.goal[1] = temp.nowC
-                    else:
-                        temp.movei[i][0] = temp.nowR
-                        temp.movei[i][1] = temp.nowC
-
-                    operation()
-
-                    temp.score = sum_e()
-
-                    if (dumsize < PLAYNUM):
-                        dum[dumsize] = temp
-                        dumsize += 1
-                    elif (dumsize == PLAYNUM):
-                        rank = check2(PLAYNUM)
-                        if (temp.score > dum[rank].score):
-                            dum[rank] = temp
-
-        for d in range(dumsize):
-            node_array[d] = dum[d]
-
-    size = dumsize
-
-def operation():
-    now_row = start[0]
-    now_col = start[1]
-
-    for i in rage(MAX_TURN):
-        if movei[i][0] == -1 or movei[i][1] == -1:
-            continue
-        else:
-            temp = field[now_row][now_col]
-            field[now_row][now_col] = field[movei[i][0]][movei[i][1]]
-            field[movei[i][0]][movei[i][1]] = temp
-            now_row = movei[i][0]
-            now_col = movei[i][1]
-
-    temp = field[now_row][now_col]
-    field[now_row][now_col] = field[goal[0]][goal[1]]
-    field[goal[0]][goal[1]] = temp
+        for k in range(width * height):
+            if width == 4:
+                for j in adjacent_4x3[k]:
+                    #print "k: " + str(k) + ", adjacent_4x3[k]: " + str(adjacent_4x3[k]) + ", j:" + str(j)
+                    temp_board = swap(k, j,
 
 
+def swap(a, b, board):
+    temp_board = board
+    temp = temp_board[a]
+    temp_board[a] = temp_board[b]
+    temp_board[b] = temp
+    return temp_board
 
-
-
-
-
-
-
+Nbeam(4, 3, "rrrr")
