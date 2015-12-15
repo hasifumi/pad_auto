@@ -3,7 +3,8 @@
 
 #MAX_TURN = 20
 MAX_TURN = 2
-PLAYNUM = 5000
+#PLAYNUM = 5000
+PLAYNUM = 100
 
 # 隣接リスト
 adjacent_4x3 = [
@@ -58,43 +59,79 @@ adjacent_6x5 = [
 class Node:
     def __init__(self, start, board):
         self.score = 0
-        self.movei = [ 0 for i in range(MAX_TURN)]
-        self.movei[0] = start
+        self.route = []
+        self.route.append(start)
         self.board = board
+
+    def copy(self):
+        return self
 
 def Nbeam(width, height, start_board):
     node_array = []
 
     for i in range(width * height):
-        n = Node(i, i, start_board)
-        #print n.movei
+        n = Node(i, start_board)
         node_array.append(n)
 
-    for n in range(len(node_array)):
-        prev_turn = n
-        node = node_array[n]
-        for t in range(MAX_TURN):
+    for t in range(MAX_TURN):
+        i = 0
+        while len(node_array) < PLAYNUM:
+            #print len(node_array[i].route)
+            now_pos = node_array[i].route[len(node_array[i].route) - 1]
+            if len(node_array[i].route) != 1:
+                prev_pos = node_array[i].route[len(node_array[i].route) - 2]
+            else:
+                prev_pos = -1
             if width == 4:
-                for j in adjacent_4x3[prev_turn]:
-                    #print "n: " + str(n) + ", adjacent_4x3[n]: " + str(adjacent_4x3[k]) + ", j:" + str(j)
-                    next_board = swap(prev_turn, j, node.movei.board)
-                    score = combo(next_board)
+                for j in adjacent_4x3[now_pos]:
+                    if  j != prev_pos:
+                        n = node_array[i].copy()
+                        n.board = swap(now_pos, j, node_array[i].board)
+                        n.score = evalCombo(n.board)
+                        n.route.append(j)
+                        #if i == PLAYNUM:
+                        #    idx = 0
+                        #    worst = 999999
+                        #    for k,v in enumerate(node_array):
+                        #        if worst > v.score:
+                        #            worst = v.score
+                        #            idx = k
+                        #    if worst > n.score:
+                        #        break
+                        #    else:
+                        #        del node_array[idx]
+                        node_array.append(n)
+                        print "i:" + str(i) + ",len:" + str(len(node_array))
+            i += 1
 
-
-
-    for i in range(MAX_TURN):
-        for k in range(width * height):
-            if width == 4:
-                for j in adjacent_4x3[k]:
-                    #print "k: " + str(k) + ", adjacent_4x3[k]: " + str(adjacent_4x3[k]) + ", j:" + str(j)
-                    temp_board = swap(k, j,
-
+    idx = 0
+    best = 0
+    for k,v in enumerate(node_array):
+        if best < v.score:
+            best = v.score
+            idx = k
+    print node_array[idx].route
+    print node_array[idx].score
+    print node_array[len(node_array)-1].route
+    print node_array[len(node_array)-1].score
 
 def swap(a, b, board):
-    temp_board = board
-    temp = temp_board[a]
-    temp_board[a] = temp_board[b]
-    temp_board[b] = temp
+    i = int(a)
+    j = int(b)
+    if i > j:
+        temp = i
+        i = j
+        j = temp
+    #print "swap i:" + str(i) + ", j:" + str(j) + ", board:" + str(board) + ", length:" + str(len(board))
+    li = list(board)
+    temp = li[i]
+    li[i] = li[j]
+    li[j] = temp
+    temp_board = "".join(li)
+    #print "swap return:" + str(temp_board) + ", length:" + str(len(temp_board))
     return temp_board
 
-Nbeam(4, 3, "rrrr")
+def evalCombo(board):
+    return 100
+
+Nbeam(4, 3, "rrbglggldgdc")
