@@ -3,6 +3,7 @@ import padboard
 import time
 import subprocess
 import os
+import pad_search
 from PIL import Image
 
 start_time = time.time()
@@ -13,32 +14,43 @@ subprocess.check_call(screencap_cmd, shell=True)
 pull_cmd = ["adb", "pull", "/sdcard/screen.png"]
 subprocess.check_call(pull_cmd, shell=True)
 
-path = "C:/Users/hassy/MyProject/python/pad_auto/screen.png"
+#path = "C:/Users/hassy/MyProject/python/pad_auto/screen.png" # Win10
+path = "C:/Users/fumio/MyProject/python/pad_auto/screen.png"  # Win7
 pic = Image.open(path, 'r')
 if pic.width == 800:
     is_nexus = True
 else:
     is_nexus = False
 
-#board = padboard.check_board(xa, ya, xb, yb, xs, ys, ".\screen.png", 6, 5)
-board = padboard.check_board(".\screen.png", 6, 5)
+#board = padboard.check_board(".\screen.png", 6, 5)
+board = padboard.check_board(".\screen.png", 6, 5, 0)
 
-p = subprocess.Popen(["c:/Users/hassy/MyProject/python/pad_auto/ref/pazdra_kun.exe", board], stdout=subprocess.PIPE)
-# p = subprocess.Popen(["c:/Users/fumio/MyProject/python/pad_auto/ref/pazdra_kun_old.exe", board], stdout=subprocess.PIPE)
-sout = []
-while 1:
-    c = p.stdout.readline()
-    if not c:
-        break
-    #print c
-    sout.append(c.rstrip())
-p.wait()
-print sout
 x = []
 y = []
-for i,v in enumerate(sout):
-    x.append(v[2])
-    y.append(v[6])
+
+## p = subprocess.Popen(["c:/Users/hassy/MyProject/python/pad_auto/ref/pazdra_kun.exe", board], stdout=subprocess.PIPE)     # Win10
+#p = subprocess.Popen(["c:/Users/fumio/MyProject/python/pad_auto/ref/pazdra_kun_old.exe", board], stdout=subprocess.PIPE)   # Win7
+#sout = []
+#while 1:
+#    c = p.stdout.readline()
+#    if not c:
+#        break
+#    sout.append(c.rstrip())
+#p.wait()
+#print sout
+#for i,v in enumerate(sout):
+#    x.append(v[2])
+#    y.append(v[6])
+
+def idx2xy(width, idx):
+    return[int(idx/width), int(idx%width)]
+
+n_best = pad_search.Nbeam(6, 5, board)
+for r in n_best.route:
+    ans = idx2xy(6, r)
+    x.append(ans[1])
+    y.append(ans[0])
+
 print x
 print y
 
@@ -78,7 +90,7 @@ pos_y = calc_i("y", y)
 
 #uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y]
 
-swipe_time = "10"
+swipe_time = "15"
 
 uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y, "-e","\"t\"", swipe_time]
 

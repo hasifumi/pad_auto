@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 # vim:set foldmethod=marker:
 
+import pazdracombo
+import time
+
 #MAX_TURN = 20
-MAX_TURN = 2
+MAX_TURN = 10
 #PLAYNUM = 5000
 PLAYNUM = 100
 
 # 隣接リスト
-adjacent_4x3 = [
+adjacent_4x3 = [# {{{
         [1, 4],             #0
         [0, 2, 5],
         [1, 3, 6],
@@ -20,9 +23,9 @@ adjacent_4x3 = [
         [5, 8, 10],
         [6, 9, 11],
         [7, 10]
-    ]
+    ]# }}}
 
-adjacent_6x5 = [
+adjacent_6x5 = [# {{{
         [1, 6],             # 0
         [0, 2, 7],
         [1, 3, 8],
@@ -53,41 +56,68 @@ adjacent_6x5 = [
         [21, 26, 28],
         [22, 27, 29],
         [23, 28]
-]
+]# }}}
 
-
-class Node:
+class Node:# {{{
     def __init__(self, start, board):
         self.score = 0
         self.route = []
         self.route.append(start)
         self.board = board
 
-    def copy(self):
-        return self
+    def set_route(self, lst):
+        self.route = lst
+
+    #def copy(self):
+    #    #temp1 = { 'score': self.score, 'route': self.route[:], 'board': self.board }
+    #    #print temp1.score
+    #    #print temp1.route
+    #    #print temp1.board
+    #    # temp.score = self.score
+    #    # temp.route = self.route[:]
+    #    # temp.board = self.board
+    #    #return temp
+    #    temp = dict(score=self.score, route=self.route, board=self.board)
+    #    print temp["score"]
+    #    return self.score# }}}
 
 def Nbeam(width, height, start_board):
+    print "start_board:" + str(start_board)
     node_array = []
+    dummy_array = []
+    #dummy_size = 0
 
     for i in range(width * height):
         n = Node(i, start_board)
         node_array.append(n)
 
     for t in range(MAX_TURN):
-        i = 0
-        while len(node_array) < PLAYNUM:
-            #print len(node_array[i].route)
-            now_pos = node_array[i].route[len(node_array[i].route) - 1]
-            if len(node_array[i].route) != 1:
-                prev_pos = node_array[i].route[len(node_array[i].route) - 2]
+        for k in node_array:
+            now_pos = k.route[-1]
+            if len(k.route) != 1:
+                prev_pos = k.route[-2]
             else:
                 prev_pos = -1
             if width == 4:
                 for j in adjacent_4x3[now_pos]:
                     if  j != prev_pos:
-                        n = node_array[i].copy()
-                        n.board = swap(now_pos, j, node_array[i].board)
-                        n.score = evalCombo(n.board)
+                        n = Node(k.route[0], k.board)
+                        n.set_route(k.route[:])
+                        #n = k.copy()
+                        n.board = swap(now_pos, j, k.board)
+                        n.score = evalCombo(width, height, n.board)
+                        n.route.append(j)
+                        dummy_array.append(n)
+            if width == 6:
+                for j in adjacent_6x5[now_pos]:
+                    if  j != prev_pos:
+                        n = Node(k.route[0], k.board)
+                        n.set_route(k.route[:])
+                        #n = k.copy()
+                        n.board = swap(now_pos, j, k.board)
+                        #print n.board
+                        n.score = evalCombo(width, height, n.board)
+                        #print n.score
                         n.route.append(j)
                         #if i == PLAYNUM:
                         #    idx = 0
@@ -100,9 +130,11 @@ def Nbeam(width, height, start_board):
                         #        break
                         #    else:
                         #        del node_array[idx]
-                        node_array.append(n)
-                        print "i:" + str(i) + ",len:" + str(len(node_array))
+                        dummy_array.append(n)
+                        #print "k:" + str(k) + ",len:" + str(len(dummy_array))
             i += 1
+        node_array = dummy_array[:]
+        dummy_array = []
 
     idx = 0
     best = 0
@@ -110,10 +142,14 @@ def Nbeam(width, height, start_board):
         if best < v.score:
             best = v.score
             idx = k
-    print node_array[idx].route
-    print node_array[idx].score
-    print node_array[len(node_array)-1].route
-    print node_array[len(node_array)-1].score
+
+    print "len(node_array):" + str(len(node_array))
+    print "best:" + str(best)
+    print "idx:" + str(idx)
+    print "route:" + str(node_array[idx].route)
+    print "board:" + str(node_array[idx].board)
+
+    return node_array[idx]
 
 def swap(a, b, board):
     i = int(a)
@@ -131,7 +167,28 @@ def swap(a, b, board):
     #print "swap return:" + str(temp_board) + ", length:" + str(len(temp_board))
     return temp_board
 
-def evalCombo(board):
-    return 100
+def evalCombo(width, height, board):
+    #return 100
+    pdc = pazdracombo.PazdraComboChecker(width, height, board)
+    pdc.check_erasable()
+    pdc.calc_combo()
+    return pdc.sum_combo()
 
-Nbeam(4, 3, "rrbglggldgdc")
+#Nbeam(4, 3, "rrbglggldgdc")
+
+default_param = """
+rddbgb
+rrrbgb
+rllbgb
+ggggbb
+clllll
+""".replace('\n', '')
+
+#start_time = time.time()
+#
+#n_best = Nbeam(6, 5, default_param)
+#print n_best.score
+#print n_best.route
+#
+#elapsed_time = time.time() - start_time
+#print("elapsed_time:{0}".format(elapsed_time)) + "[sec]"
