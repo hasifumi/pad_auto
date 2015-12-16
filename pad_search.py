@@ -5,9 +5,9 @@ import pazdracombo
 import time
 
 #MAX_TURN = 20
-MAX_TURN = 10
+MAX_TURN = 7
 #PLAYNUM = 5000
-PLAYNUM = 100
+PLAYNUM = 500
 
 # 隣接リスト
 adjacent_4x3 = [# {{{
@@ -103,7 +103,6 @@ def Nbeam(width, height, start_board):
                     if  j != prev_pos:
                         n = Node(k.route[0], k.board)
                         n.set_route(k.route[:])
-                        #n = k.copy()
                         n.board = swap(now_pos, j, k.board)
                         n.score = evalCombo(width, height, n.board)
                         n.route.append(j)
@@ -113,23 +112,20 @@ def Nbeam(width, height, start_board):
                     if  j != prev_pos:
                         n = Node(k.route[0], k.board)
                         n.set_route(k.route[:])
-                        #n = k.copy()
                         n.board = swap(now_pos, j, k.board)
-                        #print n.board
                         n.score = evalCombo(width, height, n.board)
-                        #print n.score
                         n.route.append(j)
-                        #if i == PLAYNUM:
-                        #    idx = 0
-                        #    worst = 999999
-                        #    for k,v in enumerate(node_array):
-                        #        if worst > v.score:
-                        #            worst = v.score
-                        #            idx = k
-                        #    if worst > n.score:
-                        #        break
-                        #    else:
-                        #        del node_array[idx]
+                        if len(dummy_array) == PLAYNUM:
+                            idx = 0
+                            worst = 999999
+                            for d,v in enumerate(dummy_array):
+                                if worst > v.score:
+                                    worst = v.score
+                                    idx = d
+                            if worst > n.score:
+                                continue
+                            else:
+                                del node_array[idx]
                         dummy_array.append(n)
                         #print "k:" + str(k) + ",len:" + str(len(dummy_array))
             i += 1
@@ -176,13 +172,13 @@ def evalCombo(width, height, board):
 
 #Nbeam(4, 3, "rrbglggldgdc")
 
-default_param = """
-rddbgb
-rrrbgb
-rllbgb
-ggggbb
-clllll
-""".replace('\n', '')
+#default_param = """
+#rddbgb
+#rrrbgb
+#rllbgb
+#ggggbb
+#clllll
+#""".replace('\n', '')
 
 #start_time = time.time()
 #

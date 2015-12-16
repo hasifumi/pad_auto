@@ -1,10 +1,17 @@
+# -*- coding: utf-8 -*-
+
 import padboard
 #import uiautomator
 import time
 import subprocess
 import os
 import pad_search
+import pazdracombo
 from PIL import Image
+
+def print_board(width, height, board):
+    for h in range(height):
+        print board[h*width:h*width+width]
 
 start_time = time.time()
 
@@ -16,6 +23,7 @@ subprocess.check_call(pull_cmd, shell=True)
 
 #path = "C:/Users/hassy/MyProject/python/pad_auto/screen.png" # Win10
 path = "C:/Users/fumio/MyProject/python/pad_auto/screen.png"  # Win7
+
 pic = Image.open(path, 'r')
 if pic.width == 800:
     is_nexus = True
@@ -23,7 +31,14 @@ else:
     is_nexus = False
 
 #board = padboard.check_board(".\screen.png", 6, 5)
-board = padboard.check_board(".\screen.png", 6, 5, 0)
+temp_board = padboard.check_board(".\screen.png", 6, 5, 0)
+
+board = pazdracombo.convert_h_w(temp_board)
+
+# 確認用
+print "[board]"
+print print_board(6, 5, board)
+print ""
 
 x = []
 y = []
@@ -46,6 +61,14 @@ def idx2xy(width, idx):
     return[int(idx/width), int(idx%width)]
 
 n_best = pad_search.Nbeam(6, 5, board)
+
+
+## 確認用
+print ""
+print "[combo]"
+print print_board(6, 5, n_best.board)
+print ""
+
 for r in n_best.route:
     ans = idx2xy(6, r)
     x.append(ans[1])
@@ -84,6 +107,9 @@ def calc_i(flag, ary):
 
 pos_x = calc_i("x", x)
 pos_y = calc_i("y", y)
+
+print pos_x
+print pos_y
 
 #pos_x = "470,600,600,470,470,470,470,600,600,470,470,340,340,340,340,340,210,80,80,80,80,210"
 #pos_y = "1015,1015,1145,1145,1015,885,755,755,625,625,755,755,885,755,885,1015,1015,1015,885,755,625,625"
