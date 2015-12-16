@@ -5,9 +5,9 @@ import pazdracombo
 import time
 
 #MAX_TURN = 20
-MAX_TURN = 7
+MAX_TURN = 10
 #PLAYNUM = 5000
-PLAYNUM = 500
+PLAYNUM = 300
 
 # 隣接リスト
 adjacent_4x3 = [# {{{
