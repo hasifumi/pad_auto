@@ -5,9 +5,10 @@ import pazdracombo
 import time
 
 #MAX_TURN = 20
-MAX_TURN = 10
+#MAX_TURN = 9
+MAX_TURN = 20
 #PLAYNUM = 5000
-PLAYNUM = 300
+PLAYNUM = 2000
 
 # 隣接リスト
 adjacent_4x3 = [# {{{
@@ -115,20 +116,23 @@ def Nbeam(width, height, start_board):
                         n.board = swap(now_pos, j, k.board)
                         n.score = evalCombo(width, height, n.board)
                         n.route.append(j)
-                        if len(dummy_array) == PLAYNUM:
+                        #print "PLAYNUM: " + str(PLAYNUM) + ", len(dummy_array):" + str(len(dummy_array))
+                        if len(dummy_array) > PLAYNUM:
                             idx = 0
                             worst = 999999
                             for d,v in enumerate(dummy_array):
                                 if worst > v.score:
                                     worst = v.score
                                     idx = d
-                            if worst > n.score:
-                                continue
-                            else:
-                                del node_array[idx]
+                            #print "idx: " + str(idx) + ", worst:" + str(worst)
+                            #if worst > n.score:
+                            #    continue
+                            #else:
+                            #    del node_array[idx]
+                            del dummy_array[idx]
                         dummy_array.append(n)
-                        #print "k:" + str(k) + ",len:" + str(len(dummy_array))
             i += 1
+        node_array = []
         node_array = dummy_array[:]
         dummy_array = []
 

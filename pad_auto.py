@@ -12,6 +12,7 @@ from PIL import Image
 def print_board(width, height, board):
     for h in range(height):
         print board[h*width:h*width+width]
+    return 1
 
 start_time = time.time()
 
