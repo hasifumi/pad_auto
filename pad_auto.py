@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+MAX_TURN = 30
+PLAYNUM = 400
+SWIPE = 5
+
 import padboard
 #import uiautomator
 import time
@@ -24,6 +28,8 @@ subprocess.check_call(pull_cmd, shell=True)
 
 #path = "C:/Users/hassy/MyProject/python/pad_auto/screen.png" # Win10
 path = "C:/Users/fumio/MyProject/python/pad_auto/screen.png"  # Win7
+
+lap1_time = time.time()
 
 pic = Image.open(path, 'r')
 if pic.width == 800:
@@ -61,7 +67,7 @@ y = []
 def idx2xy(width, idx):
     return[int(idx/width), int(idx%width)]
 
-n_best = pad_search.Nbeam(6, 5, board)
+n_best = pad_search.Nbeam(6, 5, board, MAX_TURN, PLAYNUM)
 
 
 ## 確認用
@@ -117,13 +123,15 @@ print pos_y
 
 #uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y]
 
-swipe_time = "15"
+swipe_time = str(SWIPE)
 
 uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y, "-e","\"t\"", swipe_time]
 
 
 subprocess.check_call(uiautomator_cmd, shell=True)
 
+elapsed_lap1_time = lap1_time - start_time
 elapsed_time = time.time() - start_time
 
+print("lap1_time:{0}".format(elapsed_lap1_time)) + "[sec]"
 print("elapsed_time:{0}".format(elapsed_time)) + "[sec]"

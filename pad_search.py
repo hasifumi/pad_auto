@@ -6,9 +6,9 @@ import time
 
 #MAX_TURN = 20
 #MAX_TURN = 9
-MAX_TURN = 20
+#MAX_TURN = 25
 #PLAYNUM = 5000
-PLAYNUM = 2000
+#PLAYNUM = 1500
 
 # 隣接リスト
 adjacent_4x3 = [# {{{
@@ -82,8 +82,8 @@ class Node:# {{{
     #    print temp["score"]
     #    return self.score# }}}
 
-def Nbeam(width, height, start_board):
-    print "start_board:" + str(start_board)
+def Nbeam(width, height, start_board, max_turn, playnum):
+    #print "start_board:" + str(start_board)
     node_array = []
     dummy_array = []
     #dummy_size = 0
@@ -92,7 +92,7 @@ def Nbeam(width, height, start_board):
         n = Node(i, start_board)
         node_array.append(n)
 
-    for t in range(MAX_TURN):
+    for t in range(max_turn):
         for k in node_array:
             now_pos = k.route[-1]
             if len(k.route) != 1:
@@ -117,7 +117,7 @@ def Nbeam(width, height, start_board):
                         n.score = evalCombo(width, height, n.board)
                         n.route.append(j)
                         #print "PLAYNUM: " + str(PLAYNUM) + ", len(dummy_array):" + str(len(dummy_array))
-                        if len(dummy_array) > PLAYNUM:
+                        if len(dummy_array) > playnum:
                             idx = 0
                             worst = 999999
                             for d,v in enumerate(dummy_array):
@@ -143,11 +143,11 @@ def Nbeam(width, height, start_board):
             best = v.score
             idx = k
 
-    print "len(node_array):" + str(len(node_array))
+    #print "len(node_array):" + str(len(node_array))
     print "best:" + str(best)
-    print "idx:" + str(idx)
-    print "route:" + str(node_array[idx].route)
-    print "board:" + str(node_array[idx].board)
+    #print "idx:" + str(idx)
+    #print "route:" + str(node_array[idx].route)
+    #print "board:" + str(node_array[idx].board)
 
     return node_array[idx]
 
