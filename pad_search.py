@@ -82,7 +82,7 @@ class Node:# {{{
     #    print temp["score"]
     #    return self.score# }}}
 
-def Nbeam(width, height, start_board, max_turn, playnum):
+def Nbeam(width, height, start_board, max_turn, playnum, red, blue, green, light, dark, cure):
     #print "start_board:" + str(start_board)
     node_array = []
     dummy_array = []
@@ -114,7 +114,8 @@ def Nbeam(width, height, start_board, max_turn, playnum):
                         n = Node(k.route[0], k.board)
                         n.set_route(k.route[:])
                         n.board = swap(now_pos, j, k.board)
-                        n.score = evalCombo(width, height, n.board)
+                        #n.score = evalCombo(width, height, n.board)
+                        n.score = calc_score(width, height, n.board, red, blue, green, light, dark, cure)
                         n.route.append(j)
                         #print "PLAYNUM: " + str(PLAYNUM) + ", len(dummy_array):" + str(len(dummy_array))
                         if len(dummy_array) > playnum:
@@ -173,6 +174,13 @@ def evalCombo(width, height, board):
     pdc.check_erasable()
     pdc.calc_combo()
     return pdc.sum_combo()
+
+def calc_score(width, height, board, red, blue, green, light, dark, cure):
+    pdc = pazdracombo.PazdraComboChecker(width, height, board)
+    pdc.check_erasable()
+    pdc.calc_combo()
+    return pdc.calc_score(red, blue, green, light, dark, cure)
+
 
 #Nbeam(4, 3, "rrbglggldgdc")
 

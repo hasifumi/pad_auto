@@ -2,7 +2,14 @@
 
 MAX_TURN = 30
 PLAYNUM = 400
-SWIPE = 5
+SWIPE = 7
+
+RED = 1.0
+BLUE = 4.0
+GREEN = 1.0
+LIGHT = 1.0
+DARK = 2.0
+CURE = 1.0
 
 import padboard
 #import uiautomator
@@ -67,7 +74,7 @@ y = []
 def idx2xy(width, idx):
     return[int(idx/width), int(idx%width)]
 
-n_best = pad_search.Nbeam(6, 5, board, MAX_TURN, PLAYNUM)
+n_best = pad_search.Nbeam(6, 5, board, MAX_TURN, PLAYNUM, RED, BLUE, GREEN, LIGHT, DARK, CURE)
 
 
 ## 確認用
@@ -81,8 +88,8 @@ for r in n_best.route:
     x.append(ans[1])
     y.append(ans[0])
 
-print x
-print y
+#print x
+#print y
 
 def conv_x(i):
     #return 15 + 65 + 130 * (int(i))

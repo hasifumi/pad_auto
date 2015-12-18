@@ -33,7 +33,8 @@ pdc.calc_combo()
 
 ## 確認用
 print "[combo]"
-print pdc.sum_combo()
+print "sum_combo(): " + str(pdc.sum_combo())
+print pdc.calc_score(light=5, red=2)
 pdc.print_combo()
-print pdc.combo
+#print pdc.combo
 

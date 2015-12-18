@@ -282,6 +282,35 @@ clllll
                 cmb[k[5]] = 1
         return len(cmb)
 
+    # combo : 0)find_seq, 1)start_x_pos, 2)start_y_pos, 3)vector(h/v), 4)color, 5)combo_seq
+    def calc_score(self, red=1.0, blue=1.0, green=1.0, light=1.0, dark=1.0, cure=1.0):
+        cmb = {}
+        score = 0
+        for k in self.combo:
+            if (k[5]-1) in cmb:
+                cmb[(k[5]-1)] += 1
+            else:
+                cmb[(k[5]-1)] = 1
+        #print self.combo
+        #print cmb
+        for c in cmb.keys():
+            #print "c: " + str(c)
+            #print "self.combo[c][4]: " + self.combo[c][4]
+            #print "str(cmb[c]): " + str(cmb[c])
+            if self.combo[c][4] == 'r':
+                score += cmb[c] * red * 100
+            elif self.combo[c][4] == 'b':
+                score += cmb[c] * blue * 100
+            elif self.combo[c][4] == 'g':
+                score += cmb[c] * green * 100
+            elif self.combo[c][4] == 'l':
+                score += cmb[c] * light * 100
+            elif self.combo[c][4] == 'd':
+                score += cmb[c] * dark * 100
+            elif self.combo[c][4] == 'c':
+                score += cmb[c] * cure * 100
+        return score
+
     # グループ1の各ドロップの近接リストにグループ2の各ドロップが存在するかを調査する関数
     def isKinsetsu(self, x1, y1, v1, x2, y2, v2):  # x:x座標、y:y座標, v:方向
         idx1 = self.xy2idx(x1, y1)
