@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # vim:set foldmethod=marker:
 
-WIN_USER_NAME = "fumio"
-#WIN_USER_NAME = "hassy"
+#WIN_USER_NAME = "fumio"
+WIN_USER_NAME = "hassy"
 
 WIDTH = 6
 HEIGHT = 5
