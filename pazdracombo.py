@@ -1,5 +1,5 @@
-# vim: foldmethod=marker  :
 # -*- coding: utf-8 -*-
+# vim: foldmethod=marker  :
 
 # A tiny combo checker for Puzzle & Dragons
 #   by takehikom (http://d.hatena.ne.jp/takehikom/)
@@ -10,6 +10,33 @@ import pad
 import padboard
 import subprocess
 import time
+
+PARMS = {# {{{
+        'red'  : 1.0,
+        'blue' : 1.0,
+        'green': 1.0,
+        'light': 1.0,
+        'dark' : 1.0,
+        'cure' : 1.0,
+        '4drop-red'  : 0.0,
+        '4drop-blue' : 0.0,
+        '4drop-green': 0.0,
+        '4drop-light': 0.0,
+        '4drop-dark' : 0.0,
+        '4drop-cure' : 0.0,
+        '5drop-red'  : 0.0,
+        '5drop-blue' : 0.0,
+        '5drop-green': 0.0,
+        '5drop-light': 0.0,
+        '5drop-dark' : 0.0,
+        '5drop-cure' : 0.0,
+        '1line-red'  : 0.0,
+        '1line-blue' : 0.0,
+        '1line-green': 0.0,
+        '1line-light': 0.0,
+        '1line-dark' : 0.0,
+        '1line-cure' : 0.0,
+        }# }}}
 
 class PazdraComboChecker():
 
@@ -283,7 +310,8 @@ clllll
         return len(cmb)
 
     # combo : 0)find_seq, 1)start_x_pos, 2)start_y_pos, 3)vector(h/v), 4)color, 5)combo_seq
-    def calc_score(self, red=1.0, blue=1.0, green=1.0, light=1.0, dark=1.0, cure=1.0):
+    #def calc_score(self, red=1.0, blue=1.0, green=1.0, light=1.0, dark=1.0, cure=1.0):
+    def calc_score(self, PARMS):
         cmb = {}
         score = 0
         for k in self.combo:
@@ -297,18 +325,18 @@ clllll
             #print "c: " + str(c)
             #print "self.combo[c][4]: " + self.combo[c][4]
             #print "str(cmb[c]): " + str(cmb[c])
-            if self.combo[c][4] == 'r':
-                score += cmb[c] * red * 100
-            elif self.combo[c][4] == 'b':
-                score += cmb[c] * blue * 100
-            elif self.combo[c][4] == 'g':
-                score += cmb[c] * green * 100
-            elif self.combo[c][4] == 'l':
-                score += cmb[c] * light * 100
-            elif self.combo[c][4] == 'd':
-                score += cmb[c] * dark * 100
-            elif self.combo[c][4] == 'c':
-                score += cmb[c] * cure * 100
+            if self.combo[c][4] == 'r' and PARMS.has_key('red'):
+                score += cmb[c] * PARMS['red'] * 100
+            elif self.combo[c][4] == 'b' and PARMS.has_key('blue'):
+                score += cmb[c] * PARMS['blue'] * 100
+            elif self.combo[c][4] == 'g' and PARMS.has_key('green'):
+                score += cmb[c] * PARMS['green'] * 100
+            elif self.combo[c][4] == 'l' and PARMS.has_key('light'):
+                score += cmb[c] * PARMS['light'] * 100
+            elif self.combo[c][4] == 'd' and PARMS.has_key('dark'):
+                score += cmb[c] * PARMS['dark'] * 100
+            elif self.combo[c][4] == 'c' and PARMS.has_key('cure'):
+                score += cmb[c] * PARMS['cure'] * 100
         return score
 
     # グループ1の各ドロップの近接リストにグループ2の各ドロップが存在するかを調査する関数

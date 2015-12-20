@@ -6,9 +6,7 @@ from PIL import Image
 def get_rgb(pic, box=""):
     if box == "":
         box = (0, 0, pic.width, pic.height)
-    #pic.crop(box).show()
     rgbimg = pic.crop(box).convert("RGB")
-    #rgb = np.array(rgbimg.getdata())
     rgb = numpy.array(rgbimg.getdata())
     return [__round(rgb[:,0]),
             __round(rgb[:,1]),
@@ -17,12 +15,6 @@ def get_rgb(pic, box=""):
 def color(array, flg=1):
     col = {}
     if flg == 0:
-        # col["red"] = [205, 110, 130]
-        # col["blue"] = [100, 140, 190]
-        # col["green"] = [100, 160, 120]
-        # col["light"] = [200, 175, 110]
-        # col["dark"] = [165, 90, 170]
-        # col["cure"] = [200, 100, 150]
         col["r"] = [205, 110, 130]
         col["b"] = [100, 140, 190]
         col["g"] = [100, 160, 120]

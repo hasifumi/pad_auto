@@ -69,24 +69,10 @@ class Node:# {{{
     def set_route(self, lst):
         self.route = lst
 
-    #def copy(self):
-    #    #temp1 = { 'score': self.score, 'route': self.route[:], 'board': self.board }
-    #    #print temp1.score
-    #    #print temp1.route
-    #    #print temp1.board
-    #    # temp.score = self.score
-    #    # temp.route = self.route[:]
-    #    # temp.board = self.board
-    #    #return temp
-    #    temp = dict(score=self.score, route=self.route, board=self.board)
-    #    print temp["score"]
-    #    return self.score# }}}
-
-def Nbeam(width, height, start_board, max_turn, playnum, red, blue, green, light, dark, cure):
-    #print "start_board:" + str(start_board)
+#def Nbeam(width, height, start_board, max_turn, playnum, red, blue, green, light, dark, cure):
+def Nbeam(width, height, start_board, max_turn, playnum, parms):
     node_array = []
     dummy_array = []
-    #dummy_size = 0
 
     for i in range(width * height):
         n = Node(i, start_board)
@@ -114,10 +100,9 @@ def Nbeam(width, height, start_board, max_turn, playnum, red, blue, green, light
                         n = Node(k.route[0], k.board)
                         n.set_route(k.route[:])
                         n.board = swap(now_pos, j, k.board)
-                        #n.score = evalCombo(width, height, n.board)
-                        n.score = calc_score(width, height, n.board, red, blue, green, light, dark, cure)
+                        #n.score = calc_score(width, height, n.board, red, blue, green, light, dark, cure)
+                        n.score = calc_score(width, height, n.board, parms)
                         n.route.append(j)
-                        #print "PLAYNUM: " + str(PLAYNUM) + ", len(dummy_array):" + str(len(dummy_array))
                         if len(dummy_array) > playnum:
                             idx = 0
                             worst = 999999
@@ -125,11 +110,6 @@ def Nbeam(width, height, start_board, max_turn, playnum, red, blue, green, light
                                 if worst > v.score:
                                     worst = v.score
                                     idx = d
-                            #print "idx: " + str(idx) + ", worst:" + str(worst)
-                            #if worst > n.score:
-                            #    continue
-                            #else:
-                            #    del node_array[idx]
                             del dummy_array[idx]
                         dummy_array.append(n)
             i += 1
@@ -175,11 +155,12 @@ def evalCombo(width, height, board):
     pdc.calc_combo()
     return pdc.sum_combo()
 
-def calc_score(width, height, board, red, blue, green, light, dark, cure):
+#def calc_score(width, height, board, red, blue, green, light, dark, cure):
+def calc_score(width, height, board, parms):
     pdc = pazdracombo.PazdraComboChecker(width, height, board)
     pdc.check_erasable()
     pdc.calc_combo()
-    return pdc.calc_score(red, blue, green, light, dark, cure)
+    return pdc.calc_score(parms)
 
 
 #Nbeam(4, 3, "rrbglggldgdc")
