@@ -217,30 +217,30 @@ clllll
         return[int(idx/self.width), int(idx%self.width)]# }}}
 
     def check_erasable(self, width=6, height=5):# {{{
-        e = 0
+        ers = 0
         # 横方向の消去可能性チェック
         for j in range(height):
             for i in range(width - 2):
                 #print "i: " + str(i) + ", j: " + str(j)
                 if self.isRenketsu(i, j, "h") == True:
-                    e += 1
-                    self.erase_l[j][i] = self.str_e(e)
-                    self.erase_l[j][i+1] = self.str_e(e)
-                    self.erase_l[j][i+2] = self.str_e(e)
-                    self.combo.append([e, i, j, "h", self.board_l[j][i], e])
+                    self.erase_l[j][i] = self.str_e(ers)
+                    self.erase_l[j][i+1] = self.str_e(ers)
+                    self.erase_l[j][i+2] = self.str_e(ers)
+                    self.combo.append([ers, i, j, "h", self.board_l[j][i], ers])
+                    ers += 1
         # 縦方向の消去可能性チェック
         for j in range(height - 2):
             for i in range(width):
                 #print "i: " + str(i) + ", j: " + str(j)
                 if self.isRenketsu(i, j, "v") == True:
-                    e += 1
-                    self.erase_l[j][i] = self.str_e(e)
-                    self.erase_l[j+1][i] = self.str_e(e)
-                    self.erase_l[j+2][i] = self.str_e(e)
-                    self.combo.append([e, i, j, "v", self.board_l[j][i], e])# }}}
+                    self.erase_l[j][i] = self.str_e(ers)
+                    self.erase_l[j+1][i] = self.str_e(ers)
+                    self.erase_l[j+2][i] = self.str_e(ers)
+                    self.combo.append([ers, i, j, "v", self.board_l[j][i], ers])# }}}
+                    ers += 1
 
     def str_e(self,e):# {{{
-        if 0 < e <= 9:
+        if 0 <= e <= 9:
             return str(e)
         elif e == 10:
             return "A"
@@ -331,50 +331,62 @@ clllll
         score = 0
         combo = 0
         for k in self.combo:
-            if (k[5]-1) in cmb:
-                cmb[(k[5]-1)] += 1
+            if (k[5]) in cmb:
+                cmb[(k[5])] = k[0]
             else:
-                cmb[(k[5]-1)] = 1
-        #print self.combo
-        #print cmb
+                cmb[(k[5])] = k[0]
+            #if (k[5]-1) in cmb:
+            #    cmb[(k[5]-1)] += 1
+            #else:
+            #    cmb[(k[5]-1)] = 1
         combo = len(cmb)
         score += combo * 100
-        for c in cmb.keys():
-            #print "c: " + str(c)
-            #print "self.combo[c][4]: " + self.combo[c][4]
-            #print "str(cmb[c]): " + str(cmb[c])
-            #if self.combo[c][4] == 'r' and PARMS.has_key('red'):
+        for c in cmb.values():
             if self.combo[c][4] == 'r':
                 color['r'] = 1
                 if PARMS.has_key('red'):
-                    score += cmb[c] * PARMS['red'] * 100
+                    score += PARMS['red'] * 100
             elif self.combo[c][4] == 'b':
                 color['b'] = 1
                 if PARMS.has_key('blue'):
-                    score += cmb[c] * PARMS['blue'] * 100
+                    score += PARMS['blue'] * 100
             elif self.combo[c][4] == 'g':
                 color['g'] = 1
                 if PARMS.has_key('green'):
-                    score += cmb[c] * PARMS['green'] * 100
+                    score += PARMS['green'] * 100
             elif self.combo[c][4] == 'l':
                 color['l'] = 1
                 if PARMS.has_key('light'):
-                    score += cmb[c] * PARMS['light'] * 100
+                    score += PARMS['light'] * 100
             elif self.combo[c][4] == 'd':
                 color['d'] = 1
                 if PARMS.has_key('dark'):
-                    score += cmb[c] * PARMS['dark'] * 100
+                    score += PARMS['dark'] * 100
             elif self.combo[c][4] == 'c':
                 color['c'] = 1
                 if PARMS.has_key('cure'):
-                    score += cmb[c] * PARMS['cure'] * 100
-        for k in color.keys():
-            if k != 'c':
-                colors += 1
+                    score += PARMS['cure'] * 100
+        #print "self.combo:" + str(self.combo)
+        #print "cmb:" + str(cmb)
+        #print "color:" + str(color)
+        for k in cmb.keys():
+            #print "k:" + str(k) + ", self.combo[cmb[k]][4]:" + str(self.combo[cmb[k]][4])
+            if self.combo[cmb[k]][4] != 'c':
+                if color[self.combo[cmb[k]][4]] != 0:
+                    colors += 1
+                #print "colors:" + str(colors)
         if colors >= 3 and PARMS.has_key('3colors'):
             score += PARMS['3colors'] * 1000
+        if colors >= 3 and color['c'] == 1 and PARMS.has_key('3colors+cure'):
+            score += PARMS['3colors+cure'] * 1000
         if colors >= 4 and PARMS.has_key('4colors'):
             score += PARMS['4colors'] * 1000
+        if colors >= 4 and color['c'] == 1 and PARMS.has_key('4colors+cure'):
+            score += PARMS['4colors+cure'] * 1000
+        if colors >= 5 and PARMS.has_key('5colors'):
+            score += PARMS['5colors'] * 1000
+        if colors >= 5 and color['c'] == 1 and PARMS.has_key('5colors+cure'):
+            score += PARMS['5colors+cure'] * 1000
         return (score, combo)
 
     # グループ1の各ドロップの近接リストにグループ2の各ドロップが存在するかを調査する関数
@@ -407,6 +419,7 @@ clllll
 
     def print_combo(self):# {{{
         cmb_l = list(self.board)
+        #print "print_combo() self.combo:" + str(self.combo)
         for i in self.combo:
             if i[3] == "h":
                 for j in self.renketsu_6x5_h[self.xy2idx(i[1], i[2])]:
@@ -414,6 +427,7 @@ clllll
             elif i[3] == "v":
                 for j in self.renketsu_6x5_v[self.xy2idx(i[1], i[2])]:
                     cmb_l[j] = self.str_e(i[5])
+        #print "cmb_l: " + str(cmb_l)
         strs = "".join(cmb_l)
         for h in range(self.height):
             print strs[h*self.width:h*self.width+self.width]
