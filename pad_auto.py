@@ -19,24 +19,30 @@ SWIPE = 7
 # CURE = 3.0# }}}
 
 PARMS = {# {{{
-        'red'  : 3.0,
-        'blue' : 1.0,
-        'green': 3.0,
-        'light': 5.0,
-        'dark' : 1.0,
+        'red'  : 0.0,
+        'blue' : 0.0,
+        'green': 0.0,
+        'light': 1.0,
+        'dark' : 0.0,
         'cure' : 1.0,
-        '4drop-red'  : 0.0,
-        '4drop-blue' : 0.0,
-        '4drop-green': 0.0,
-        '4drop-light': 0.0,
-        '4drop-dark' : 0.0,
-        '4drop-cure' : 0.0,
-        '5drop-red'  : 0.0,
-        '5drop-blue' : 0.0,
-        '5drop-green': 0.0,
-        '5drop-light': 0.0,
-        '5drop-dark' : 0.0,
-        '5drop-cure' : 0.0,
+        '3colors'  : 0.0,
+        '4colors'  : 1.0,
+        '5colors'  : 0.0,
+        '3colors+cure'  : 0.0,
+        '4colors+cure'  : 0.0,
+        '5colors+cure'  : 0.0,
+        '4drops-red'  : 0.0,
+        '4drops-blue' : 0.0,
+        '4drops-green': 0.0,
+        '4drops-light': 0.0,
+        '4drops-dark' : 0.0,
+        '4drops-cure' : 0.0,
+        '5drops-red'  : 0.0,
+        '5drops-blue' : 0.0,
+        '5drops-green': 0.0,
+        '5drops-light': 0.0,
+        '5drops-dark' : 0.0,
+        '5drops-cure' : 0.0,
         '1line-red'  : 0.0,
         '1line-blue' : 0.0,
         '1line-green': 0.0,
@@ -74,10 +80,10 @@ path = "C:/Users/" + WIN_USER_NAME + "/MyProject/python/pad_auto/screen.png"
 lap1_time = time.time()
 
 pic = Image.open(path, 'r')
-if pic.width == 800:
+if pic.width == 800:# {{{
     is_nexus = True
 else:
-    is_nexus = False
+    is_nexus = False# }}}
 
 #board = padboard.check_board(".\screen.png", 6, 5)
 temp_board = padboard.check_board(".\screen.png", WIDTH, HEIGHT, 0)
@@ -92,8 +98,8 @@ print ""
 x = []
 y = []
 
-def idx2xy(width, idx):
-    return[int(idx/width), int(idx%width)]
+def idx2xy(width, idx):# {{{
+    return[int(idx/width), int(idx%width)]# }}}
 
 #n_best = pad_search.Nbeam(6, 5, board, MAX_TURN, PLAYNUM, RED, BLUE, GREEN, LIGHT, DARK, CURE)
 n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
@@ -103,24 +109,24 @@ print "[combo]"
 print print_board(WIDTH, HEIGHT, n_best.board)
 print ""
 
-for r in n_best.route:
+for r in n_best.route:# {{{
     ans = idx2xy(WIDTH, r)
     x.append(ans[1])
-    y.append(ans[0])
+    y.append(ans[0])# }}}
 
-def conv_x(i):
+def conv_x(i):# {{{
     if is_nexus:
         return 15 + 65 + 130 * (int(i))
     else:
-        return 5 + 90 + 180 * (int(i))
+        return 5 + 90 + 180 * (int(i))# }}}
 
-def conv_y(i):
+def conv_y(i):# {{{
     if is_nexus:
         return 560 + 65 + 130 * (int(i))
     else:
-        return 850 + 90 + 180 * (int(i))
+        return 850 + 90 + 180 * (int(i))# }}}
 
-def calc_i(flag, ary):
+def calc_i(flag, ary):# {{{
     pos_i = "\""
     for i,v in enumerate(ary):
         if flag == "x":
@@ -130,7 +136,7 @@ def calc_i(flag, ary):
         pos_i += ","
     pos_i = pos_i.rstrip(",")
     pos_i += "\""
-    return pos_i
+    return pos_i# }}}
 
 pos_x = calc_i("x", x)
 pos_y = calc_i("y", y)

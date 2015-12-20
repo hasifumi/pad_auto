@@ -62,12 +62,13 @@ adjacent_6x5 = [# {{{
 class Node:# {{{
     def __init__(self, start, board):
         self.score = 0
+        self.combo = 0
         self.route = []
         self.route.append(start)
         self.board = board
 
     def set_route(self, lst):
-        self.route = lst
+        self.route = lst# }}}
 
 #def Nbeam(width, height, start_board, max_turn, playnum, red, blue, green, light, dark, cure):
 def Nbeam(width, height, start_board, max_turn, playnum, parms):
@@ -100,8 +101,8 @@ def Nbeam(width, height, start_board, max_turn, playnum, parms):
                         n = Node(k.route[0], k.board)
                         n.set_route(k.route[:])
                         n.board = swap(now_pos, j, k.board)
-                        #n.score = calc_score(width, height, n.board, red, blue, green, light, dark, cure)
-                        n.score = calc_score(width, height, n.board, parms)
+                        #n.score = calc_score(width, height, n.board, parms)
+                        n.score, n.combo = calc_score(width, height, n.board, parms)
                         n.route.append(j)
                         if len(dummy_array) > playnum:
                             idx = 0
@@ -125,14 +126,15 @@ def Nbeam(width, height, start_board, max_turn, playnum, parms):
             idx = k
 
     #print "len(node_array):" + str(len(node_array))
-    print "best:" + str(best)
+    print "best score:" + str(node_array[idx].score)
+    print "best combo:" + str(node_array[idx].combo)
     #print "idx:" + str(idx)
     #print "route:" + str(node_array[idx].route)
     #print "board:" + str(node_array[idx].board)
 
     return node_array[idx]
 
-def swap(a, b, board):
+def swap(a, b, board):# {{{
     i = int(a)
     j = int(b)
     if i > j:
@@ -146,14 +148,14 @@ def swap(a, b, board):
     li[j] = temp
     temp_board = "".join(li)
     #print "swap return:" + str(temp_board) + ", length:" + str(len(temp_board))
-    return temp_board
+    return temp_board# }}}
 
-def evalCombo(width, height, board):
+def evalCombo(width, height, board):# {{{
     #return 100
     pdc = pazdracombo.PazdraComboChecker(width, height, board)
     pdc.check_erasable()
     pdc.calc_combo()
-    return pdc.sum_combo()
+    return pdc.sum_combo()# }}}
 
 #def calc_score(width, height, board, red, blue, green, light, dark, cure):
 def calc_score(width, height, board, parms):

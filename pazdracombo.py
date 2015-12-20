@@ -18,18 +18,22 @@ PARMS = {# {{{
         'light': 1.0,
         'dark' : 1.0,
         'cure' : 1.0,
-        '4drop-red'  : 0.0,
-        '4drop-blue' : 0.0,
-        '4drop-green': 0.0,
-        '4drop-light': 0.0,
-        '4drop-dark' : 0.0,
-        '4drop-cure' : 0.0,
-        '5drop-red'  : 0.0,
-        '5drop-blue' : 0.0,
-        '5drop-green': 0.0,
-        '5drop-light': 0.0,
-        '5drop-dark' : 0.0,
-        '5drop-cure' : 0.0,
+        '4colors'  : 1.0,
+        '5colors'  : 0.0,
+        '4colors+cure'  : 0.0,
+        '5colors+cure'  : 0.0,
+        '4drops-red'  : 0.0,
+        '4drops-blue' : 0.0,
+        '4drops-green': 0.0,
+        '4drops-light': 0.0,
+        '4drops-dark' : 0.0,
+        '4drops-cure' : 0.0,
+        '5drops-red'  : 0.0,
+        '5drops-blue' : 0.0,
+        '5drops-green': 0.0,
+        '5drops-light': 0.0,
+        '5drops-dark' : 0.0,
+        '5drops-cure' : 0.0,
         '1line-red'  : 0.0,
         '1line-blue' : 0.0,
         '1line-green': 0.0,
@@ -64,6 +68,7 @@ class PazdraComboChecker():
             "cure"  : "6",
     }# }}}
 
+# {{{
     default_param = """
 rddbgb
 rrrbgb
@@ -76,6 +81,7 @@ clllll
 
     pdc_output_table = pdc_output_ascii_table
     pdc_combo_table = pdc_combo_ascii_table
+# }}}
 
     adjacent_6x5 = [# {{{
             [1, 6],             # 0
@@ -177,7 +183,7 @@ clllll
     ]# }}}
 
 
-    def __init__(self, width, height, param=None):
+    def __init__(self, width, height, param=None):# {{{
         if param is None:
             param = self.default_param
             self.width = 6
@@ -189,10 +195,10 @@ clllll
         self.board_l = self.str2lst(param, width, height)
         self.erase_l = copy.deepcopy(self.board_l)
         self.combo = []
-        # combo : 1)find_seq, 2)start_x_pos, 3)start_y_pos, 4)vector(h/v), 5)color, 6)combo_seq
+        # combo : 1)find_seq, 2)start_x_pos, 3)start_y_pos, 4)vector(h/v), 5)color, 6)combo_seq# }}}
 
     # 文字列を2二元配列に格納
-    def str2lst(self, param, width, height):
+    def str2lst(self, param, width, height):# {{{
         ret = [[0 for col in range(width)] for row in range(height)]
         if len(param) == width * height:
             i = 0
@@ -201,16 +207,16 @@ clllll
                     ret[h][w] = param[i]
                     i += 1
         #print ret
-        return ret
+        return ret# }}}
 
     # ユーティリティ関数
-    def xy2idx(self, x, y):
-        return y*self.width+x
+    def xy2idx(self, x, y):# {{{
+        return y*self.width+x# }}}
 
-    def idx2xy(self, idx):
-        return[int(idx/self.width), int(idx%self.width)]
+    def idx2xy(self, idx):# {{{
+        return[int(idx/self.width), int(idx%self.width)]# }}}
 
-    def check_erasable(self, width=6, height=5):
+    def check_erasable(self, width=6, height=5):# {{{
         e = 0
         # 横方向の消去可能性チェック
         for j in range(height):
@@ -231,7 +237,7 @@ clllll
                     self.erase_l[j][i] = self.str_e(e)
                     self.erase_l[j+1][i] = self.str_e(e)
                     self.erase_l[j+2][i] = self.str_e(e)
-                    self.combo.append([e, i, j, "v", self.board_l[j][i], e])
+                    self.combo.append([e, i, j, "v", self.board_l[j][i], e])# }}}
 
     def str_e(self,e):# {{{
         if 0 < e <= 9:
@@ -261,7 +267,7 @@ clllll
         elif e > 20:
             return "Z"# }}}
 
-    def isRenketsu(self, x, y, vector="h"):
+    def isRenketsu(self, x, y, vector="h"):# {{{
         if vector == "h":  # 横方向
             if self.board_l[y][x] == self.board_l[y][x+1] == self.board_l[y][x+2]:
                 return True
@@ -273,9 +279,9 @@ clllll
             else:
                 return False
         else:
-            return False
+            return False# }}}
 
-    def print_lst2str(self, mod="board"):
+    def print_lst2str(self, mod="board"):# {{{
         if mod == "board":
             lst = copy.deepcopy(self.board_l)
         elif mod == "erase":
@@ -284,9 +290,9 @@ clllll
         strs = "".join(list(itertools.chain.from_iterable(lst)))
         for h in range(self.height):
             print strs[h*self.width:h*self.width+self.width]
-        #return
+        #return# }}}
 
-    def calc_combo(self):
+    def calc_combo(self):# {{{
         cmb = 0
         for i, v in enumerate(self.combo):
             if cmb < v[5]:
@@ -298,22 +304,32 @@ clllll
                         self.combo[i][5] = cmb
                         self.combo[i+i2+1][5] = cmb
                         #print "cmb:" + str(cmb) + ", i:" + str(i) + ", i2:" + str(i2) + ", i+i2+1:" + str(i+i2+1) + ", self.combo[i+i2+1][5]: " + str(self.combo[i+i2+1][5])
-        return
+        return # }}}
 
-    def sum_combo(self):
+    def sum_combo(self):# {{{
         cmb = {}
         for k in self.combo:
             if k[5] in cmb:
                 cmb[k[5]] += 1
             else:
                 cmb[k[5]] = 1
-        return len(cmb)
+        return len(cmb)# }}}
 
-    # combo : 0)find_seq, 1)start_x_pos, 2)start_y_pos, 3)vector(h/v), 4)color, 5)combo_seq
-    #def calc_score(self, red=1.0, blue=1.0, green=1.0, light=1.0, dark=1.0, cure=1.0):
     def calc_score(self, PARMS):
+    #def calc_score(self, red=1.0, blue=1.0, green=1.0, light=1.0, dark=1.0, cure=1.0):
+    # combo : 0)find_seq, 1)start_x_pos, 2)start_y_pos, 3)vector(h/v), 4)color, 5)combo_seq
         cmb = {}
+        color = {
+                'r' : 0,
+                'b' : 0,
+                'g' : 0,
+                'l' : 0,
+                'd' : 0,
+                'c' : 0,
+                }
+        colors = 0
         score = 0
+        combo = 0
         for k in self.combo:
             if (k[5]-1) in cmb:
                 cmb[(k[5]-1)] += 1
@@ -321,26 +337,48 @@ clllll
                 cmb[(k[5]-1)] = 1
         #print self.combo
         #print cmb
+        combo = len(cmb)
+        score += combo * 100
         for c in cmb.keys():
             #print "c: " + str(c)
             #print "self.combo[c][4]: " + self.combo[c][4]
             #print "str(cmb[c]): " + str(cmb[c])
-            if self.combo[c][4] == 'r' and PARMS.has_key('red'):
-                score += cmb[c] * PARMS['red'] * 100
-            elif self.combo[c][4] == 'b' and PARMS.has_key('blue'):
-                score += cmb[c] * PARMS['blue'] * 100
-            elif self.combo[c][4] == 'g' and PARMS.has_key('green'):
-                score += cmb[c] * PARMS['green'] * 100
-            elif self.combo[c][4] == 'l' and PARMS.has_key('light'):
-                score += cmb[c] * PARMS['light'] * 100
-            elif self.combo[c][4] == 'd' and PARMS.has_key('dark'):
-                score += cmb[c] * PARMS['dark'] * 100
-            elif self.combo[c][4] == 'c' and PARMS.has_key('cure'):
-                score += cmb[c] * PARMS['cure'] * 100
-        return score
+            #if self.combo[c][4] == 'r' and PARMS.has_key('red'):
+            if self.combo[c][4] == 'r':
+                color['r'] = 1
+                if PARMS.has_key('red'):
+                    score += cmb[c] * PARMS['red'] * 100
+            elif self.combo[c][4] == 'b':
+                color['b'] = 1
+                if PARMS.has_key('blue'):
+                    score += cmb[c] * PARMS['blue'] * 100
+            elif self.combo[c][4] == 'g':
+                color['g'] = 1
+                if PARMS.has_key('green'):
+                    score += cmb[c] * PARMS['green'] * 100
+            elif self.combo[c][4] == 'l':
+                color['l'] = 1
+                if PARMS.has_key('light'):
+                    score += cmb[c] * PARMS['light'] * 100
+            elif self.combo[c][4] == 'd':
+                color['d'] = 1
+                if PARMS.has_key('dark'):
+                    score += cmb[c] * PARMS['dark'] * 100
+            elif self.combo[c][4] == 'c':
+                color['c'] = 1
+                if PARMS.has_key('cure'):
+                    score += cmb[c] * PARMS['cure'] * 100
+        for k in color.keys():
+            if k != 'c':
+                colors += 1
+        if colors >= 3 and PARMS.has_key('3colors'):
+            score += PARMS['3colors'] * 1000
+        if colors >= 4 and PARMS.has_key('4colors'):
+            score += PARMS['4colors'] * 1000
+        return (score, combo)
 
     # グループ1の各ドロップの近接リストにグループ2の各ドロップが存在するかを調査する関数
-    def isKinsetsu(self, x1, y1, v1, x2, y2, v2):  # x:x座標、y:y座標, v:方向
+    def isKinsetsu(self, x1, y1, v1, x2, y2, v2):  # x:x座標、y:y座標, v:方向# {{{
         idx1 = self.xy2idx(x1, y1)
         idx2 = self.xy2idx(x2, y2)
         if v1 == "h":
@@ -365,9 +403,9 @@ clllll
                         for k in self.renketsu_6x5_v[idx2]:
                             if j == k:
                                 return True
-        return False
+        return False# }}}
 
-    def print_combo(self):
+    def print_combo(self):# {{{
         cmb_l = list(self.board)
         for i in self.combo:
             if i[3] == "h":
@@ -379,15 +417,14 @@ clllll
         strs = "".join(cmb_l)
         for h in range(self.height):
             print strs[h*self.width:h*self.width+self.width]
-        return
+        return# }}}
 
-
-    # 妥当なブロックか判定# {{{
-    def pdc_valid(self, sym):
+    # 妥当なブロックか判定
+    def pdc_valid(self, sym):# {{{
         if sym == "fire" or "water" or "wood" or "light" or "dark" or "cure":
             return True
         else:
-            return False# }}}
+            return False# }}}}
 
 def convert_h_w(lst):# {{{
     lst2 = []
