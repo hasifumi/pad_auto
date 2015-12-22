@@ -387,7 +387,35 @@ clllll
             score += PARMS['5colors'] * 1000
         if colors >= 5 and color['c'] == 1 and PARMS.has_key('5colors+cure'):
             score += PARMS['5colors+cure'] * 1000
+
+        color = self.chk1LineColor()
+        for k in color.keys():
+            #print "k: " + str(k) + ", color[k]: " + str(color[k])
+            if   color[k] == 'r' and PARMS.has_key('1line-red'):
+                score += PARMS['1line-red']  * 10000
+            elif color[k] == 'b' and PARMS.has_key('1line-blue'):
+                score += PARMS['1line-blue'] * 10000
+            elif color[k] == 'g' and PARMS.has_key('1line-green'):
+                score += PARMS['1line-green'] * 10000
+            elif color[k] == 'l' and PARMS.has_key('1line-light'):
+                score += PARMS['1line-light'] * 10000
+            elif color[k] == 'd' and PARMS.has_key('1line-dark'):
+                score += PARMS['1line-dark'] * 10000
+            elif color[k] == 'c' and PARMS.has_key('1line-cure'):
+                score += PARMS['1line-cure'] * 10000
         return (score, combo)
+
+    def chk1LineColor(self):
+        color = {}
+        for y in range(self.height):
+            for x in range(self.width):
+                if color.has_key(y):
+                    if color[y] != self.board[self.xy2idx(x, y)]:
+                        color[y] = ""
+                        break
+                else:
+                    color[y] = self.board[self.xy2idx(x, y)]
+        return  color
 
     # グループ1の各ドロップの近接リストにグループ2の各ドロップが存在するかを調査する関数
     def isKinsetsu(self, x1, y1, v1, x2, y2, v2):  # x:x座標、y:y座標, v:方向# {{{

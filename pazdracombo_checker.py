@@ -33,7 +33,7 @@ PARMS = {# {{{
         '5drops-light': 0.0,
         '5drops-dark' : 0.0,
         '5drops-cure' : 0.0,
-        '1line-red'  : 0.0,
+        '1line-red'  : 1.0,
         '1line-blue' : 0.0,
         '1line-green': 0.0,
         '1line-light': 0.0,
@@ -44,8 +44,8 @@ PARMS = {# {{{
 board = """
 rrrrrr
 bbbbbb
-gggggg
-dddddd
+gbbggg
+dddcdd
 cccccc
 """.replace('\n', '')
 
@@ -76,3 +76,7 @@ print "[combo]"
 print pdc.print_combo()
 score, combo = pdc.calc_score(PARMS)
 print "score: " + str(score) + ", combo: " + str(combo)
+
+color = pdc.chk1LineColor()
+print color
+

@@ -7,9 +7,9 @@ WIN_USER_NAME = "fumio"
 WIDTH = 6
 HEIGHT = 5
 
-MAX_TURN = 30
+MAX_TURN = 35
 PLAYNUM = 400
-SWIPE = 7
+SWIPE = 5
 
 # RED = 1.0# {{{
 # BLUE = 4.0
@@ -19,16 +19,16 @@ SWIPE = 7
 # CURE = 3.0# }}}
 
 PARMS = {# {{{
-        'red'  : 0.0,
+        'red'  : 1.0,
         'blue' : 0.0,
         'green': 0.0,
-        'light': 1.0,
+        'light': 5.0,
         'dark' : 0.0,
         'cure' : 1.0,
         '3colors'  : 0.0,
-        '4colors'  : 2.0,
+        '4colors'  : 0.0,
         '5colors'  : 0.0,
-        '3colors+cure'  : 1.0,
+        '3colors+cure'  : 0.0,
         '4colors+cure'  : 0.0,
         '5colors+cure'  : 0.0,
         '4drops-red'  : 0.0,
@@ -43,10 +43,10 @@ PARMS = {# {{{
         '5drops-light': 0.0,
         '5drops-dark' : 0.0,
         '5drops-cure' : 0.0,
-        '1line-red'  : 0.0,
+        '1line-red'  : 5.0,
         '1line-blue' : 0.0,
         '1line-green': 0.0,
-        '1line-light': 0.0,
+        '1line-light': 5.0,
         '1line-dark' : 0.0,
         '1line-cure' : 0.0,
         }# }}}
@@ -141,11 +141,12 @@ def calc_i(flag, ary):# {{{
 pos_x = calc_i("x", x)
 pos_y = calc_i("y", y)
 
-print pos_x
-print pos_y
+#print pos_x
+#print pos_y
 
-#pos_x = "470,600,600,470,470,470,470,600,600,470,470,340,340,340,340,340,210,80,80,80,80,210"
-#pos_y = "1015,1015,1145,1145,1015,885,755,755,625,625,755,755,885,755,885,1015,1015,1015,885,755,625,625"
+#print "press any key"
+#input_test_word = raw_input(">>>  ")
+#print "key: " + str(input_test_word)
 
 swipe_time = str(SWIPE)
 
@@ -157,5 +158,5 @@ subprocess.check_call(uiautomator_cmd, shell=True)
 elapsed_lap1_time = lap1_time - start_time
 elapsed_time = time.time() - start_time
 
-print("lap1_time:{0}".format(elapsed_lap1_time)) + "[sec]"
+#print("lap1_time:{0}".format(elapsed_lap1_time)) + "[sec]"
 print("elapsed_time:{0}".format(elapsed_time)) + "[sec]"
