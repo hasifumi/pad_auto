@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # vim:set foldmethod=marker:
 
-WIN_USER_NAME = "fumio"
+#WIN_USER_NAME = "fumio"
 #WIN_USER_NAME = "hassy"
 
 WIDTH = 6
@@ -124,33 +124,37 @@ def move_drop(pos_x, pos_y, swipe_time):# {{{
     uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y, "-e","\"t\"", swipe_time]
     subprocess.check_call(uiautomator_cmd, shell=True)# }}}
 
-path = "C:/Users/" + WIN_USER_NAME + "/MyProject/python/pad_auto/screen.png"
+#path = "C:/Users/" + WIN_USER_NAME + "/MyProject/python/pad_auto/screen.png"
+path = ".\screen.png"
+
 # main routine
+
+end_flg = True
 
 start_time = time.time()
 
-get_screenshot(device_path)
+while(end_flg):
 
-board = pazdracombo.convert_h_w(padboard.check_board(".\screen.png", WIDTH, HEIGHT, 0))
+    print "press any number key (1: get_ss & search, 2: move, else: exit)"
+    input_test_word = input(">>>  ")
+    print "key: " + str(input_test_word)
+    if input_test_word == 1:
+        get_screenshot(device_path)
+        board = pazdracombo.convert_h_w(padboard.check_board(path, WIDTH, HEIGHT, 0))
+        n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+        pos_x, pos_y = get_route(n_best.route, is_nexus(path))
+        # 確認用
+        print "[board]"
+        print print_board(WIDTH, HEIGHT, board)
+        print ""
+        print "[combo]"
+        print print_board(WIDTH, HEIGHT, n_best.board)
+        print ""
+    elif input_test_word == 2:
+        move_drop(pos_x, pos_y, str(SWIPE))
+    else:
+        print "pad_auto exit"
+        end_flg = False
 
-n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-pos_x, pos_y = get_route(n_best.route, is_nexus(path))
-
-# 確認用
-print "[board]"
-print print_board(WIDTH, HEIGHT, board)
-print ""
-
-print "[combo]"
-print print_board(WIDTH, HEIGHT, n_best.board)
-print ""
-
-#print "press any key"
-#input_test_word = raw_input(">>>  ")
-#print "key: " + str(input_test_word)
-
-move_drop(pos_x, pos_y, str(SWIPE))
-
-elapsed_lap1_time = lap1_time - start_time
 elapsed_time = time.time() - start_time
 print("elapsed_time:{0}".format(elapsed_time)) + "[sec]"
