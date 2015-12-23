@@ -43,11 +43,11 @@ PARMS = {# {{{
         '5drops-light': 0.0,
         '5drops-dark' : 0.0,
         '5drops-cure' : 0.0,
-        '1line-red'  : 5.0,
-        '1line-blue' : 0.0,
+        '1line-red'  : 0.0,
+        '1line-blue' : 10.0,
         '1line-green': 0.0,
-        '1line-light': 5.0,
-        '1line-dark' : 0.0,
+        '1line-light': 0.0,
+        '1line-dark' : 3.0,
         '1line-cure' : 0.0,
         }# }}}
 
@@ -137,8 +137,8 @@ while(end_flg):
 
     print "press any number key (1: get_ss & search, 2: move, else: exit)"
     input_test_word = input(">>>  ")
-    print "key: " + str(input_test_word)
     if input_test_word == 1:
+        print "get screenshot and search ..."
         get_screenshot(device_path)
         board = pazdracombo.convert_h_w(padboard.check_board(path, WIDTH, HEIGHT, 0))
         n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
@@ -151,9 +151,10 @@ while(end_flg):
         print print_board(WIDTH, HEIGHT, n_best.board)
         print ""
     elif input_test_word == 2:
+        print "move drops ..."
         move_drop(pos_x, pos_y, str(SWIPE))
     else:
-        print "pad_auto exit"
+        print "pad_auto exit!"
         end_flg = False
 
 elapsed_time = time.time() - start_time

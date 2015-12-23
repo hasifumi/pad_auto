@@ -6,7 +6,7 @@
 
 import itertools
 import copy
-import pad
+#import pad
 import padboard
 import subprocess
 import time
