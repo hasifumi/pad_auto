@@ -4,12 +4,6 @@
 import pazdracombo
 import time
 
-#MAX_TURN = 20
-#MAX_TURN = 9
-#MAX_TURN = 25
-#PLAYNUM = 5000
-#PLAYNUM = 1500
-
 # 隣接リスト
 adjacent_4x3 = [# {{{
         [1, 4],             #0
@@ -25,6 +19,29 @@ adjacent_4x3 = [# {{{
         [6, 9, 11],
         [7, 10]
     ]# }}}
+
+adjacent_5x4 = [# {{{
+        [1, 5],             # 0
+        [0, 2, 6],
+        [1, 3, 7],
+        [2, 4, 8],
+        [3, 9],
+        [0, 6, 10],
+        [1, 5, 7, 11],
+        [2, 6, 8, 12],
+        [3, 7, 9, 13],
+        [4, 8, 14],
+        [5, 11, 15],
+        [6, 10, 12, 16],
+        [7, 11, 13, 17],
+        [8, 12, 14, 18],
+        [9, 13, 19],
+        [10, 16],
+        [11, 15, 17],
+        [12, 16, 18],
+        [13, 17, 19],
+        [14, 18]
+]# }}}
 
 adjacent_6x5 = [# {{{
         [1, 6],             # 0
@@ -86,14 +103,22 @@ def Nbeam(width, height, start_board, max_turn, playnum, parms):
                 prev_pos = k.route[-2]
             else:
                 prev_pos = -1
-            if width == 4:
-                for j in adjacent_4x3[now_pos]:
+            if width == 5:
+                for j in adjacent_5x4[now_pos]:
                     if  j != prev_pos:
                         n = Node(k.route[0], k.board)
                         n.set_route(k.route[:])
                         n.board = swap(now_pos, j, k.board)
-                        n.score = evalCombo(width, height, n.board)
+                        n.score, n.combo = calc_score(width, height, n.board, parms)
                         n.route.append(j)
+                        if len(dummy_array) > playnum:
+                            idx = 0
+                            worst = 999999
+                            for d,v in enumerate(dummy_array):
+                                if worst > v.score:
+                                    worst = v.score
+                                    idx = d
+                            del dummy_array[idx]
                         dummy_array.append(n)
             if width == 6:
                 for j in adjacent_6x5[now_pos]:
@@ -125,12 +150,8 @@ def Nbeam(width, height, start_board, max_turn, playnum, parms):
             best = v.score
             idx = k
 
-    #print "len(node_array):" + str(len(node_array))
     print "best score:" + str(node_array[idx].score)
     print "best combo:" + str(node_array[idx].combo)
-    #print "idx:" + str(idx)
-    #print "route:" + str(node_array[idx].route)
-    #print "board:" + str(node_array[idx].board)
 
     return node_array[idx]
 
@@ -141,45 +162,21 @@ def swap(a, b, board):# {{{
         temp = i
         i = j
         j = temp
-    #print "swap i:" + str(i) + ", j:" + str(j) + ", board:" + str(board) + ", length:" + str(len(board))
     li = list(board)
     temp = li[i]
     li[i] = li[j]
     li[j] = temp
     temp_board = "".join(li)
-    #print "swap return:" + str(temp_board) + ", length:" + str(len(temp_board))
     return temp_board# }}}
 
 def evalCombo(width, height, board):# {{{
-    #return 100
     pdc = pazdracombo.PazdraComboChecker(width, height, board)
-    pdc.check_erasable()
+    pdc.check_erasable(width, height)
     pdc.calc_combo()
     return pdc.sum_combo()# }}}
 
-#def calc_score(width, height, board, red, blue, green, light, dark, cure):
-def calc_score(width, height, board, parms):
+def calc_score(width, height, board, parms):# {{{
     pdc = pazdracombo.PazdraComboChecker(width, height, board)
-    pdc.check_erasable()
+    pdc.check_erasable(width, height)
     pdc.calc_combo()
-    return pdc.calc_score(parms)
-
-
-#Nbeam(4, 3, "rrbglggldgdc")
-
-#default_param = """
-#rddbgb
-#rrrbgb
-#rllbgb
-#ggggbb
-#clllll
-#""".replace('\n', '')
-
-#start_time = time.time()
-#
-#n_best = Nbeam(6, 5, default_param)
-#print n_best.score
-#print n_best.route
-#
-#elapsed_time = time.time() - start_time
-#print("elapsed_time:{0}".format(elapsed_time)) + "[sec]"
+    return pdc.calc_score(parms)# }}}

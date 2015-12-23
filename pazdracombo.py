@@ -44,30 +44,6 @@ PARMS = {# {{{
 
 class PazdraComboChecker():
 
-    pdc_sym_table = {# {{{
-            "1": "fire",
-            "2": "water",
-            "3": "wood",
-            "4": "light",
-            "5": "dark",
-            "6": "cure",
-            "r": "fire",
-            "b": "water",
-            "g": "wood",
-            "l": "light",
-            "d": "dark",
-            "c": "cure",
-    }# }}}
-
-    pdc_output_ascii_table = {# {{{
-            "fire"  : "1",
-            "water" : "2",
-            "wood"  : "3",
-            "light" : "4",
-            "dark"  : "5",
-            "cure"  : "6",
-    }# }}}
-
 # {{{
     default_param = """
 rddbgb
@@ -79,9 +55,76 @@ clllll
 
     pdc_combo_ascii_table = list("abcdefghij")
 
-    pdc_output_table = pdc_output_ascii_table
-    pdc_combo_table = pdc_combo_ascii_table
 # }}}
+
+    adjacent_5x4 = [# {{{
+            [1, 5],             # 0
+            [0, 2, 6],
+            [1, 3, 7],
+            [2, 4, 8],
+            [3, 9],
+            [0, 6, 10],
+            [1, 5, 7, 11],
+            [2, 6, 8, 12],
+            [3, 7, 9, 13],
+            [4, 8, 14],
+            [5, 11, 15],
+            [6, 10, 12, 16],
+            [7, 11, 13, 17],
+            [8, 12, 14, 18],
+            [9, 13, 19],
+            [10, 16],
+            [11, 15, 17],
+            [12, 16, 18],
+            [13, 17, 19],
+            [14, 18]
+    ]# }}}
+
+    renketsu_5x4_h = [# {{{
+            [0, 1, 2],
+            [1, 2, 3],
+            [2, 3, 4],
+            [],
+            [],
+            [5, 6, 7],
+            [6, 7, 8],
+            [7, 8, 9],
+            [],
+            [],
+            [10, 11, 12],
+            [11, 12, 13],
+            [12, 13, 14],
+            [],
+            [],
+            [15, 16, 17],
+            [16, 17, 18],
+            [17, 18, 19],
+            [],
+            [],
+    ]# }}}
+
+    renketsu_5x4_v = [# {{{
+            [0, 5, 10],
+            [1, 6, 11],
+            [2, 7, 12],
+            [3, 8, 13],
+            [4, 9, 14],
+            [5, 10, 15],
+            [6, 11, 16],
+            [7, 12, 17],
+            [8, 13, 18],
+            [9, 14, 19],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+    ]# }}}
 
     adjacent_6x5 = [# {{{
             [1, 6],             # 0
@@ -119,7 +162,7 @@ clllll
     renketsu_6x5_h = [# {{{
             [0, 1, 2],
             [1, 2, 3],
-            [2,3, 4],
+            [2, 3, 4],
             [3, 4, 5],
             [],
             [],
@@ -182,7 +225,6 @@ clllll
             [],
     ]# }}}
 
-
     def __init__(self, width, height, param=None):# {{{
         if param is None:
             param = self.default_param
@@ -221,7 +263,6 @@ clllll
         # 横方向の消去可能性チェック
         for j in range(height):
             for i in range(width - 2):
-                #print "i: " + str(i) + ", j: " + str(j)
                 if self.isRenketsu(i, j, "h") == True:
                     self.erase_l[j][i] = self.str_e(ers)
                     self.erase_l[j][i+1] = self.str_e(ers)
@@ -231,13 +272,12 @@ clllll
         # 縦方向の消去可能性チェック
         for j in range(height - 2):
             for i in range(width):
-                #print "i: " + str(i) + ", j: " + str(j)
                 if self.isRenketsu(i, j, "v") == True:
                     self.erase_l[j][i] = self.str_e(ers)
                     self.erase_l[j+1][i] = self.str_e(ers)
                     self.erase_l[j+2][i] = self.str_e(ers)
-                    self.combo.append([ers, i, j, "v", self.board_l[j][i], ers])# }}}
-                    ers += 1
+                    self.combo.append([ers, i, j, "v", self.board_l[j][i], ers])
+                    ers += 1# }}}
 
     def str_e(self,e):# {{{
         if 0 <= e <= 9:
@@ -268,6 +308,7 @@ clllll
             return "Z"# }}}
 
     def isRenketsu(self, x, y, vector="h"):# {{{
+        #print "isRenketsu x:" + str(x) + ", y:" + str(y) + ", vector:" + str(vector)
         if vector == "h":  # 横方向
             if self.board_l[y][x] == self.board_l[y][x+1] == self.board_l[y][x+2]:
                 return True
@@ -315,18 +356,18 @@ clllll
                 cmb[k[5]] = 1
         return len(cmb)# }}}
 
-    def calc_score(self, PARMS):
+    def calc_score(self, PARMS):# {{{
     #def calc_score(self, red=1.0, blue=1.0, green=1.0, light=1.0, dark=1.0, cure=1.0):
     # combo : 0)find_seq, 1)start_x_pos, 2)start_y_pos, 3)vector(h/v), 4)color, 5)combo_seq
         cmb = {}
-        color = {
+        color = {# {{{
                 'r' : 0,
                 'b' : 0,
                 'g' : 0,
                 'l' : 0,
                 'd' : 0,
                 'c' : 0,
-                }
+                }# }}}
         colors = 0
         score = 0
         combo = 0
@@ -335,10 +376,6 @@ clllll
                 cmb[(k[5])] = k[0]
             else:
                 cmb[(k[5])] = k[0]
-            #if (k[5]-1) in cmb:
-            #    cmb[(k[5]-1)] += 1
-            #else:
-            #    cmb[(k[5]-1)] = 1
         combo = len(cmb)
         score += combo * 100
         for c in cmb.values():
@@ -366,15 +403,10 @@ clllll
                 color['c'] = 1
                 if PARMS.has_key('cure'):
                     score += PARMS['cure'] * 100
-        #print "self.combo:" + str(self.combo)
-        #print "cmb:" + str(cmb)
-        #print "color:" + str(color)
         for k in cmb.keys():
-            #print "k:" + str(k) + ", self.combo[cmb[k]][4]:" + str(self.combo[cmb[k]][4])
             if self.combo[cmb[k]][4] != 'c':
                 if color[self.combo[cmb[k]][4]] != 0:
                     colors += 1
-                #print "colors:" + str(colors)
         if colors >= 3 and PARMS.has_key('3colors'):
             score += PARMS['3colors'] * 1000
         if colors >= 3 and color['c'] == 1 and PARMS.has_key('3colors+cure'):
@@ -403,9 +435,9 @@ clllll
                 score += PARMS['1line-dark'] * 10000
             elif color[k] == 'c' and PARMS.has_key('1line-cure'):
                 score += PARMS['1line-cure'] * 10000
-        return (score, combo)
+        return (score, combo)# }}}
 
-    def chk1LineColor(self):
+    def chk1LineColor(self):# {{{
         color = {}
         for y in range(self.height):
             for x in range(self.width):
@@ -415,39 +447,62 @@ clllll
                         break
                 else:
                     color[y] = self.board[self.xy2idx(x, y)]
-        return  color
+        return  color# }}}
 
     # グループ1の各ドロップの近接リストにグループ2の各ドロップが存在するかを調査する関数
     def isKinsetsu(self, x1, y1, v1, x2, y2, v2):  # x:x座標、y:y座標, v:方向# {{{
         idx1 = self.xy2idx(x1, y1)
         idx2 = self.xy2idx(x2, y2)
         if v1 == "h":
-            for i in self.renketsu_6x5_h[idx1]:
-                for j in self.adjacent_6x5[i]:
-                    if v2 == "h":
-                        for k in self.renketsu_6x5_h[idx2]:
-                            if j == k:
-                                return True
-                    elif v2 == "v":
-                        for k in self.renketsu_6x5_v[idx2]:
-                            if j == k:
-                                return True
+            if self.width == 5:
+                for i in self.renketsu_5x4_h[idx1]:
+                    for j in self.adjacent_5x4[i]:
+                        if v2 == "h":
+                            for k in self.renketsu_5x4_h[idx2]:
+                                if j == k:
+                                    return True
+                        elif v2 == "v":
+                            for k in self.renketsu_5x4_v[idx2]:
+                                if j == k:
+                                    return True
+            if self.width == 6:
+                for i in self.renketsu_6x5_h[idx1]:
+                    for j in self.adjacent_6x5[i]:
+                        if v2 == "h":
+                            for k in self.renketsu_6x5_h[idx2]:
+                                if j == k:
+                                    return True
+                        elif v2 == "v":
+                            for k in self.renketsu_6x5_v[idx2]:
+                                if j == k:
+                                    return True
         elif v1 == "v":
-            for i in self.renketsu_6x5_v[idx1]:
-                for j in self.adjacent_6x5[i]:
-                    if v2 == "h":
-                        for k in self.renketsu_6x5_h[idx2]:
-                            if j == k:
-                                return True
-                    elif v2 == "v":
-                        for k in self.renketsu_6x5_v[idx2]:
-                            if j == k:
-                                return True
+            if self.width == 5:
+                for i in self.renketsu_5x4_v[idx1]:
+                    for j in self.adjacent_5x4[i]:
+                        if v2 == "h":
+                            for k in self.renketsu_5x4_h[idx2]:
+                                if j == k:
+                                    return True
+                        elif v2 == "v":
+                            for k in self.renketsu_5x4_v[idx2]:
+                                if j == k:
+                                    return True
+            if self.width == 6:
+                for i in self.renketsu_6x5_v[idx1]:
+                    for j in self.adjacent_6x5[i]:
+                        if v2 == "h":
+                            for k in self.renketsu_6x5_h[idx2]:
+                                if j == k:
+                                    return True
+                        elif v2 == "v":
+                            for k in self.renketsu_6x5_v[idx2]:
+                                if j == k:
+                                    return True
         return False# }}}
 
     def print_combo(self):# {{{
         cmb_l = list(self.board)
-        #print "print_combo() self.combo:" + str(self.combo)
         for i in self.combo:
             if i[3] == "h":
                 for j in self.renketsu_6x5_h[self.xy2idx(i[1], i[2])]:
@@ -455,18 +510,10 @@ clllll
             elif i[3] == "v":
                 for j in self.renketsu_6x5_v[self.xy2idx(i[1], i[2])]:
                     cmb_l[j] = self.str_e(i[5])
-        #print "cmb_l: " + str(cmb_l)
         strs = "".join(cmb_l)
         for h in range(self.height):
             print strs[h*self.width:h*self.width+self.width]
         return# }}}
-
-    # 妥当なブロックか判定
-    def pdc_valid(self, sym):# {{{
-        if sym == "fire" or "water" or "wood" or "light" or "dark" or "cure":
-            return True
-        else:
-            return False# }}}}
 
 def convert_h_w(lst):# {{{
     lst2 = []
@@ -500,6 +547,112 @@ def convert_h_w(lst):# {{{
     lst2.append(lst[19])
     lst2.append(lst[24])
     lst2.append(lst[29])
-    #print lst2
+    strs = "".join(list(itertools.chain.from_iterable(lst2)))
+    return strs# }}}
+
+def convert_h_w_6x5(lst):# {{{
+    lst2 = []
+    lst2.append(lst[0])
+    lst2.append(lst[5])
+    lst2.append(lst[10])
+    lst2.append(lst[15])
+    lst2.append(lst[20])
+    lst2.append(lst[25])
+    lst2.append(lst[1])
+    lst2.append(lst[6])
+    lst2.append(lst[11])
+    lst2.append(lst[16])
+    lst2.append(lst[21])
+    lst2.append(lst[26])
+    lst2.append(lst[2])
+    lst2.append(lst[7])
+    lst2.append(lst[12])
+    lst2.append(lst[17])
+    lst2.append(lst[22])
+    lst2.append(lst[27])
+    lst2.append(lst[3])
+    lst2.append(lst[8])
+    lst2.append(lst[13])
+    lst2.append(lst[18])
+    lst2.append(lst[23])
+    lst2.append(lst[28])
+    lst2.append(lst[4])
+    lst2.append(lst[9])
+    lst2.append(lst[14])
+    lst2.append(lst[19])
+    lst2.append(lst[24])
+    lst2.append(lst[29])
+    strs = "".join(list(itertools.chain.from_iterable(lst2)))
+    return strs# }}}
+
+def convert_h_w_5x4(lst):# {{{
+    lst2 = []
+    lst2.append(lst[0])
+    lst2.append(lst[4])
+    lst2.append(lst[8])
+    lst2.append(lst[12])
+    lst2.append(lst[16])
+    lst2.append(lst[1])
+    lst2.append(lst[5])
+    lst2.append(lst[9])
+    lst2.append(lst[13])
+    lst2.append(lst[17])
+    lst2.append(lst[2])
+    lst2.append(lst[6])
+    lst2.append(lst[10])
+    lst2.append(lst[14])
+    lst2.append(lst[18])
+    lst2.append(lst[3])
+    lst2.append(lst[7])
+    lst2.append(lst[11])
+    lst2.append(lst[15])
+    lst2.append(lst[19])
+    strs = "".join(list(itertools.chain.from_iterable(lst2)))
+    return strs# }}}
+
+def convert_h_w_7x6(lst):# {{{
+    lst2 = []
+    lst2.append(lst[0])
+    lst2.append(lst[6])
+    lst2.append(lst[12])
+    lst2.append(lst[18])
+    lst2.append(lst[24])
+    lst2.append(lst[30])
+    lst2.append(lst[36])
+    lst2.append(lst[1])
+    lst2.append(lst[7])
+    lst2.append(lst[13])
+    lst2.append(lst[19])
+    lst2.append(lst[25])
+    lst2.append(lst[31])
+    lst2.append(lst[37])
+    lst2.append(lst[2])
+    lst2.append(lst[8])
+    lst2.append(lst[14])
+    lst2.append(lst[20])
+    lst2.append(lst[26])
+    lst2.append(lst[32])
+    lst2.append(lst[38])
+    lst2.append(lst[3])
+    lst2.append(lst[9])
+    lst2.append(lst[15])
+    lst2.append(lst[21])
+    lst2.append(lst[27])
+    lst2.append(lst[33])
+    lst2.append(lst[39])
+    lst2.append(lst[4])
+    lst2.append(lst[10])
+    lst2.append(lst[16])
+    lst2.append(lst[22])
+    lst2.append(lst[28])
+    lst2.append(lst[34])
+    lst2.append(lst[40])
+    lst2.append(lst[5])
+    lst2.append(lst[11])
+    lst2.append(lst[17])
+    lst2.append(lst[23])
+    lst2.append(lst[29])
+    lst2.append(lst[35])
+    lst2.append(lst[41])
     strs = "".join(list(itertools.chain.from_iterable(lst2)))
     return strs# }}}
