@@ -4,10 +4,10 @@
 #WIN_USER_NAME = "fumio"
 #WIN_USER_NAME = "hassy"
 
-WIDTH = 5
-HEIGHT = 4
-# WIDTH = 6
-# HEIGHT = 5
+# WIDTH = 5
+# HEIGHT = 4
+WIDTH = 6
+HEIGHT = 5
 
 MAX_TURN = 40
 PLAYNUM = 500
@@ -21,7 +21,7 @@ SWIPE = 4
 # CURE = 3.0# }}}
 
 PARMS = {# {{{
-        'red'  : 5.0,
+        'red'  : 0.0,
         'blue' : 0.0,
         'green': 0.0,
         'light': 0.0,
