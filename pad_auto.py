@@ -4,10 +4,10 @@
 #WIN_USER_NAME = "fumio"
 #WIN_USER_NAME = "hassy"
 
-# WIDTH = 5
-# HEIGHT = 4
-WIDTH = 6
-HEIGHT = 5
+WIDTH = 5
+HEIGHT = 4
+# WIDTH = 6
+# HEIGHT = 5
 
 MAX_TURN = 40
 PLAYNUM = 500
@@ -21,12 +21,12 @@ SWIPE = 4
 # CURE = 3.0# }}}
 
 PARMS = {# {{{
-        'red'  : 5.0,
+        'red'  : 0.0,
         'blue' : 0.0,
         'green': 0.0,
         'light': 0.0,
-        'dark' : 5.0,
-        'cure' : 3.0,
+        'dark' : 0.0,
+        'cure' : 0.0,
         '3colors'  : 0.0,
         '4colors'  : 0.0,
         '5colors'  : 0.0,
@@ -45,10 +45,10 @@ PARMS = {# {{{
         '5drops-light': 0.0,
         '5drops-dark' : 0.0,
         '5drops-cure' : 0.0,
-        '1line-red'  : 0.0,
+        '1line-red'  : 5.0,
         '1line-blue' : 0.0,
         '1line-green': 0.0,
-        '1line-light': 0.0,
+        '1line-light': 10.0,
         '1line-dark' : 0.0,
         '1line-cure' : 0.0,
         }# }}}
@@ -180,7 +180,6 @@ def moving(pos_x, pos_y, SWIPE):# {{{
     elapsed_time = time.time() - start_time
     print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
 
-#path = "C:/Users/" + WIN_USER_NAME + "/MyProject/python/pad_auto/screen.png"
 path = ".\screen.png"
 
 # main routine
@@ -194,36 +193,6 @@ while(end_flg):
     input_test_word = input(">>>  ")
     if input_test_word == 1:
         board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-
-        #print "getting screenshot ..."# {{{
-        #start_time = time.time()
-        #get_screenshot(device_path)
-        ##board = pazdracombo.convert_h_w(padboard.check_board(path, WIDTH, HEIGHT, 0))
-        #if WIDTH == 5:
-        #    board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))
-        #    #print "WIDTH = 5: " + board
-        #elif WIDTH == 6:
-        #    board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
-        #    #print "WIDTH = 6: " + board
-        #elif WIDTH == 7:
-        #    board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))
-        #    #print "WIDTH = 7: " + board
-        #lap1_time = time.time()
-        #elapsed_time = lap1_time - start_time
-        #print("getting time:{0}".format(elapsed_time)) + "[sec]"
-        #print "searching ..."
-        #n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-        #pos_x, pos_y = get_route(n_best.route, is_nexus(path), WIDTH)
-        ## 確認用
-        #print "[board]"
-        #print print_board(WIDTH, HEIGHT, board)
-        #print ""
-        #print "[combo]"
-        #print print_board(WIDTH, HEIGHT, n_best.board)
-        #print ""
-        #lap2_time = time.time()
-        #elapsed_time = lap2_time - lap1_time
-        #print("searching time:{0}".format(elapsed_time)) + "[sec]"# }}}
     elif input_test_word == 2:
         pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
     elif input_test_word == 3:
