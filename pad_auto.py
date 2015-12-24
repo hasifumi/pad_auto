@@ -21,7 +21,7 @@ SWIPE = 4
 # CURE = 3.0# }}}
 
 PARMS = {# {{{
-        'red'  : 0.0,
+        'red'  : 5.0,
         'blue' : 0.0,
         'green': 0.0,
         'light': 0.0,
