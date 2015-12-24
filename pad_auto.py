@@ -4,14 +4,14 @@
 #WIN_USER_NAME = "fumio"
 #WIN_USER_NAME = "hassy"
 
-WIDTH = 5
-HEIGHT = 4
-# WIDTH = 6
-# HEIGHT = 5
+# WIDTH = 5
+# HEIGHT = 4
+WIDTH = 6
+HEIGHT = 5
 
-MAX_TURN = 35
-PLAYNUM = 400
-SWIPE = 5
+MAX_TURN = 40
+PLAYNUM = 500
+SWIPE = 4
 
 # RED = 1.0# {{{
 # BLUE = 4.0
@@ -21,12 +21,12 @@ SWIPE = 5
 # CURE = 3.0# }}}
 
 PARMS = {# {{{
-        'red'  : 1.0,
+        'red'  : 5.0,
         'blue' : 0.0,
         'green': 0.0,
-        'light': 5.0,
-        'dark' : 0.0,
-        'cure' : 1.0,
+        'light': 0.0,
+        'dark' : 5.0,
+        'cure' : 3.0,
         '3colors'  : 0.0,
         '4colors'  : 0.0,
         '5colors'  : 0.0,
@@ -45,10 +45,10 @@ PARMS = {# {{{
         '5drops-light': 0.0,
         '5drops-dark' : 0.0,
         '5drops-cure' : 0.0,
-        '1line-red'  : 3.0,
+        '1line-red'  : 0.0,
         '1line-blue' : 0.0,
         '1line-green': 0.0,
-        '1line-light': 50.0,
+        '1line-light': 0.0,
         '1line-dark' : 0.0,
         '1line-cure' : 0.0,
         }# }}}
@@ -143,6 +143,43 @@ def move_drop(pos_x, pos_y, swipe_time):# {{{
     uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y, "-e","\"t\"", swipe_time]
     subprocess.check_call(uiautomator_cmd, shell=True)# }}}
 
+def getting_screenshot(device_path, path, WIDTH, HEIGHT):# {{{
+    print "getting screenshot ..."
+    start_time = time.time()
+    get_screenshot(device_path)
+    if WIDTH == 5:
+        board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))
+    elif WIDTH == 6:
+        board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
+    elif WIDTH == 7:
+        board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))
+    elapsed_time = time.time() - start_time
+    print("getting time:{0}".format(elapsed_time)) + "[sec]"
+    return board# }}}
+
+def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{
+    print "searching ..."
+    start_time = time.time()
+    n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+    pos_x, pos_y = get_route(n_best.route, is_nexus(path), WIDTH)
+    # 確認用
+    print "[board]"
+    print print_board(WIDTH, HEIGHT, board)
+    print ""
+    print "[combo]"
+    print print_board(WIDTH, HEIGHT, n_best.board)
+    print ""
+    elapsed_time = time.time() - start_time
+    print("searching time:{0}".format(elapsed_time)) + "[sec]"
+    return (pos_x, pos_y)# }}}
+
+def moving(pos_x, pos_y, SWIPE):# {{{
+    print "moving drops ..."
+    start_time = time.time()
+    move_drop(pos_x, pos_y, str(SWIPE))
+    elapsed_time = time.time() - start_time
+    print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
+
 #path = "C:/Users/" + WIN_USER_NAME + "/MyProject/python/pad_auto/screen.png"
 path = ".\screen.png"
 
@@ -153,85 +190,58 @@ end_flg = True
 
 while(end_flg):
 
-    print "press any number key (1: get_ss & search, 2: move, 3: get_ss & search & move, else: exit)"
+    print "press any number key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, 6: get_ss & search & move, 9: exit)"
     input_test_word = input(">>>  ")
     if input_test_word == 1:
-        print "getting screenshot ..."
-        start_time = time.time()
-        get_screenshot(device_path)
-        #board = pazdracombo.convert_h_w(padboard.check_board(path, WIDTH, HEIGHT, 0))
-        if WIDTH == 5:
-            board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))
-            #print "WIDTH = 5: " + board
-        elif WIDTH == 6:
-            board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
-            #print "WIDTH = 6: " + board
-        elif WIDTH == 7:
-            board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))
-            #print "WIDTH = 7: " + board
-        lap1_time = time.time()
-        elapsed_time = lap1_time - start_time
-        print("getting time:{0}".format(elapsed_time)) + "[sec]"
-        print "searching ..."
-        n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-        pos_x, pos_y = get_route(n_best.route, is_nexus(path), WIDTH)
-        #print pos_x
-        #print pos_y
-        # 確認用
-        print "[board]"
-        print print_board(WIDTH, HEIGHT, board)
-        print ""
-        print "[combo]"
-        print print_board(WIDTH, HEIGHT, n_best.board)
-        print ""
-        lap2_time = time.time()
-        elapsed_time = lap2_time - lap1_time
-        print("searching time:{0}".format(elapsed_time)) + "[sec]"
+        board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
+
+        #print "getting screenshot ..."# {{{
+        #start_time = time.time()
+        #get_screenshot(device_path)
+        ##board = pazdracombo.convert_h_w(padboard.check_board(path, WIDTH, HEIGHT, 0))
+        #if WIDTH == 5:
+        #    board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))
+        #    #print "WIDTH = 5: " + board
+        #elif WIDTH == 6:
+        #    board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
+        #    #print "WIDTH = 6: " + board
+        #elif WIDTH == 7:
+        #    board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))
+        #    #print "WIDTH = 7: " + board
+        #lap1_time = time.time()
+        #elapsed_time = lap1_time - start_time
+        #print("getting time:{0}".format(elapsed_time)) + "[sec]"
+        #print "searching ..."
+        #n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+        #pos_x, pos_y = get_route(n_best.route, is_nexus(path), WIDTH)
+        ## 確認用
+        #print "[board]"
+        #print print_board(WIDTH, HEIGHT, board)
+        #print ""
+        #print "[combo]"
+        #print print_board(WIDTH, HEIGHT, n_best.board)
+        #print ""
+        #lap2_time = time.time()
+        #elapsed_time = lap2_time - lap1_time
+        #print("searching time:{0}".format(elapsed_time)) + "[sec]"# }}}
     elif input_test_word == 2:
-        lap3_time = time.time()
-        print "moving drops ..."
-        move_drop(pos_x, pos_y, str(SWIPE))
-        elapsed_time = time.time() - lap3_time
-        print("moving time:{0}".format(elapsed_time)) + "[sec]"
+        pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
     elif input_test_word == 3:
-        print "getting screenshot ..."
-        start_time = time.time()
-        get_screenshot(device_path)
-        #board = pazdracombo.convert_h_w(padboard.check_board(path, WIDTH, HEIGHT, 0))
-        if WIDTH == 5:
-            board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))
-            #print "WIDTH = 5: " + board
-        elif WIDTH == 6:
-            board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
-            #print "WIDTH = 6: " + board
-        elif WIDTH == 7:
-            board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))
-            #print "WIDTH = 7: " + board
-        lap1_time = time.time()
-        elapsed_time = lap1_time - start_time
-        print("getting time:{0}".format(elapsed_time)) + "[sec]"
-        print "searching ..."
-        lap1_time = time.time()
-        n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-        pos_x, pos_y = get_route(n_best.route, is_nexus(path), WIDTH)
-        #print pos_x
-        #print pos_y
-        # 確認用
-        print "[board]"
-        print print_board(WIDTH, HEIGHT, board)
-        print ""
-        print "[combo]"
-        print print_board(WIDTH, HEIGHT, n_best.board)
-        print ""
-        lap2_time = time.time()
-        elapsed_time = lap2_time - lap1_time
-        print("searching time:{0}".format(elapsed_time)) + "[sec]"
-        print "moving drops ..."
-        lap3_time = time.time()
-        move_drop(pos_x, pos_y, str(SWIPE))
-        elapsed_time = time.time() - lap3_time
-        print("moving time:{0}".format(elapsed_time)) + "[sec]"
-    else:
+        moving(pos_x, pos_y, SWIPE)
+    if input_test_word == 4:
+        board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
+        pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+    elif input_test_word == 5:
+        pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+        moving(pos_x, pos_y, SWIPE)
+    elif input_test_word == 6:
+        board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
+        pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+        moving(pos_x, pos_y, SWIPE)
+    elif input_test_word == 9:
         print "pad_auto exit!!"
         end_flg = False
+    else:
+        print "press correct key!!"
+        #end_flg = False
 
