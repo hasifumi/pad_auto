@@ -69,6 +69,9 @@ def color(array, flg=1):# {{{
         col["l"] = [200, 175, 110]
         col["d"] = [165, 90, 170]
         col["c"] = [200, 100, 150]
+        #col["o"] = [40, 75, 100]    # ojama
+        #col["o"] = [225, 200, 130]    # ojama
+        #col["p"] = [250, 250, 245]    # poison
     else:
         col["1"] = [205, 110, 130]
         col["2"] = [100, 140, 190]
@@ -76,6 +79,9 @@ def color(array, flg=1):# {{{
         col["4"] = [200, 175, 110]
         col["5"] = [165, 90, 170]
         col["6"] = [200, 100, 150]
+        #col["7"] = [85, 115, 130]    # ojama
+        #col["7"] = [225, 200, 130]    # ojama
+        #col["8"] = [250, 250, 245]    # poison
 
     max = 0
     result = ""
@@ -91,34 +97,6 @@ def __round(array):# {{{
 
 def check_board(path, cols, rows, flg=1):# {{{
     pic = Image.open(path, 'r')
-    #if pic.width == 800:# {{{
-    #    # Nexus7(2012)
-    #    xa = 15
-    #    ya = 560
-    #    xb = 145
-    #    yb = 690
-    #    xs = 130
-    #    ys = 130
-    #else:
-    #    # SH-01F
-    #    xa = 5
-    #    ya = 850
-    #    xb = 185
-    #    yb = 1030
-    #    xs = 180
-    #    ys = 180
-    #
-    #board = ""
-    #for i in range(cols):
-    #    for j in range(rows):
-    #        box = (xa + xs*i,
-    #               ya + ys*j,
-    #               xb + xs*i,
-    #               yb + ys*j)
-    #        rgb = get_rgb(pic, box)
-    #        # print color(rgb)
-    #        board = board + color(rgb, flg)
-    #return board# }}}
 
     key1 = str(pic.width)
     key2 = str(cols)+"x"+str(rows)

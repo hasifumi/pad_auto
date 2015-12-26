@@ -367,6 +367,8 @@ clllll
                 'l' : 0,
                 'd' : 0,
                 'c' : 0,
+                'o' : 0,
+                'p' : 0,
                 }# }}}
         colors = 0
         score = 0
@@ -448,6 +450,30 @@ clllll
                 else:
                     color[y] = self.board[self.xy2idx(x, y)]
         return  color# }}}
+
+    #def chk4drops(self):
+    #    4drops = {}
+    #    for k in self.combo:
+    #        if (k[5]) in 4drops:
+    #            if k[3] == 4drops[k[5]][3]:
+    #                if k[3] == "h" and k[1] == 4drops[k[5]][1] - 1:
+    #                    4drops[k[5]][5] += 1
+    #                    if 4drops[k[5]][5] >= 2:
+    #                        del 4drops[k[5]]
+    #                elif k[3] == "v" and k[2] == 4drops[k[5]][2] - 1:
+    #                    4drops[k[5]][5] += 1
+    #                    if 4drops[k[5]][5] >= 2:
+    #                        del 4drops[k[5]]
+    #            4drops[(k[5])] += 1
+    #            if 4drops[(k[5])] >= 2:
+    #                del 4drops[(k[5])]
+    #        else:
+    #            4drops[(k[5])] = k
+
+    #    combo = self.combo
+    #    # combo : 0)find_seq, 1)start_x_pos, 2)start_y_pos, 3)vector(h/v), 4)color, 5)combo_seq
+    #    #[[0, 0, 0, 'h', 'r', 0], [1, 1, 0, 'h', 'r', 0], [2, 2, 0, 'h', 'r', 0], [3, 3, 0, 'h', 'r', 0], [4, 0, 1, 'h', 'b', 1], [5, 1, 1, 'h', 'b', 1], [6, 2, 1, 'h', 'b', 1], [7, 3, 1, 'h', 'b', 1], [8, 3, 2, 'h', 'g', 8], [9, 0, 3, 'h', 'd', 9], [10, 0, 4, 'h', 'c', 4], [11, 1, 4, 'h', 'c', 4], [12, 2, 4, 'h', 'c', 4], [13, 3, 4, 'h', 'c', 4]]
+
 
     # グループ1の各ドロップの近接リストにグループ2の各ドロップが存在するかを調査する関数
     def isKinsetsu(self, x1, y1, v1, x2, y2, v2):  # x:x座標、y:y座標, v:方向# {{{

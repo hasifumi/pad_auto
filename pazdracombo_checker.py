@@ -77,6 +77,8 @@ print pdc.print_combo()
 score, combo = pdc.calc_score(PARMS)
 print "score: " + str(score) + ", combo: " + str(combo)
 
+print pdc.combo
+
 color = pdc.chk1LineColor()
 print color
 

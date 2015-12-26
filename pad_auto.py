@@ -4,8 +4,6 @@
 #WIN_USER_NAME = "fumio"
 #WIN_USER_NAME = "hassy"
 
-# WIDTH = 5
-# HEIGHT = 4
 WIDTH = 6
 HEIGHT = 5
 
@@ -22,11 +20,11 @@ SWIPE = 4
 
 PARMS = {# {{{
         'red'  : 0.0,
-        'blue' : 0.0,
+        'blue' : 10.0,
         'green': 0.0,
         'light': 0.0,
-        'dark' : 0.0,
-        'cure' : 0.0,
+        'dark' : 5.0,
+        'cure' : 5.0,
         '3colors'  : 0.0,
         '4colors'  : 0.0,
         '5colors'  : 0.0,
@@ -45,11 +43,11 @@ PARMS = {# {{{
         '5drops-light': 0.0,
         '5drops-dark' : 0.0,
         '5drops-cure' : 0.0,
-        '1line-red'  : 5.0,
-        '1line-blue' : 0.0,
+        '1line-red'  : 0.0,
+        '1line-blue' : 50.0,
         '1line-green': 0.0,
-        '1line-light': 10.0,
-        '1line-dark' : 0.0,
+        '1line-light': 0.0,
+        '1line-dark' : 10.0,
         '1line-cure' : 0.0,
         }# }}}
 
@@ -180,6 +178,23 @@ def moving(pos_x, pos_y, SWIPE):# {{{
     elapsed_time = time.time() - start_time
     print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
 
+def select_board(WIDTH, HEIGHT):# {{{
+    print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
+    print "select WIDTH x HEIGHT (1: 5x4, 2: 6x5, 3: 7x6, ... 9: no change, else:default(6x5) )"
+    input_test_word = input(">>>  ")
+    if input_test_word == 1:
+        return (5, 4)
+    elif input_test_word == 2:
+        return (6, 5)
+    elif input_test_word == 3:
+        print " sorry, no implement 7x6 board"
+        return (WIDTH, HEIGHT)
+        #return (7, 6)
+    elif input_test_word == 9:
+        return (WIDTH, HEIGHT)
+    else:
+        return (6, 5)# }}}
+
 path = ".\screen.png"
 
 # main routine
@@ -189,7 +204,8 @@ end_flg = True
 
 while(end_flg):
 
-    print "press any number key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, 6: get_ss & search & move, 9: exit)"
+    print "press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, "
+    print "           6: get_ss & search & move, 8: change WIDTH & HEIGHT, 9: exit )"
     input_test_word = input(">>>  ")
     if input_test_word == 1:
         board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
@@ -207,6 +223,9 @@ while(end_flg):
         board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
         pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
         moving(pos_x, pos_y, SWIPE)
+    elif input_test_word == 8:
+        WIDTH, HEIGHT = select_board(WIDTH, HEIGHT)
+        print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
     elif input_test_word == 9:
         print "pad_auto exit!!"
         end_flg = False
