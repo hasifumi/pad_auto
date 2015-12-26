@@ -11,20 +11,14 @@ MAX_TURN = 40
 PLAYNUM = 500
 SWIPE = 4
 
-# RED = 1.0# {{{
-# BLUE = 4.0
-# GREEN = 1.0
-# LIGHT = 1.0
-# DARK = 2.0
-# CURE = 3.0# }}}
-
-PARMS = {# {{{
+DEFAULT_PARMS = {# {{{
+        'name'  : "default",
         'red'  : 0.0,
-        'blue' : 10.0,
+        'blue' : 0.0,
         'green': 0.0,
         'light': 0.0,
-        'dark' : 5.0,
-        'cure' : 5.0,
+        'dark' : 0.0,
+        'cure' : 0.0,
         '3colors'  : 0.0,
         '4colors'  : 0.0,
         '5colors'  : 0.0,
@@ -44,12 +38,34 @@ PARMS = {# {{{
         '5drops-dark' : 0.0,
         '5drops-cure' : 0.0,
         '1line-red'  : 0.0,
-        '1line-blue' : 50.0,
+        '1line-blue' : 0.0,
         '1line-green': 0.0,
         '1line-light': 0.0,
-        '1line-dark' : 10.0,
+        '1line-dark' : 0.0,
         '1line-cure' : 0.0,
         }# }}}
+
+PARMS_PATTERN = {
+        'saria, tall': {
+            'red': 5.0,
+            'light': 10.0,
+            'cure': 5.0,
+            '4drops-red' : 5.0,
+            '4drops-light' : 10.0,
+            '1line-red': 10.0,
+            '1line-light': 50.0,
+            },
+        'blue-sonia, ryune': {
+            'blue': 10.0,
+            'dark': 5.0,
+            'cure': 5.0,
+            '5drops-blue': 50.0,
+            '1line-blue': 50.0,
+            '1line-dark': 10.0,
+            },
+        }
+
+PARMS = DEFAULT_PARMS
 
 import padboard
 #import uiautomator
@@ -180,7 +196,7 @@ def moving(pos_x, pos_y, SWIPE):# {{{
 
 def select_board(WIDTH, HEIGHT):# {{{
     print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
-    print "select WIDTH x HEIGHT (1: 5x4, 2: 6x5, 3: 7x6, ... 9: no change, else:default(6x5) )"
+    print "select WIDTH x HEIGHT (1: 5x4, 2: 6x5, 3: 7x6, ... 99: cancel, else:default(6x5) )"
     input_test_word = input(">>>  ")
     if input_test_word == 1:
         return (5, 4)
@@ -190,10 +206,34 @@ def select_board(WIDTH, HEIGHT):# {{{
         print " sorry, no implement 7x6 board"
         return (WIDTH, HEIGHT)
         #return (7, 6)
-    elif input_test_word == 9:
+    elif input_test_word == 99:
+        print "canceled changing board"
         return (WIDTH, HEIGHT)
     else:
         return (6, 5)# }}}
+
+def select_parms_pattern(PARMS):# {{{
+    print "current pattern name = " + PARMS['name']
+    cnt = 0
+    patterns = {}
+    patterns_str = ""
+    for k in PARMS_PATTERN.keys():
+        patterns[cnt] = k
+        patterns_str = patterns_str + str(cnt + 1) + ": " + k + ", "
+        cnt += 1
+    patterns_str = patterns_str + ", 99: cancel"
+    print "select parms pattern (" + patterns_str + ")"
+    input_test_word = input(">>>  ")
+    input_test_word -= 1
+    if input_test_word == 99 - 1:
+        print "canceled changing parms"
+        pass
+    elif PARMS_PATTERN.has_key(patterns[input_test_word]):
+        PARMS['name'] = patterns[input_test_word]
+        for k in PARMS_PATTERN[patterns[input_test_word]].keys():
+            if PARMS.has_key(k):
+                PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
+    return PARMS# }}}
 
 path = ".\screen.png"
 
@@ -205,7 +245,7 @@ end_flg = True
 while(end_flg):
 
     print "press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, "
-    print "           6: get_ss & search & move, 8: change WIDTH & HEIGHT, 9: exit )"
+    print "           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, 99: exit )"
     input_test_word = input(">>>  ")
     if input_test_word == 1:
         board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
@@ -223,10 +263,12 @@ while(end_flg):
         board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
         pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
         moving(pos_x, pos_y, SWIPE)
+    elif input_test_word == 7:
+        PARMS = select_parms_pattern(PARMS)
     elif input_test_word == 8:
         WIDTH, HEIGHT = select_board(WIDTH, HEIGHT)
         print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
-    elif input_test_word == 9:
+    elif input_test_word == 99:
         print "pad_auto exit!!"
         end_flg = False
     else:

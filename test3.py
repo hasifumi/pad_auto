@@ -1,78 +1,80 @@
-# -*- coding: utf-8 -*-
-# vim: foldmethod=marker  :
 
-# import pad_parm
-#
-# parms = pad_parm.padParm()
-#
-# print parms.game_parms
-# print parms.score_parms
+DEFAULT_PARMS = {# {{{
+        'name'  : "default",
+        'red'  : 0.0,
+        'blue' : 0.0,
+        'green': 0.0,
+        'light': 0.0,
+        'dark' : 0.0,
+        'cure' : 0.0,
+        '3colors'  : 0.0,
+        '4colors'  : 0.0,
+        '5colors'  : 0.0,
+        '3colors+cure'  : 0.0,
+        '4colors+cure'  : 0.0,
+        '5colors+cure'  : 0.0,
+        '4drops-red'  : 0.0,
+        '4drops-blue' : 0.0,
+        '4drops-green': 0.0,
+        '4drops-light': 0.0,
+        '4drops-dark' : 0.0,
+        '4drops-cure' : 0.0,
+        '5drops-red'  : 0.0,
+        '5drops-blue' : 0.0,
+        '5drops-green': 0.0,
+        '5drops-light': 0.0,
+        '5drops-dark' : 0.0,
+        '5drops-cure' : 0.0,
+        '1line-red'  : 0.0,
+        '1line-blue' : 0.0,
+        '1line-green': 0.0,
+        '1line-light': 0.0,
+        '1line-dark' : 0.0,
+        '1line-cure' : 0.0,
+        }# }}}
 
-pic_parm = {
-        '800': {   # Nexus7(2012)
-            '5x4': {# {{{
-                'xa': 15,
-                'ya': 575,
-                'xb': 170,
-                'yb': 730,
-                'xs': 155,
-                'ys': 155,
-            },# }}}
-            '6x5': {# {{{
-                'xa': 15,
-                'ya': 560,
-                'xb': 145,
-                'yb': 690,
-                'xs': 130,
-                'ys': 130,
-            },# }}}
-        },
-        '1080': {  # SH-01F
-            '5x4': {# {{{
-                'xa': 5,
-                'ya': 865,
-                'xb': 215,
-                'yb': 1075,
-                'xs': 210,
-                'ys': 210,
-            },# }}}
-            '6x5': {# {{{
-                'xa': 5,
-                'ya': 860,
-                'xb': 185,
-                'yb': 1030,
-                'xs': 180,
-                'ys': 180,
-            },# }}}
-            '7x6': {# {{{
-                'xa': 25,
-                'ya': 850,
-                'xb': 170,
-                'yb': 995,
-                'xs': 145,
-                'ys': 145,
-            },# }}}
-        },
-    }
+PARMS_PATTERN = {
+        'saria, tall': {
+            'red': 5.0,
+            'light': 10.0,
+            'cure': 5.0,
+            '4drops-red' : 5.0,
+            '4drops-light' : 10.0,
+            '1line-red': 10.0,
+            '1line-light': 50.0,
+            },
+        'blue-sonia, ryune': {
+            'blue': 10.0,
+            'dark': 5.0,
+            'cure': 5.0,
+            '5drops-blue': 50.0,
+            '1line-blue': 50.0,
+            '1line-dark': 10.0,
+            }
+        }
 
-width = 1080
-cols = 7
-rows = 6
-key1 = str(width)
-key2 = str(cols)+"x"+str(rows)
-edges = {
-        'xa': 0,
-        'ya': 0,
-        'xb': 0,
-        'yb': 0,
-        'xs': 0,
-        'ys': 0,
-    }
+PARMS = DEFAULT_PARMS
 
-if pic_parm.has_key(key1):
-    print "has " + key1
-    if pic_parm[key1].has_key(key2):
-        for k in edges.keys():
-            edges[k] = pic_parm[key1][key2][k]
-            print "edges[k]: " + str(edges[k])
-    #if parm.has_key(str(cols)+"x"+str(rows)):
+def select_parms_pattern(PARMS):# {{{
+    print "current pattern name = " + PARMS['name']
+    cnt = 0
+    patterns = {}
+    patterns_str = ""
+    for k in PARMS_PATTERN.keys():
+        patterns[cnt] = k
+        patterns_str = patterns_str + str(cnt + 1) + ": " + k + ", "
+        cnt += 1
+    print "select parms pattern (" + patterns_str + ")"
+    input_test_word = input(">>>  ")
+    input_test_word -= 1
+    if PARMS_PATTERN.has_key(patterns[input_test_word]):
+        PARMS['name'] = patterns[input_test_word]
+        for k in PARMS_PATTERN[patterns[input_test_word]].keys():
+            if PARMS.has_key(k):
+                PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
+    return PARMS# }}}
+
+PARMS = select_parms_pattern(PARMS)
+
+print "name = " + PARMS['name']
+print PARMS
