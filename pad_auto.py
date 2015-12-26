@@ -221,6 +221,48 @@ def select_board(WIDTH, HEIGHT):# {{{
     else:
         return (6, 5)# }}}
 
+def show_parms(PARMS):# {{{
+    print "show current parms ..."
+    details = [# {{{
+        'name',
+        'red',
+        'blue',
+        'green',
+        'light',
+        'dark',
+        'cure',
+        '3colors',
+        '4colors',
+        '5colors',
+        '3colors+cure',
+        '4colors+cure',
+        '5colors+cure',
+        '4drops-red',
+        '4drops-blue',
+        '4drops-green',
+        '4drops-light',
+        '4drops-dark',
+        '4drops-cure',
+        '5drops-red',
+        '5drops-blue',
+        '5drops-green',
+        '5drops-light',
+        '5drops-dark',
+        '5drops-cure',
+        '1line-red',
+        '1line-blue',
+        '1line-green',
+        '1line-light',
+        '1line-dark',
+        '1line-cure',
+        ]# }}}
+    for k in details:
+        if PARMS.has_key(k):
+            if isinstance(PARMS[k], float) and PARMS[k] != 0.0:
+                print " " + str(k) + ": " + str(PARMS[k])
+            elif isinstance(PARMS[k], str):
+                print " " + str(k) + ": " + str(PARMS[k])# }}}
+
 def select_parms_pattern(PARMS):# {{{
     print "current pattern name = " + PARMS['name']
     cnt = 0
@@ -235,8 +277,7 @@ def select_parms_pattern(PARMS):# {{{
     input_test_word = input(">>>  ")
     input_test_word -= 1
     if input_test_word == 98 - 1:
-        print "show detail:"
-        print PARMS
+        show_parms(PARMS)
     elif input_test_word == 99 - 1:
         print "canceled changing parms"
     elif PARMS_PATTERN.has_key(patterns[input_test_word]):
