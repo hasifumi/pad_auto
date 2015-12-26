@@ -19,11 +19,11 @@ SWIPE = 4
 # CURE = 3.0# }}}
 
 PARMS = {# {{{
-        'red'  : 0.0,
-        'blue' : 10.0,
+        'red'  : 5.0,
+        'blue' : 0.0,
         'green': 0.0,
-        'light': 0.0,
-        'dark' : 5.0,
+        'light': 5.0,
+        'dark' : 0.0,
         'cure' : 5.0,
         '3colors'  : 0.0,
         '4colors'  : 0.0,
@@ -43,11 +43,11 @@ PARMS = {# {{{
         '5drops-light': 0.0,
         '5drops-dark' : 0.0,
         '5drops-cure' : 0.0,
-        '1line-red'  : 0.0,
-        '1line-blue' : 50.0,
+        '1line-red'  : 10.0,
+        '1line-blue' : 0.0,
         '1line-green': 0.0,
-        '1line-light': 0.0,
-        '1line-dark' : 10.0,
+        '1line-light': 50.0,
+        '1line-dark' : 0.0,
         '1line-cure' : 0.0,
         }# }}}
 
