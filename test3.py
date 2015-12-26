@@ -1,80 +1,38 @@
+# -*- coding: utf-8 -*-
 
-DEFAULT_PARMS = {# {{{
-        'name'  : "default",
-        'red'  : 0.0,
-        'blue' : 0.0,
-        'green': 0.0,
-        'light': 0.0,
-        'dark' : 0.0,
-        'cure' : 0.0,
-        '3colors'  : 0.0,
-        '4colors'  : 0.0,
-        '5colors'  : 0.0,
-        '3colors+cure'  : 0.0,
-        '4colors+cure'  : 0.0,
-        '5colors+cure'  : 0.0,
-        '4drops-red'  : 0.0,
-        '4drops-blue' : 0.0,
-        '4drops-green': 0.0,
-        '4drops-light': 0.0,
-        '4drops-dark' : 0.0,
-        '4drops-cure' : 0.0,
-        '5drops-red'  : 0.0,
-        '5drops-blue' : 0.0,
-        '5drops-green': 0.0,
-        '5drops-light': 0.0,
-        '5drops-dark' : 0.0,
-        '5drops-cure' : 0.0,
-        '1line-red'  : 0.0,
-        '1line-blue' : 0.0,
-        '1line-green': 0.0,
-        '1line-light': 0.0,
-        '1line-dark' : 0.0,
-        '1line-cure' : 0.0,
-        }# }}}
+#def chkdrops4(self):
+def chkdrops4(combo):
+    drops4 = {}
+    #for k in self.combo:
+    for k in combo:
+        if drops4.has_key(k[5]):
+            if k[3] == drops4[k[5]][3]:
+                drops4[k[5]][5] += 1
+                if k[3] == "h":
+                    drops4[k[5]][2] += (k[1] - drops4[k[5]][1])   # start_y_posにx座標の差を加算
+                elif k[3] == "v":
+                    drops4[k[5]][1] += (k[2] - drops4[k[5]][2])   # start_x_posにy座標の差を加算
+        else:
+            temp_k = [k[0], k[1], k[2], k[3], k[4], k[5]]
+            temp_k[5] = 0
+            if temp_k[3] == "h":
+                temp_k[2] = 0
+            elif temp_k[3] == "v":
+                temp_k[1] = 0
+            #print temp_k
+            drops4[k[5]] = temp_k
+        #print drops4
+    for v in drops4.keys():
+        if drops4[v][3] == "h" and drops4[v][2] != 1:
+            del drops4[v]
+        elif drops4[v][3] == "v" and drops4[v][1] != 1:
+            del drops4[v]
+    return drops4
 
-PARMS_PATTERN = {
-        'saria, tall': {
-            'red': 5.0,
-            'light': 10.0,
-            'cure': 5.0,
-            '4drops-red' : 5.0,
-            '4drops-light' : 10.0,
-            '1line-red': 10.0,
-            '1line-light': 50.0,
-            },
-        'blue-sonia, ryune': {
-            'blue': 10.0,
-            'dark': 5.0,
-            'cure': 5.0,
-            '5drops-blue': 50.0,
-            '1line-blue': 50.0,
-            '1line-dark': 10.0,
-            }
-        }
+    # combo : 0)find_seq, 1)start_x_pos, 2)start_y_pos, 3)vector(h/v), 4)color, 5)combo_seq
+    #[[0, 0, 0, 'h', 'r', 0], [1, 1, 0, 'h', 'r', 0], [2, 2, 0, 'h', 'r', 0], [3, 3, 0, 'h', 'r', 0], [4, 0, 1, 'h', 'b', 1], [5, 1, 1, 'h', 'b', 1], [6, 2, 1, 'h', 'b', 1], [7, 3, 1, 'h', 'b', 1], [8, 3, 2, 'h', 'g', 8], [9, 0, 3, 'h', 'd', 9], [10, 0, 4, 'h', 'c', 4], [11, 1, 4, 'h', 'c', 4], [12, 2, 4, 'h', 'c', 4], [13, 3, 4, 'h', 'c', 4]]
 
-PARMS = DEFAULT_PARMS
+combo = [[0, 0, 0, 'h', 'r', 0], [1, 1, 0, 'h', 'r', 0], [4, 0, 1, 'h', 'b', 1], [5, 1, 1, 'h', 'b', 1], [8, 3, 2, 'h', 'g', 8], [9, 0, 3, 'h', 'd', 9]]
 
-def select_parms_pattern(PARMS):# {{{
-    print "current pattern name = " + PARMS['name']
-    cnt = 0
-    patterns = {}
-    patterns_str = ""
-    for k in PARMS_PATTERN.keys():
-        patterns[cnt] = k
-        patterns_str = patterns_str + str(cnt + 1) + ": " + k + ", "
-        cnt += 1
-    print "select parms pattern (" + patterns_str + ")"
-    input_test_word = input(">>>  ")
-    input_test_word -= 1
-    if PARMS_PATTERN.has_key(patterns[input_test_word]):
-        PARMS['name'] = patterns[input_test_word]
-        for k in PARMS_PATTERN[patterns[input_test_word]].keys():
-            if PARMS.has_key(k):
-                PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
-    return PARMS# }}}
-
-PARMS = select_parms_pattern(PARMS)
-
-print "name = " + PARMS['name']
-print PARMS
+drops4 = chkdrops4(combo)
+print drops4

@@ -51,7 +51,9 @@ PARMS_PATTERN = {# {{{
             'light': 10.0,
             'cure': 5.0,
             '4drops-red' : 5.0,
+            '4drops-blue': 3.0,
             '4drops-light' : 10.0,
+            '4drops-dark': 3.0,
             '1line-red': 10.0,
             '1line-light': 50.0,
             },
@@ -62,6 +64,13 @@ PARMS_PATTERN = {# {{{
             '5drops-blue': 50.0,
             '1line-blue': 50.0,
             '1line-dark': 10.0,
+            },
+        'basteto/shiva': {
+            'red': 10.0,
+            'green': 10.0,
+            'cure': 5.0,
+            '4drops-red': 50.0,
+            '4drops-green': 50.0,
             },
         }# }}}
 
@@ -221,13 +230,15 @@ def select_parms_pattern(PARMS):# {{{
         patterns[cnt] = k
         patterns_str = patterns_str + str(cnt + 1) + ": " + k + ", "
         cnt += 1
-    patterns_str = patterns_str + ", 99: cancel"
+    patterns_str = patterns_str + ", 98: show parm detail, 99: cancel"
     print "select parms pattern (" + patterns_str + ")"
     input_test_word = input(">>>  ")
     input_test_word -= 1
-    if input_test_word == 99 - 1:
+    if input_test_word == 98 - 1:
+        print "show detail:"
+        print PARMS
+    elif input_test_word == 99 - 1:
         print "canceled changing parms"
-        pass
     elif PARMS_PATTERN.has_key(patterns[input_test_word]):
         PARMS['name'] = patterns[input_test_word]
         print "changed pattern name = " + PARMS['name']
