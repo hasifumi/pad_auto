@@ -45,7 +45,7 @@ DEFAULT_PARMS = {# {{{
         '1line-cure' : 0.0,
         }# }}}
 
-PARMS_PATTERN = {
+PARMS_PATTERN = {# {{{
         'saria, tall': {
             'red': 5.0,
             'light': 10.0,
@@ -63,7 +63,7 @@ PARMS_PATTERN = {
             '1line-blue': 50.0,
             '1line-dark': 10.0,
             },
-        }
+        }# }}}
 
 PARMS = DEFAULT_PARMS
 
@@ -230,6 +230,7 @@ def select_parms_pattern(PARMS):# {{{
         pass
     elif PARMS_PATTERN.has_key(patterns[input_test_word]):
         PARMS['name'] = patterns[input_test_word]
+        print "changed pattern name = " + PARMS['name']
         for k in PARMS_PATTERN[patterns[input_test_word]].keys():
             if PARMS.has_key(k):
                 PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
