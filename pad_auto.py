@@ -4,46 +4,8 @@
 #WIN_USER_NAME = "fumio"# {{{
 #WIN_USER_NAME = "hassy"# }}}
 
-# WIDTH = 6# {{{
-# HEIGHT = 5# }}}
-
-BOARD_PARMS_PATTERN = {# {{{
-        'default' : {
-            'WIDTH' : 6,
-            'HEIGHT'  : 5,
-            },
-        '5x4' : {
-            'WIDTH' : 5,
-            'HEIGHT'  : 4,
-            },
-        '6x5' : {
-            'WIDTH' : 6,
-            'HEIGHT'  : 5,
-            },
-        '7x6' : {
-            'WIDTH' : 7,
-            'HEIGHT'  : 6,
-            },
-        }# }}}
-
-def show_board_parms():# {{{
-    print "show board parms ... "
-    print " WIDTH  : " + str(WIDTH)
-    print " HEIGHT : " + str(HEIGHT)# }}}
-
-def set_board_parms(pattern):# {{{
-    if BOARD_PARMS_PATTERN.has_key(pattern):
-        if BOARD_PARMS_PATTERN[pattern].has_key('WIDTH') and BOARD_PARMS_PATTERN[pattern].has_key('HEIGHT'):
-            print "set board parms ... "
-            print " name     : " + str(pattern)
-            print " WIDTH  : " + str(BOARD_PARMS_PATTERN[pattern]['WIDTH'])
-            print " HEIGHT : " + str(BOARD_PARMS_PATTERN[pattern]['HEIGHT'])
-            return (BOARD_PARMS_PATTERN[pattern]['WIDTH'], BOARD_PARMS_PATTERN[pattern]['HEIGHT'])
-    else:
-        return (6, 5)# }}}
-
-WIDTH, HEIGHT = set_board_parms('default')
-#show_board_parms()
+WIDTH = 6# {{{
+HEIGHT = 5# }}}
 
 # MAX_TURN = 45# {{{
 # PLAYNUM = 500
@@ -64,6 +26,11 @@ GAME_PARMS_PATTERN = {# {{{
         'win_tablet' : {
             'MAX_TURN' : 30,
             'PLAYNUM'  : 400,
+            'SWIPE'    : 5,
+            },
+        'long_thinking' : {
+            'MAX_TURN' : 50,
+            'PLAYNUM'  : 100,
             'SWIPE'    : 5,
             },
         }# }}}

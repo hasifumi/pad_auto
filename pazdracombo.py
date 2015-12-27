@@ -373,6 +373,7 @@ clllll
         colors = 0
         score = 0
         combo = 0
+
         for k in self.combo:
             if (k[5]) in cmb:
                 cmb[(k[5])] = k[0]
@@ -380,7 +381,9 @@ clllll
                 cmb[(k[5])] = k[0]
         combo = len(cmb)
         score += combo * 100
-        for c in cmb.values():
+
+        # 属性優先
+        for c in cmb.values():# {{{
             if self.combo[c][4] == 'r':
                 color['r'] = 1
                 if PARMS.has_key('red'):
@@ -404,7 +407,9 @@ clllll
             elif self.combo[c][4] == 'c':
                 color['c'] = 1
                 if PARMS.has_key('cure'):
-                    score += PARMS['cure'] * 100
+                    score += PARMS['cure'] * 100# }}}
+
+        # 多色
         for k in cmb.keys():
             if self.combo[cmb[k]][4] != 'c':
                 if color[self.combo[cmb[k]][4]] != 0:
@@ -422,6 +427,7 @@ clllll
         if colors >= 5 and color['c'] == 1 and PARMS.has_key('5colors+cure'):
             score += PARMS['5colors+cure'] * 1000
 
+        # 列優先
         color = self.chk1LineColor()
         for k in color.keys():
             #print "k: " + str(k) + ", color[k]: " + str(color[k])
@@ -438,19 +444,50 @@ clllll
             elif color[k] == 'c' and PARMS.has_key('1line-cure'):
                 score += PARMS['1line-cure'] * 10000
 
+        # 4つ消し
         drops4 = self.chkdrops4()
         # drops4 emample = {0: [0, 0, 1, 'h', 'r', 1], 1: [4, 0, 1, 'h', 'b', 1]}
         for k in drops4.keys():
             if   drops4[k][4] == 'r' and PARMS.has_key('4drops-red'):
-                score += PARMS['4drops-red'] * 5000
+                #score += PARMS['4drops-red'] * 5000
+                if   drops4[k][3] == "h" and drops4[k][2] > 1:
+                    score += PARMS['4drops-red'] * 5000 * -1     # 罰
+                elif drops4[k][3] == "v" and drops4[k][1] > 1:
+                    score += PARMS['4drops-red'] * 5000 * -1     # 罰
+                else:
+                    score += PARMS['4drops-red'] * 5000
             elif drops4[k][4] == 'b' and PARMS.has_key('4drops-blue'):
-                score += PARMS['4drops-red'] * 5000
+                #score += PARMS['4drops-blue'] * 5000
+                if   drops4[k][3] == "h" and drops4[k][2] > 1:
+                    score += PARMS['4drops-blue'] * 5000 * -1     # 罰
+                elif drops4[k][3] == "v" and drops4[k][1] > 1:
+                    score += PARMS['4drops-blue'] * 5000 * -1     # 罰
+                else:
+                    score += PARMS['4drops-blue'] * 5000
             elif drops4[k][4] == 'g' and PARMS.has_key('4drops-green'):
-                score += PARMS['4drops-red'] * 5000
+                #score += PARMS['4drops-green'] * 5000
+                if   drops4[k][3] == "h" and drops4[k][2] > 1:
+                    score += PARMS['4drops-green'] * 5000 * -1     # 罰
+                elif drops4[k][3] == "v" and drops4[k][1] > 1:
+                    score += PARMS['4drops-green'] * 5000 * -1     # 罰
+                else:
+                    score += PARMS['4drops-green'] * 5000
             elif drops4[k][4] == 'l' and PARMS.has_key('4drops-light'):
-                score += PARMS['4drops-red'] * 5000
+                #score += PARMS['4drops-light'] * 5000
+                if   drops4[k][3] == "h" and drops4[k][2] > 1:
+                    score += PARMS['4drops-light'] * 5000 * -1     # 罰
+                elif drops4[k][3] == "v" and drops4[k][1] > 1:
+                    score += PARMS['4drops-light'] * 5000 * -1     # 罰
+                else:
+                    score += PARMS['4drops-light'] * 5000
             elif drops4[k][4] == 'd' and PARMS.has_key('4drops-dark'):
-                score += PARMS['4drops-red'] * 5000
+                #score += PARMS['4drops-dark'] * 5000
+                if   drops4[k][3] == "h" and drops4[k][2] > 1:
+                    score += PARMS['4drops-dark'] * 5000 * -1     # 罰
+                elif drops4[k][3] == "v" and drops4[k][1] > 1:
+                    score += PARMS['4drops-dark'] * 5000 * -1     # 罰
+                else:
+                    score += PARMS['4drops-dark'] * 5000
 
         return (score, combo)# }}}
 
@@ -487,11 +524,11 @@ clllll
                 #print temp_k
                 drops4[k[5]] = temp_k
             #print drops4
-        for v in drops4.keys():
-            if drops4[v][3] == "h" and drops4[v][2] != 1:
-                del drops4[v]
-            elif drops4[v][3] == "v" and drops4[v][1] != 1:
-                del drops4[v]
+        #for v in drops4.keys():
+        #    if drops4[v][3] == "h" and drops4[v][2] != 1:
+        #        del drops4[v]
+        #    elif drops4[v][3] == "v" and drops4[v][1] != 1:
+        #        del drops4[v]
         return drops4
         # combo : 0)find_seq, 1)start_x_pos, 2)start_y_pos, 3)vector(h/v), 4)color, 5)combo_seq
 

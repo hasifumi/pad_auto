@@ -41,13 +41,14 @@ PARMS = {# {{{
         '1line-cure' : 0.0,
         }# }}}
 
-board = """
-rrrrrr
-bbbbbb
-gbbggg
-dddcdd
-cccccc
-""".replace('\n', '')
+#board = """
+#rrrrrr
+#bbbbbb
+#gbbggg
+#dddcdd
+#cccccc
+#""".replace('\n', '')
+board = "bdbbbddbdgdgbbbbbbggddddbdbbbg"
 
 pdc = pazdracombo.PazdraComboChecker(width, height, board)
 
