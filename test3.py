@@ -1,83 +1,43 @@
 # -*- coding: utf-8 -*-
 
-DEFAULT_PARMS = {# {{{
-        'name'  : "default",
-        'red'  : 0.0,
-        'blue' : 0.0,
-        'green': 0.0,
-        'light': 0.0,
-        'dark' : 0.0,
-        'cure' : 0.0,
-        '3colors'  : 0.0,
-        '4colors'  : 0.0,
-        '5colors'  : 0.0,
-        '3colors+cure'  : 0.0,
-        '4colors+cure'  : 0.0,
-        '5colors+cure'  : 0.0,
-        '4drops-red'  : 0.0,
-        '4drops-blue' : 0.0,
-        '4drops-green': 0.0,
-        '4drops-light': 0.0,
-        '4drops-dark' : 0.0,
-        '4drops-cure' : 0.0,
-        '5drops-red'  : 0.0,
-        '5drops-blue' : 0.0,
-        '5drops-green': 0.0,
-        '5drops-light': 0.0,
-        '5drops-dark' : 0.0,
-        '5drops-cure' : 0.0,
-        '1line-red'  : 0.0,
-        '1line-blue' : 0.0,
-        '1line-green': 1.0,
-        '1line-light': 0.0,
-        '1line-dark' : 0.0,
-        '1line-cure' : 0.0,
-        }# }}}
+DEFAULT_GAME_PARMS = {
+        'max_turn' : 40,
+        'PLAYNUM' : 500,
+        'SWIPE' : 4,
+        }
 
-PARMS = DEFAULT_PARMS
+GAME_PARMS_PATTERN = {
+        'default' : {
+            'MAX_TURN' : 40,
+            'PLAYNUM'  : 500,
+            'SWIPE'    : 4,
+            },
+        'win_tablet' : {
+            'MAX_TURN' : 30,
+            'PLAYNUM'  : 400,
+            'SWIPE'    : 5,
+            },
+        }
 
-def show_parms(PARMS):# {{{
-    print "show current parms ..."
-    details = [
-        'name',
-        'red',
-        'blue',
-        'green',
-        'light',
-        'dark',
-        'cure',
-        '3colors',
-        '4colors',
-        '5colors',
-        '3colors+cure',
-        '4colors+cure',
-        '5colors+cure',
-        '4drops-red',
-        '4drops-blue',
-        '4drops-green',
-        '4drops-light',
-        '4drops-dark',
-        '4drops-cure',
-        '5drops-red',
-        '5drops-blue',
-        '5drops-green',
-        '5drops-light',
-        '5drops-dark',
-        '5drops-cure',
-        '1line-red',
-        '1line-blue',
-        '1line-green',
-        '1line-light',
-        '1line-dark',
-        '1line-cure',
-        ]
+def print_game_parms():
+    print "show game parms ... "
+    print " MAX_TURN : " + str(MAX_TURN)
+    print " PLAYNUM  : " + str(PLAYNUM)
+    print " SWIPE    : " + str(SWIPE)
 
-    for k in details:
-        if PARMS.has_key(k):
-            if isinstance(PARMS[k], float) and PARMS[k] != 0.0:
-                print " " + str(k) + ": " + str(PARMS[k])
-            elif isinstance(PARMS[k], str):
-                print " " + str(k) + ": " + str(PARMS[k])
+def set_game_parms(pattern):
+    if GAME_PARMS_PATTERN.has_key(pattern):
+        if GAME_PARMS_PATTERN[pattern].has_key('MAX_TURN') and GAME_PARMS_PATTERN[pattern].has_key('PLAYNUM') and GAME_PARMS_PATTERN[pattern].has_key('SWIPE'):
+            print "set game parms ... "
+            print " name     : " + str(pattern)
+            print " MAX_TURN : " + str(GAME_PARMS_PATTERN[pattern]['MAX_TURN'])
+            print " PLAYNUM  : " + str(GAME_PARMS_PATTERN[pattern]['PLAYNUM'])
+            print " SWIPE    : " + str(GAME_PARMS_PATTERN[pattern]['SWIPE'])
+            return (GAME_PARMS_PATTERN[pattern]['MAX_TURN'], GAME_PARMS_PATTERN[pattern]['PLAYNUM'], GAME_PARMS_PATTERN[pattern]['SWIPE'])
+    else:
+        return (40, 500, 5)
 
-show_parms(DEFAULT_PARMS)
+MAX_TURN, PLAYNUM, SWIPE = set_game_parms('default')
+print_game_parms()
+MAX_TURN, PLAYNUM, SWIPE = set_game_parms('win_tablet')
 

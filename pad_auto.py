@@ -1,15 +1,93 @@
 # -*- coding: utf-8 -*-
 # vim:set foldmethod=marker:
 
-#WIN_USER_NAME = "fumio"
-#WIN_USER_NAME = "hassy"
+#WIN_USER_NAME = "fumio"# {{{
+#WIN_USER_NAME = "hassy"# }}}
 
-WIDTH = 6
-HEIGHT = 5
+# WIDTH = 6# {{{
+# HEIGHT = 5# }}}
 
-MAX_TURN = 40
-PLAYNUM = 500
-SWIPE = 4
+BOARD_PARMS_PATTERN = {# {{{
+        'default' : {
+            'WIDTH' : 6,
+            'HEIGHT'  : 5,
+            },
+        '5x4' : {
+            'WIDTH' : 5,
+            'HEIGHT'  : 4,
+            },
+        '6x5' : {
+            'WIDTH' : 6,
+            'HEIGHT'  : 5,
+            },
+        '7x6' : {
+            'WIDTH' : 7,
+            'HEIGHT'  : 6,
+            },
+        }# }}}
+
+def show_board_parms():# {{{
+    print "show board parms ... "
+    print " WIDTH  : " + str(WIDTH)
+    print " HEIGHT : " + str(HEIGHT)# }}}
+
+def set_board_parms(pattern):# {{{
+    if BOARD_PARMS_PATTERN.has_key(pattern):
+        if BOARD_PARMS_PATTERN[pattern].has_key('WIDTH') and BOARD_PARMS_PATTERN[pattern].has_key('HEIGHT'):
+            print "set board parms ... "
+            print " name     : " + str(pattern)
+            print " WIDTH  : " + str(BOARD_PARMS_PATTERN[pattern]['WIDTH'])
+            print " HEIGHT : " + str(BOARD_PARMS_PATTERN[pattern]['HEIGHT'])
+            return (BOARD_PARMS_PATTERN[pattern]['WIDTH'], BOARD_PARMS_PATTERN[pattern]['HEIGHT'])
+    else:
+        return (6, 5)# }}}
+
+WIDTH, HEIGHT = set_board_parms('default')
+#show_board_parms()
+
+# MAX_TURN = 45# {{{
+# PLAYNUM = 500
+# SWIPE = 4# }}}
+
+DEFAULT_GAME_PARMS = {# {{{
+        'MAX_TURN' : 40,
+        'PLAYNUM' : 500,
+        'SWIPE' : 4,
+        }# }}}
+
+GAME_PARMS_PATTERN = {# {{{
+        'default' : {
+            'MAX_TURN' : 40,
+            'PLAYNUM'  : 500,
+            'SWIPE'    : 4,
+            },
+        'win_tablet' : {
+            'MAX_TURN' : 30,
+            'PLAYNUM'  : 400,
+            'SWIPE'    : 5,
+            },
+        }# }}}
+
+def show_game_parms():# {{{
+    print "show game parms ... "
+    print " MAX_TURN : " + str(MAX_TURN)
+    print " PLAYNUM  : " + str(PLAYNUM)
+    print " SWIPE    : " + str(SWIPE)# }}}
+
+def set_game_parms(pattern):# {{{
+    if GAME_PARMS_PATTERN.has_key(pattern):
+        if GAME_PARMS_PATTERN[pattern].has_key('MAX_TURN') and GAME_PARMS_PATTERN[pattern].has_key('PLAYNUM') and GAME_PARMS_PATTERN[pattern].has_key('SWIPE'):
+            print "set game parms ... "
+            print " name     : " + str(pattern)
+            print " MAX_TURN : " + str(GAME_PARMS_PATTERN[pattern]['MAX_TURN'])
+            print " PLAYNUM  : " + str(GAME_PARMS_PATTERN[pattern]['PLAYNUM'])
+            print " SWIPE    : " + str(GAME_PARMS_PATTERN[pattern]['SWIPE'])
+            return (GAME_PARMS_PATTERN[pattern]['MAX_TURN'], GAME_PARMS_PATTERN[pattern]['PLAYNUM'], GAME_PARMS_PATTERN[pattern]['SWIPE'])
+    else:
+        return (40, 500, 4)# }}}
+
+MAX_TURN, PLAYNUM, SWIPE = set_game_parms('default')
+#show_game_parms()
 
 DEFAULT_PARMS = {# {{{
         'name'  : "default",
@@ -71,6 +149,28 @@ PARMS_PATTERN = {# {{{
             'cure': 5.0,
             '4drops-red': 50.0,
             '4drops-green': 50.0,
+            '1line-red': -10.0,
+            '1line-green': -10.0,
+            },
+        'athena': {
+            'light': 10.0,
+            'green': 5.0,
+            'cure': 5.0,
+            '4drops-green': 10.0,
+            '4drops-light': 30.0,
+            },
+        'zeroge-4drops': {
+            'dark': 30.0,
+            'blue': 10.0,
+            'cure': 10.0,
+            '4drops-dark': 20.0,
+            '1line-dark': -10.0,
+            },
+        'zeroge': {
+            'dark': 30.0,
+            'blue': 10.0,
+            'cure': 10.0,
+            '1line-dark': -10.0,
             },
         }# }}}
 
