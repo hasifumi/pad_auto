@@ -139,6 +139,9 @@ PARMS_PATTERN = {# {{{
             'cure': 10.0,
             '1line-dark': -10.0,
             },
+        'isis': {
+            '3colors': 10.0,
+            },
         }# }}}
 
 PARMS = DEFAULT_PARMS
