@@ -410,7 +410,7 @@ clllll
                     score += PARMS['cure'] * 100# }}}
 
         # 多色
-        for k in cmb.keys():
+        for k in cmb.keys():# {{{
             if self.combo[cmb[k]][4] != 'c':
                 if color[self.combo[cmb[k]][4]] != 0:
                     colors += 1
@@ -425,10 +425,10 @@ clllll
         if colors >= 5 and PARMS.has_key('5colors'):
             score += PARMS['5colors'] * 1000
         if colors >= 5 and color['c'] == 1 and PARMS.has_key('5colors+cure'):
-            score += PARMS['5colors+cure'] * 1000
+            score += PARMS['5colors+cure'] * 1000# }}}
 
         # 列優先
-        color = self.chk1LineColor()
+        color = self.chk1LineColor()# {{{
         for k in color.keys():
             #print "k: " + str(k) + ", color[k]: " + str(color[k])
             if   color[k] == 'r' and PARMS.has_key('1line-red'):
@@ -442,10 +442,10 @@ clllll
             elif color[k] == 'd' and PARMS.has_key('1line-dark'):
                 score += PARMS['1line-dark'] * 10000
             elif color[k] == 'c' and PARMS.has_key('1line-cure'):
-                score += PARMS['1line-cure'] * 10000
+                score += PARMS['1line-cure'] * 10000# }}}
 
         # 4つ消し
-        drops4 = self.chkdrops4()
+        drops4 = self.chkdrops4()# {{{
         # drops4 emample = {0: [0, 0, 1, 'h', 'r', 1], 1: [4, 0, 1, 'h', 'b', 1]}
         for k in drops4.keys():
             if   drops4[k][4] == 'r' and PARMS.has_key('4drops-red'):
@@ -487,7 +487,7 @@ clllll
                 elif drops4[k][3] == "v" and drops4[k][1] > 1:
                     score += PARMS['4drops-dark'] * 5000 * -1     # 罰
                 else:
-                    score += PARMS['4drops-dark'] * 5000
+                    score += PARMS['4drops-dark'] * 5000# }}}
 
         return (score, combo)# }}}
 
@@ -503,10 +503,10 @@ clllll
                     color[y] = self.board[self.xy2idx(x, y)]
         return  color# }}}
 
-    def chkdrops4(self):
+    def chkdrops4(self):# {{{
+        # combo : 0)find_seq, 1)start_x_pos, 2)start_y_pos, 3)vector(h/v), 4)color, 5)combo_seq
         drops4 = {}
         for k in self.combo:
-        #for k in combo:
             if drops4.has_key(k[5]):
                 if k[3] == drops4[k[5]][3]:
                     drops4[k[5]][5] += 1
@@ -521,16 +521,8 @@ clllll
                     temp_k[2] = 0
                 elif temp_k[3] == "v":
                     temp_k[1] = 0
-                #print temp_k
                 drops4[k[5]] = temp_k
-            #print drops4
-        #for v in drops4.keys():
-        #    if drops4[v][3] == "h" and drops4[v][2] != 1:
-        #        del drops4[v]
-        #    elif drops4[v][3] == "v" and drops4[v][1] != 1:
-        #        del drops4[v]
-        return drops4
-        # combo : 0)find_seq, 1)start_x_pos, 2)start_y_pos, 3)vector(h/v), 4)color, 5)combo_seq
+        return drops4# }}}
 
     # グループ1の各ドロップの近接リストにグループ2の各ドロップが存在するかを調査する関数
     def isKinsetsu(self, x1, y1, v1, x2, y2, v2):  # x:x座標、y:y座標, v:方向# {{{
