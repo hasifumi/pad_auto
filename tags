@@ -10,51 +10,77 @@
 COL	.\ref\pazdra_kun.cpp	23;"	d	file:
 COL	.\ref\pazdra_kun_old.cpp	23;"	d	file:
 COL	.\ref\pazdra_kun_orig.cpp	22;"	d	file:
+DEFAULT_GAME_PARMS	.\pad_auto.py	/^DEFAULT_GAME_PARMS = {# {{{$/;"	v
+DEFAULT_GAME_PARMS	.\pad_search_test.py	/^DEFAULT_GAME_PARMS = {# {{{$/;"	v
+DEFAULT_GAME_PARMS	.\test3.py	/^DEFAULT_GAME_PARMS = {$/;"	v
+DEFAULT_PARMS	.\pad_auto.py	/^DEFAULT_PARMS = {# {{{$/;"	v
+DEFAULT_PARMS	.\pad_search_test.py	/^DEFAULT_PARMS = {# {{{$/;"	v
+DEFAULT_PARMS	.\test4.py	/^    DEFAULT_PARMS = {# {{{$/;"	v
 DEPTH	.\ref\pazdra_kun.cpp	24;"	d	file:
 DEPTH	.\ref\pazdra_kun_old.cpp	24;"	d	file:
 DEPTH	.\ref\pazdra_kun_orig.cpp	23;"	d	file:
-HEIGHT	.\pad_auto.py	/^HEIGHT = 4$/;"	v
+GAME_PARMS_PATTERN	.\pad_auto.py	/^GAME_PARMS_PATTERN = {# {{{$/;"	v
+GAME_PARMS_PATTERN	.\pad_search_test.py	/^GAME_PARMS_PATTERN = {# {{{$/;"	v
+GAME_PARMS_PATTERN	.\test3.py	/^GAME_PARMS_PATTERN = {$/;"	v
+HEIGHT	.\pad_auto.py	/^HEIGHT = 5# }}}$/;"	v
+HEIGHT	.\pad_search_test.py	/^HEIGHT = 5# }}}$/;"	v
 HEIGHT	.\padboard_test.py	/^HEIGHT = 4$/;"	v
 HEIGHT	.\padboard_test.py	/^HEIGHT = 5$/;"	v
 HEIGHT	.\padboard_test.py	/^HEIGHT = 6$/;"	v
+HEIGHT	.\padboard_test_color.py	/^HEIGHT = 5$/;"	v
+HEIGHT	.\test4.py	/^    HEIGHT = 5$/;"	v
 Image	.\pad_auto.py	/^from PIL import Image$/;"	i
+Image	.\pad_search_test.py	/^from PIL import Image$/;"	i
 Image	.\padboard.py	/^from PIL import Image$/;"	i
 MAX_CHAIN	.\ref\pazdra_kun.cpp	29;"	d	file:
 MAX_CHAIN	.\ref\pazdra_kun_old.cpp	29;"	d	file:
 MAX_CHAIN	.\ref\pazdra_kun_orig.cpp	28;"	d	file:
-MAX_TURN	.\pad_auto.py	/^MAX_TURN = 35$/;"	v
 MAX_TURN	.\ref\pazdra_kun.cpp	30;"	d	file:
 MAX_TURN	.\ref\pazdra_kun_old.cpp	30;"	d	file:
 MAX_TURN	.\ref\pazdra_kun_orig.cpp	29;"	d	file:
+MAX_TURN	.\test4.py	/^    MAX_TURN = 45$/;"	v
 Nbeam	.\pad_search.py	/^def Nbeam(width, height, start_board, max_turn, playnum, parms):$/;"	f
 Nbeam	.\ref\pazdra_kun.cpp	/^void Nbeam(){$/;"	f
 Nbeam	.\ref\pazdra_kun_old.cpp	/^void Nbeam(){$/;"	f
 Nbeam	.\ref\pazdra_kun_orig.cpp	/^void Nbeam(){$/;"	f
+Nbeam	.\test4.py	/^def Nbeam(width, height, start_board, max_turn, playnum, parms):# {{{$/;"	f
 Node	.\pad_search.py	/^class Node:# {{{$/;"	c
-PARMS	.\pad_auto.py	/^PARMS = {# {{{$/;"	v
+Node	.\test4.py	/^class Node:# {{{$/;"	c
+PARMS	.\pad_auto.py	/^            PARMS = select_parms_pattern(PARMS)$/;"	v
+PARMS	.\pad_auto.py	/^    PARMS = DEFAULT_PARMS$/;"	v
+PARMS	.\pad_search_test.py	/^            PARMS = select_parms_pattern(PARMS)$/;"	v
+PARMS	.\pad_search_test.py	/^    PARMS = DEFAULT_PARMS$/;"	v
 PARMS	.\pazdracombo.py	/^PARMS = {# {{{$/;"	v
 PARMS	.\pazdracombo_checker.py	/^PARMS = {# {{{$/;"	v
+PARMS_PATTERN	.\pad_auto.py	/^PARMS_PATTERN = {# {{{$/;"	v
+PARMS_PATTERN	.\pad_search_test.py	/^PARMS_PATTERN = {# {{{$/;"	v
 PLAY	.\ref\pazdra_kun.cpp	28;"	d	file:
 PLAY	.\ref\pazdra_kun_old.cpp	28;"	d	file:
 PLAY	.\ref\pazdra_kun_orig.cpp	27;"	d	file:
-PLAYNUM	.\pad_auto.py	/^PLAYNUM = 400$/;"	v
 PLAYNUM	.\ref\pazdra_kun.cpp	31;"	d	file:
 PLAYNUM	.\ref\pazdra_kun_old.cpp	31;"	d	file:
 PLAYNUM	.\ref\pazdra_kun_orig.cpp	30;"	d	file:
+PLAYNUM	.\test4.py	/^    PLAYNUM = 500$/;"	v
 PazdraComboChecker	.\pazdracombo.py	/^class PazdraComboChecker():$/;"	c
+Pool	.\test4.py	/^    from multiprocessing import Pool$/;"	i
+Pool	.\test5.py	/^    from multiprocessing import Pool$/;"	i
+Pool	.\test6.py	/^from multiprocessing import Pool, cpu_count$/;"	i
 ROW	.\ref\pazdra_kun.cpp	22;"	d	file:
 ROW	.\ref\pazdra_kun_old.cpp	22;"	d	file:
 ROW	.\ref\pazdra_kun_orig.cpp	21;"	d	file:
-SWIPE	.\pad_auto.py	/^SWIPE = 5$/;"	v
 Static1	.\pad_thinter.py	/^Static1 = Tkinter.Label(text=str(max_cmb))$/;"	v
 Tkinter	.\pad_thinter.py	/^import Tkinter$/;"	i
 UiAutomator	.\ref\UiAutomator\src\com\hahahassy\android\UiAutomator.java	/^public class UiAutomator extends UiAutomatorTestCase {$/;"	c
-WIDTH	.\pad_auto.py	/^WIDTH = 5$/;"	v
+WIDTH	.\pad_auto.py	/^WIDTH = 6# {{{$/;"	v
+WIDTH	.\pad_search_test.py	/^WIDTH = 6# {{{$/;"	v
 WIDTH	.\padboard_test.py	/^WIDTH = 5$/;"	v
 WIDTH	.\padboard_test.py	/^WIDTH = 6$/;"	v
 WIDTH	.\padboard_test.py	/^WIDTH = 7$/;"	v
+WIDTH	.\padboard_test_color.py	/^WIDTH = 6$/;"	v
+WIDTH	.\test4.py	/^    WIDTH = 6$/;"	v
 __init__	.\pad_search.py	/^    def __init__(self, start, board):$/;"	m	class:Node
 __init__	.\pazdracombo.py	/^    def __init__(self, width, height, param=None):# {{{$/;"	m	class:PazdraComboChecker
+__init__	.\test4.py	/^    def __init__(self, start, board):$/;"	m	class:Node
 __round	.\padboard.py	/^def __round(array):# {{{$/;"	f	file:
 adb_cmd	.\pad_uiautomator.py	/^def adb_cmd(device, cmd, *parm):$/;"	f
 adjacent_3x2	.\trash\pad.py	/^adjacent_3x2 = ((1, 3),         # 0$/;"	v
@@ -66,6 +92,8 @@ adjacent_6x5	.\pazdracombo.py	/^    adjacent_6x5 = [# {{{$/;"	v	class:PazdraComb
 ans	.\ref\pazdra_kun.cpp	/^int ans[MAX_TURN][2];\/\/solution move point$/;"	v
 ans	.\ref\pazdra_kun_old.cpp	/^int ans[MAX_TURN][2];\/\/solution move point$/;"	v
 ans	.\ref\pazdra_kun_orig.cpp	/^int ans[MAX_TURN][2];\/\/solution move point$/;"	v
+ans	.\test6.py	/^    ans = 0$/;"	v
+ans	.\test6.py	/^    ans = sum(p.map(f, [(a,n) for a in range(1, n+1)]))$/;"	v
 ans_goal	.\ref\pazdra_kun.cpp	/^int ans_goal[2];\/\/solution end point$/;"	v
 ans_goal	.\ref\pazdra_kun_old.cpp	/^int ans_goal[2];\/\/solution end point$/;"	v
 ans_goal	.\ref\pazdra_kun_orig.cpp	/^int ans_goal[2];\/\/solution end point$/;"	v
@@ -75,17 +103,21 @@ ans_start	.\ref\pazdra_kun_orig.cpp	/^int ans_start[2];\/\/solution start point$
 answer_5x4	.\padboard_test.py	/^answer_5x4 = "dbdcbbddcrldrgllrcbc"$/;"	v
 answer_6x5	.\padboard_test.py	/^answer_6x5 = "rlrbbgrbcrgrdgddgcllcrdrbgbldg"$/;"	v
 answer_7x6	.\padboard_test.py	/^answer_7x6 = "cdgrlbrllbldldrbbdrgcbllddbclgbgbglggcgrbl"$/;"	v
-board	.\pad_auto.py	/^            board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))$/;"	v
-board	.\pad_auto.py	/^            board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))$/;"	v
-board	.\pad_auto.py	/^            board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))$/;"	v
+board	.\pad_auto.py	/^            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)$/;"	v
+board	.\pad_auto.py	/^    board = None$/;"	v
+board	.\pad_search_test.py	/^            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)$/;"	v
+board	.\pad_search_test.py	/^    board = None$/;"	v
 board	.\padboard_test.py	/^board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))$/;"	v
 board	.\padboard_test.py	/^board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))$/;"	v
 board	.\padboard_test.py	/^board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))$/;"	v
+board	.\padboard_test_color.py	/^board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))$/;"	v
+board	.\pazdracombo_checker.py	/^board = "bdbbbddbdgdgbbbbbbggddddbdbbbg"$/;"	v
 c1	.\pad_thinter.py	/^c1 = Tkinter.Canvas(root, width=width*circle_height, height=height*2*circle_height+50)$/;"	v
 c1_circles	.\pad_thinter.py	/^c1_circles = []$/;"	v
 c2_circles	.\pad_thinter.py	/^c2_circles = []$/;"	v
 calc_combo	.\pazdracombo.py	/^    def calc_combo(self):# {{{$/;"	m	class:PazdraComboChecker
-calc_i	.\pad_auto.py	/^def calc_i(flag, ary, is_nexus):# {{{$/;"	f
+calc_i	.\pad_auto.py	/^def calc_i(flag, ary, is_nexus, width):# {{{$/;"	f
+calc_i	.\pad_search_test.py	/^def calc_i(flag, ary, is_nexus, width):# {{{$/;"	f
 calc_i	.\test1.py	/^def calc_i(flag, ary):$/;"	f
 calc_score	.\pad_search.py	/^def calc_score(width, height, board, parms):# {{{$/;"	f
 calc_score	.\pazdracombo.py	/^    def calc_score(self, PARMS):# {{{$/;"	m	class:PazdraComboChecker
@@ -104,14 +136,16 @@ check2	.\ref\pazdra_kun_orig.cpp	/^int check2(int play){$/;"	f
 check_board	.\padboard.py	/^def check_board(path, cols, rows, flg=1):# {{{$/;"	f
 check_erasable	.\pazdracombo.py	/^    def check_erasable(self, width=6, height=5):# {{{$/;"	m	class:PazdraComboChecker
 chk1LineColor	.\pazdracombo.py	/^    def chk1LineColor(self):# {{{$/;"	m	class:PazdraComboChecker
+chkdrops4	.\pazdracombo.py	/^    def chkdrops4(self):# {{{$/;"	m	class:PazdraComboChecker
 circle_height	.\pad_thinter.py	/^circle_height = 50$/;"	v
 color	.\padboard.py	/^def color(array, flg=1):# {{{$/;"	f
 color	.\pazdracombo_checker.py	/^color = pdc.chk1LineColor()$/;"	v
-cols	.\test3.py	/^cols = 7$/;"	v
 com.hahahassy.android	.\ref\UiAutomator\src\com\hahahassy\android\UiAutomator.java	/^package com.hahahassy.android;$/;"	p
-conv_x	.\pad_auto.py	/^def conv_x(i, is_nexus):# {{{$/;"	f
+conv_x	.\pad_auto.py	/^def conv_x(i, is_nexus, width=6):# {{{$/;"	f
+conv_x	.\pad_search_test.py	/^def conv_x(i, is_nexus, width=6):# {{{$/;"	f
 conv_x	.\test1.py	/^def conv_x(i):$/;"	f
-conv_y	.\pad_auto.py	/^def conv_y(i, is_nexus):# {{{$/;"	f
+conv_y	.\pad_auto.py	/^def conv_y(i, is_nexus, width=6):# {{{$/;"	f
+conv_y	.\pad_search_test.py	/^def conv_y(i, is_nexus, width=6):# {{{$/;"	f
 conv_y	.\test1.py	/^def conv_y(i):$/;"	f
 convert_h_w	.\pazdracombo.py	/^def convert_h_w(lst):# {{{$/;"	f
 convert_h_w_5x4	.\pazdracombo.py	/^def convert_h_w_5x4(lst):# {{{$/;"	f
@@ -119,6 +153,7 @@ convert_h_w_6x5	.\pazdracombo.py	/^def convert_h_w_6x5(lst):# {{{$/;"	f
 convert_h_w_7x6	.\pazdracombo.py	/^def convert_h_w_7x6(lst):# {{{$/;"	f
 copy	.\pazdracombo.py	/^import copy$/;"	i
 copy	.\trash\pad.py	/^import copy$/;"	i
+cpu_count	.\test6.py	/^from multiprocessing import Pool, cpu_count$/;"	i
 create_drops_random	.\trash\pad.py	/^def create_drops_random(w=6, h=5, d="rbgldc"):$/;"	f
 create_goal_drops	.\trash\pad.py	/^def create_goal_drops(sorted_drops_lst, max_combo):$/;"	f
 d_rnd	.\ref\pazdra_kun.cpp	/^double d_rnd(double mini, double maxi){$/;"	f
@@ -126,7 +161,9 @@ d_rnd	.\ref\pazdra_kun_old.cpp	/^double d_rnd(double mini, double maxi){$/;"	f
 d_rnd	.\ref\pazdra_kun_orig.cpp	/^double d_rnd(double mini, double maxi){$/;"	f
 dct	.\pad_thinter.py	/^dct = pad.pivot_drops(lst1)$/;"	v
 device	.\pad_uiautomator.py	/^device = uiautomator.Device()$/;"	v
-device_path	.\pad_auto.py	/^device_path = "\/sdcard\/screen.png"$/;"	v
+device	.\screencap.py	/^device = uiautomator.Device()$/;"	v
+device_path	.\pad_auto.py	/^    device_path = "\/sdcard\/screen.png"$/;"	v
+device_path	.\pad_search_test.py	/^    device_path = "\/sdcard\/screen.png"$/;"	v
 dfs	.\ref\pazdra_kun.cpp	/^void dfs(int now_row, int now_col, int depth){$/;"	f
 dfs	.\ref\pazdra_kun_old.cpp	/^void dfs(int now_row, int now_col, int depth){$/;"	f
 dfs	.\ref\pazdra_kun_orig.cpp	/^void dfs(int now_row, int now_col, int depth){$/;"	f
@@ -137,16 +174,18 @@ dum	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/
 dummy	.\ref\pazdra_kun.cpp	/^int dummy[ROW][COL];$/;"	v
 dummy	.\ref\pazdra_kun_old.cpp	/^int dummy[ROW][COL];$/;"	v
 dummy	.\ref\pazdra_kun_orig.cpp	/^int dummy[ROW][COL];$/;"	v
-edges	.\test3.py	/^edges = {$/;"	v
-elapsed_time	.\pad_auto.py	/^elapsed_time = time.time() - start_time$/;"	v
-end_flg	.\pad_auto.py	/^        end_flg = False$/;"	v
-end_flg	.\pad_auto.py	/^end_flg = True$/;"	v
+dummy_array	.\test4.py	/^    dummy_array = []$/;"	v
+end_flg	.\pad_auto.py	/^            end_flg = False$/;"	v
+end_flg	.\pad_auto.py	/^    end_flg = True$/;"	v
+end_flg	.\pad_search_test.py	/^            end_flg = False$/;"	v
+end_flg	.\pad_search_test.py	/^    end_flg = True$/;"	v
 evalCombo	.\pad_search.py	/^def evalCombo(width, height, board):# {{{$/;"	f
 evalute	.\ref\pazdra_kun.cpp	/^int evalute(){$/;"	f
 evalute	.\ref\pazdra_kun_old.cpp	/^int evalute(){$/;"	f
 evalute	.\ref\pazdra_kun_orig.cpp	/^int evalute(){$/;"	f
 evalute_light	.\ref\pazdra_kun.cpp	/^int evalute_light(){$/;"	f
 exchange	.\trash\pad.py	/^def exchange(lst, ex1, ex2):  # 0:first_item$/;"	f
+f	.\test6.py	/^def f(an):$/;"	f
 f_field	.\ref\pazdra_kun.cpp	/^int f_field[ROW][COL];$/;"	v
 f_field	.\ref\pazdra_kun_old.cpp	/^int f_field[ROW][COL];$/;"	v
 f_field	.\ref\pazdra_kun_orig.cpp	/^int f_field[ROW][COL];$/;"	v
@@ -160,12 +199,20 @@ field	.\ref\pazdra_kun.cpp	/^int field[ROW][COL];$/;"	v
 field	.\ref\pazdra_kun_old.cpp	/^int field[ROW][COL];$/;"	v
 field	.\ref\pazdra_kun_orig.cpp	/^int field[ROW][COL];$/;"	v
 fill_circles	.\pad_thinter.py	/^def fill_circles(circles, lst, cvs):$/;"	f
+func_args	.\test4.py	/^    func_args = []$/;"	v
+func_args	.\test5.py	/^    func_args = []$/;"	v
 g_turn	.\ref\pazdra_kun.cpp	/^int g_turn;\/\/solution end turn$/;"	v
 g_turn	.\ref\pazdra_kun_old.cpp	/^int g_turn;\/\/solution end turn$/;"	v
 g_turn	.\ref\pazdra_kun_orig.cpp	/^int g_turn;\/\/solution end turn$/;"	v
+gcd	.\test6.py	/^def gcd(a, b):$/;"	f
+get_adjacent	.\pad_search.py	/^def get_adjacent(width, now_pos):# {{{$/;"	f
 get_rgb	.\padboard.py	/^def get_rgb(pic, box=""):# {{{$/;"	f
-get_route	.\pad_auto.py	/^def get_route(route, is_nexus):# {{{$/;"	f
+get_route	.\pad_auto.py	/^def get_route(route, is_nexus, width):# {{{$/;"	f
+get_route	.\pad_search_test.py	/^def get_route(route, is_nexus, width):# {{{$/;"	f
 get_screenshot	.\pad_auto.py	/^def get_screenshot(device_path):# {{{$/;"	f
+get_screenshot	.\pad_search_test.py	/^def get_screenshot(device_path):# {{{$/;"	f
+getting_screenshot	.\pad_auto.py	/^def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{$/;"	f
+getting_screenshot	.\pad_search_test.py	/^def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{$/;"	f
 goal	.\ref\pazdra_kun.cpp	/^	int goal[2];\/\/end point$/;"	m	struct:member	file:
 goal	.\ref\pazdra_kun.cpp	/^int goal[2];\/\/end point$/;"	v
 goal	.\ref\pazdra_kun_old.cpp	/^	int goal[2];\/\/end point$/;"	m	struct:member	file:
@@ -178,20 +225,21 @@ hill_climb	.\ref\pazdra_kun.cpp	/^void hill_climb(){$/;"	f
 hill_climb	.\ref\pazdra_kun_old.cpp	/^void hill_climb(){$/;"	f
 hill_climb	.\ref\pazdra_kun_orig.cpp	/^void hill_climb(){$/;"	f
 idx2xy	.\pad_auto.py	/^def idx2xy(width, idx):# {{{$/;"	f
+idx2xy	.\pad_search_test.py	/^def idx2xy(width, idx):# {{{$/;"	f
 idx2xy	.\pazdracombo.py	/^    def idx2xy(self, idx):# {{{$/;"	m	class:PazdraComboChecker
 init	.\ref\pazdra_kun.cpp	/^void init(){$/;"	f
 init	.\ref\pazdra_kun_old.cpp	/^void init(){$/;"	f
 init	.\ref\pazdra_kun_orig.cpp	/^void init(){$/;"	f
 init2	.\ref\pazdra_kun.cpp	/^void init2(char *p){$/;"	f
 init2	.\ref\pazdra_kun_old.cpp	/^void init2(char *p){$/;"	f
-input_test_word	.\pad_auto.py	/^    input_test_word = input(">>>  ")$/;"	v
+input_test_word	.\pad_auto.py	/^        input_test_word = input(">>>  ")$/;"	v
+input_test_word	.\pad_search_test.py	/^        input_test_word = input(">>>  ")$/;"	v
 isEqual_list	.\trash\pad.py	/^def isEqual_list(lst1, lst2):$/;"	f
 isKinsetsu	.\pazdracombo.py	/^    def isKinsetsu(self, x1, y1, v1, x2, y2, v2):  # x:x座標、y:y座標, v:方向# {{{$/;"	m	class:PazdraComboChecker
 isRenketsu	.\pazdracombo.py	/^    def isRenketsu(self, x, y, vector="h"):# {{{$/;"	m	class:PazdraComboChecker
 is_nexus	.\pad_auto.py	/^def is_nexus(path):# {{{$/;"	f
+is_nexus	.\pad_search_test.py	/^def is_nexus(path):# {{{$/;"	f
 itertools	.\pazdracombo.py	/^import itertools$/;"	i
-key1	.\test3.py	/^key1 = str(width)$/;"	v
-key2	.\test3.py	/^key2 = str(cols)+"x"+str(rows)$/;"	v
 lst	.\pad_thinter.py	/^lst = pad.create_goal_drops(lst2, max_cmb)$/;"	v
 lst1	.\pad_thinter.py	/^lst1 = pad.create_drops_random(width, height, "bgr")$/;"	v
 lst2	.\pad_thinter.py	/^lst2 = pad.sort_drops(dct)$/;"	v
@@ -215,16 +263,23 @@ monte_carlo	.\ref\pazdra_kun.cpp	/^void monte_carlo(){$/;"	f
 monte_carlo	.\ref\pazdra_kun_old.cpp	/^void monte_carlo(){$/;"	f
 monte_carlo	.\ref\pazdra_kun_orig.cpp	/^void monte_carlo(){$/;"	f
 move_drop	.\pad_auto.py	/^def move_drop(pos_x, pos_y, swipe_time):# {{{$/;"	f
+move_drop	.\pad_search_test.py	/^def move_drop(pos_x, pos_y, swipe_time):# {{{$/;"	f
 movei	.\ref\pazdra_kun.cpp	/^	int movei[MAX_TURN][2];\/\/move point$/;"	m	struct:member	file:
 movei	.\ref\pazdra_kun.cpp	/^int movei[MAX_TURN][2];\/\/move point$/;"	v
 movei	.\ref\pazdra_kun_old.cpp	/^	int movei[MAX_TURN][2];\/\/move point$/;"	m	struct:member	file:
 movei	.\ref\pazdra_kun_old.cpp	/^int movei[MAX_TURN][2];\/\/move point$/;"	v
 movei	.\ref\pazdra_kun_orig.cpp	/^	int movei[MAX_TURN][2];\/\/move point$/;"	m	struct:member	file:
 movei	.\ref\pazdra_kun_orig.cpp	/^int movei[MAX_TURN][2];\/\/move point$/;"	v
-n_best	.\pad_auto.py	/^        n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)$/;"	v
+moving	.\pad_auto.py	/^def moving(pos_x, pos_y, SWIPE):# {{{$/;"	f
+moving	.\pad_search_test.py	/^def moving(pos_x, pos_y, SWIPE):# {{{$/;"	f
+multiprocessing	.\pad_search.py	/^import multiprocessing$/;"	i
+myfunc	.\test5.py	/^def myfunc(a, b, c, d):$/;"	f
+n	.\test4.py	/^        n = Node(i, start_board)$/;"	v
+n	.\test6.py	/^    n = 300$/;"	v
 node	.\ref\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 node	.\ref\pazdra_kun_old.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 node	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+node_array	.\test4.py	/^    node_array = []$/;"	v
 nowC	.\ref\pazdra_kun.cpp	/^	int nowC;$/;"	m	struct:member	file:
 nowC	.\ref\pazdra_kun_old.cpp	/^	int nowC;$/;"	m	struct:member	file:
 nowC	.\ref\pazdra_kun_orig.cpp	/^	int nowC;$/;"	m	struct:member	file:
@@ -236,24 +291,35 @@ operation	.\ref\pazdra_kun.cpp	/^void operation(){$/;"	f
 operation	.\ref\pazdra_kun_old.cpp	/^void operation(){$/;"	f
 operation	.\ref\pazdra_kun_orig.cpp	/^void operation(){$/;"	f
 os	.\pad_auto.py	/^import os$/;"	i
+os	.\pad_search_test.py	/^import os$/;"	i
+p	.\test4.py	/^    p = Pool()$/;"	v
+p	.\test5.py	/^    p = Pool()$/;"	v
+p	.\test6.py	/^    p = Pool()$/;"	v
 pad	.\pad_thinter.py	/^import pad$/;"	i
 pad_search	.\pad_auto.py	/^import pad_search$/;"	i
+pad_search	.\pad_search_test.py	/^import pad_search$/;"	i
 padboard	.\pad_auto.py	/^import padboard$/;"	i
+padboard	.\pad_search_test.py	/^import padboard$/;"	i
 padboard	.\padboard_test.py	/^import padboard$/;"	i
+padboard	.\padboard_test_color.py	/^import padboard$/;"	i
 padboard	.\pazdracombo.py	/^import padboard$/;"	i
 padboard	.\pazdracombo_checker.py	/^import padboard$/;"	i
-path	.\pad_auto.py	/^path = ".\\screen.png"$/;"	v
+parms	.\test4.py	/^    parms = DEFAULT_PARMS$/;"	v
+path	.\pad_auto.py	/^    path = ".\\screen.png"$/;"	v
+path	.\pad_search_test.py	/^    path = ".\\screen.png"$/;"	v
 path	.\padboard_test.py	/^path = ".\\screen_sh-01f_5x4.png"$/;"	v
 path	.\padboard_test.py	/^path = ".\\screen_sh-01f_6x5.png"$/;"	v
 path	.\padboard_test.py	/^path = ".\\screen_sh-01f_7x6.png"$/;"	v
+path	.\padboard_test_color.py	/^path = ".\\screen.png"$/;"	v
 pazdracombo	.\pad_auto.py	/^import pazdracombo$/;"	i
 pazdracombo	.\pad_search.py	/^import pazdracombo$/;"	i
+pazdracombo	.\pad_search_test.py	/^import pazdracombo$/;"	i
 pazdracombo	.\padboard_test.py	/^import pazdracombo$/;"	i
+pazdracombo	.\padboard_test_color.py	/^import pazdracombo$/;"	i
 pazdracombo	.\pazdracombo_checker.py	/^import pazdracombo$/;"	i
 pdc	.\pazdracombo_checker.py	/^pdc = pazdracombo.PazdraComboChecker(width, height, board)$/;"	v
 pdc_combo_ascii_table	.\pazdracombo.py	/^    pdc_combo_ascii_table = list("abcdefghij")$/;"	v	class:PazdraComboChecker
 pic_parm	.\padboard.py	/^pic_parm = {$/;"	v
-pic_parm	.\test3.py	/^pic_parm = {$/;"	v
 pivot_drops	.\trash\pad.py	/^def pivot_drops(drops_lst):$/;"	f
 player	.\ref\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 player	.\ref\pazdra_kun_old.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
@@ -261,20 +327,22 @@ player	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM]
 pos_x	.\test1.py	/^pos_x = "470,600,600,470,470,470,470,600,600,470,470,340,340,340,340,340,210,80,80,80,80,210"$/;"	v
 pos_y	.\test1.py	/^pos_y = "1015,1015,1145,1145,1015,885,755,755,625,625,755,755,885,755,885,1015,1015,1015,885,755,625,625"$/;"	v
 print_board	.\pad_auto.py	/^def print_board(width, height, board):# {{{$/;"	f
+print_board	.\pad_search_test.py	/^def print_board(width, height, board):# {{{$/;"	f
 print_board	.\padboard.py	/^def print_board(width, height, board):# {{{$/;"	f
 print_combo	.\pazdracombo.py	/^    def print_combo(self):# {{{$/;"	m	class:PazdraComboChecker
+print_game_parms	.\test3.py	/^def print_game_parms():$/;"	f
 print_lst2str	.\pazdracombo.py	/^    def print_lst2str(self, mod="board"):# {{{$/;"	m	class:PazdraComboChecker
-pull_cmd	.\test2.py	/^pull_cmd = ["adb", "pull", "\/sdcard\/screen.png"]$/;"	v
 random	.\trash\pad.py	/^import random$/;"	i
 renketsu_5x4_h	.\pazdracombo.py	/^    renketsu_5x4_h = [# {{{$/;"	v	class:PazdraComboChecker
 renketsu_5x4_v	.\pazdracombo.py	/^    renketsu_5x4_v = [# {{{$/;"	v	class:PazdraComboChecker
 renketsu_6x5_h	.\pazdracombo.py	/^    renketsu_6x5_h = [# {{{$/;"	v	class:PazdraComboChecker
 renketsu_6x5_v	.\pazdracombo.py	/^    renketsu_6x5_v = [# {{{$/;"	v	class:PazdraComboChecker
+results	.\test4.py	/^    results = p.map(wrap_search_node_array, func_args)$/;"	v
+results	.\test5.py	/^    results = p.map(wrap_myfunc, func_args)$/;"	v
 rnd	.\ref\pazdra_kun.cpp	/^unsigned int rnd(int mini, int maxi){$/;"	f
 rnd	.\ref\pazdra_kun_old.cpp	/^unsigned int rnd(int mini, int maxi){$/;"	f
 rnd	.\ref\pazdra_kun_orig.cpp	/^unsigned int rnd(int mini, int maxi){$/;"	f
 root	.\pad_thinter.py	/^root = Tkinter.Tk()$/;"	v
-rows	.\test3.py	/^rows = 6$/;"	v
 sample	.\ref\pazdra_kun.cpp	/^void sample(char *p){$/;"	f
 sample	.\ref\pazdra_kun_old.cpp	/^void sample(char *p){$/;"	f
 sample	.\ref\sample2.cpp	/^void sample(char *p){$/;"	f
@@ -284,13 +352,28 @@ save	.\ref\pazdra_kun_orig.cpp	/^double save;$/;"	v
 score	.\ref\pazdra_kun.cpp	/^	int score;$/;"	m	struct:member	file:
 score	.\ref\pazdra_kun_old.cpp	/^	int score;$/;"	m	struct:member	file:
 score	.\ref\pazdra_kun_orig.cpp	/^	int score;$/;"	m	struct:member	file:
-screencap_cmd	.\test2.py	/^screencap_cmd = ["adb", "shell", "screencap", "\/sdcard\/screen.png"]$/;"	v
 search	.\trash\pad.py	/^def search(goal_drops, path, prev_drops, adjacent):$/;"	f
+search_node_array	.\pad_search.py	/^def search_node_array(width, height, max_turn, playnum, parms, node_array):# {{{$/;"	f
+search_node_array	.\test4.py	/^def search_node_array(width, height, max_turn, playnum, parms, node_array, dummy_array):# {{{$/;"	f
+searching	.\pad_auto.py	/^def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{$/;"	f
+searching	.\pad_search_test.py	/^def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{$/;"	f
+select_board	.\pad_auto.py	/^def select_board(WIDTH, HEIGHT):# {{{$/;"	f
+select_board	.\pad_search_test.py	/^def select_board(WIDTH, HEIGHT):# {{{$/;"	f
+select_parms_pattern	.\pad_auto.py	/^def select_parms_pattern(PARMS):# {{{$/;"	f
+select_parms_pattern	.\pad_search_test.py	/^def select_parms_pattern(PARMS):# {{{$/;"	f
 server	.\pad_uiautomator.py	/^server = uiautomator.AutomatorServer()$/;"	v
 set	.\ref\pazdra_kun.cpp	/^void set(){$/;"	f
 set	.\ref\pazdra_kun_old.cpp	/^void set(){$/;"	f
 set	.\ref\pazdra_kun_orig.cpp	/^void set(){$/;"	f
+set_game_parms	.\pad_auto.py	/^def set_game_parms(pattern):# {{{$/;"	f
+set_game_parms	.\pad_search_test.py	/^def set_game_parms(pattern):# {{{$/;"	f
+set_game_parms	.\test3.py	/^def set_game_parms(pattern):$/;"	f
 set_route	.\pad_search.py	/^    def set_route(self, lst):$/;"	m	class:Node
+set_route	.\test4.py	/^    def set_route(self, lst):$/;"	m	class:Node
+show_game_parms	.\pad_auto.py	/^def show_game_parms():# {{{$/;"	f
+show_game_parms	.\pad_search_test.py	/^def show_game_parms():# {{{$/;"	f
+show_parms	.\pad_auto.py	/^def show_parms(PARMS):# {{{$/;"	f
+show_parms	.\pad_search_test.py	/^def show_parms(PARMS):# {{{$/;"	f
 similarity_rate	.\ref\pazdra_kun.cpp	/^const double similarity_rate = 0.8;$/;"	v
 similarity_rate	.\ref\pazdra_kun_old.cpp	/^const double similarity_rate = 0.8;$/;"	v
 similarity_rate	.\ref\pazdra_kun_orig.cpp	/^const double similarity_rate = 0.8;$/;"	v
@@ -303,20 +386,21 @@ solve2	.\ref\pazdra_kun_orig.cpp	/^void solve2(int num){$/;"	f
 solve_b	.\ref\pazdra_kun.cpp	/^void solve_b(char *p){$/;"	f
 solve_b	.\ref\pazdra_kun_old.cpp	/^void solve_b(char *p){$/;"	f
 sort_drops	.\trash\pad.py	/^def sort_drops(pivoted_drops_dct):$/;"	f
+st	.\test6.py	/^    st = time.time()$/;"	v
 start	.\ref\pazdra_kun.cpp	/^	int start[2];\/\/start point$/;"	m	struct:member	file:
 start	.\ref\pazdra_kun.cpp	/^int start[2];\/\/start point$/;"	v
 start	.\ref\pazdra_kun_old.cpp	/^	int start[2];\/\/start point$/;"	m	struct:member	file:
 start	.\ref\pazdra_kun_old.cpp	/^int start[2];\/\/start point$/;"	v
 start	.\ref\pazdra_kun_orig.cpp	/^	int start[2];\/\/start point$/;"	m	struct:member	file:
 start	.\ref\pazdra_kun_orig.cpp	/^int start[2];\/\/start point$/;"	v
-start_time	.\pad_auto.py	/^start_time = time.time()$/;"	v
+start_board	.\test4.py	/^    start_board = "grllggglgrlrgrlrlggrlgggrlllrr"$/;"	v
 str2lst	.\pazdracombo.py	/^    def str2lst(self, param, width, height):# {{{$/;"	m	class:PazdraComboChecker
 str_e	.\pazdracombo.py	/^    def str_e(self,e):# {{{$/;"	m	class:PazdraComboChecker
 subprocess	.\pad_auto.py	/^import subprocess$/;"	i
+subprocess	.\pad_search_test.py	/^import subprocess$/;"	i
 subprocess	.\pazdracombo.py	/^import subprocess$/;"	i
 subprocess	.\pazdracombo_checker.py	/^import subprocess$/;"	i
 subprocess	.\test1.py	/^import subprocess$/;"	i
-subprocess	.\test2.py	/^import subprocess$/;"	i
 sum_combo	.\pazdracombo.py	/^    def sum_combo(self):# {{{$/;"	m	class:PazdraComboChecker
 sum_e	.\ref\pazdra_kun.cpp	/^int sum_e(){\/\/evalute_ver$/;"	f
 sum_e	.\ref\pazdra_kun_old.cpp	/^int sum_e(){\/\/evalute_ver$/;"	f
@@ -335,13 +419,18 @@ temp	.\ref\pazdra_kun_old.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/
 temp	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 time	.\pad_auto.py	/^import time$/;"	i
 time	.\pad_search.py	/^import time$/;"	i
+time	.\pad_search_test.py	/^import time$/;"	i
 time	.\pad_uiautomator.py	/^import time$/;"	i
 time	.\pazdracombo.py	/^import time$/;"	i
+time	.\test6.py	/^import time$/;"	i
 uiautomator	.\pad_uiautomator.py	/^import uiautomator$/;"	i
+uiautomator	.\screencap.py	/^import uiautomator$/;"	i
 uiautomator_cmd	.\test1.py	/^uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\\"x\\"", pos_x, "-e","\\"y\\"", pos_y]$/;"	v
 width	.\pad_thinter.py	/^width = 7$/;"	v
 width	.\pazdracombo_checker.py	/^width = 6$/;"	v
-width	.\test3.py	/^width = 1080$/;"	v
+wrap_myfunc	.\test5.py	/^def wrap_myfunc(args):$/;"	f
+wrap_search_node_array	.\pad_search.py	/^def wrap_search_node_array(args):$/;"	f
+wrap_search_node_array	.\test4.py	/^def wrap_search_node_array(args):$/;"	f
 x	.\test1.py	/^x = ['1', '0', '1', '2', '2', '2']$/;"	v
 xy2idx	.\pazdracombo.py	/^    def xy2idx(self, x, y):# {{{$/;"	m	class:PazdraComboChecker
 y	.\test1.py	/^y = ['0', '0', '0', '0', '1', '2']$/;"	v

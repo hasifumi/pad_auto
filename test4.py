@@ -1,173 +1,158 @@
 # -*- coding: utf-8 -*-
-# vim: foldmethod=marker  :
+# vim:set foldmethod=marker:
 
-import numpy
-from PIL import Image
-import multiprocessing as m
-import padboard
+class Node:# {{{
+    def __init__(self, start, board):
+        self.score = 0
+        self.combo = 0
+        self.route = []
+        self.route.append(start)
+        self.board = board
 
-pic_parm = {
-        '800': {   # Nexus7(2012)
-            '5x4': {# {{{
-                'xa': 15,
-                'ya': 575,
-                'xb': 170,
-                'yb': 730,
-                'xs': 155,
-                'ys': 155,
-            },# }}}
-            '6x5': {# {{{
-                'xa': 15,
-                'ya': 560,
-                'xb': 145,
-                'yb': 690,
-                'xs': 130,
-                'ys': 130,
-            },# }}}
-        },
-        '1080': {  # SH-01F
-            '5x4': {# {{{
-                'xa': 5,
-                'ya': 865,
-                'xb': 215,
-                'yb': 1075,
-                'xs': 210,
-                'ys': 210,
-            },# }}}
-            '6x5': {# {{{
-                'xa': 5,
-                'ya': 860,
-                'xb': 185,
-                'yb': 1030,
-                'xs': 180,
-                'ys': 180,
-            },# }}}
-            '7x6': {# {{{
-                'xa': 25,
-                'ya': 850,
-                'xb': 170,
-                'yb': 995,
-                'xs': 145,
-                'ys': 145,
-            },# }}}
-        },
-    }
+    def set_route(self, lst):
+        self.route = lst# }}}
 
-def get_rgb(pic, box=""):# {{{
-    if box == "":
-        box = (0, 0, pic.width, pic.height)
-    rgbimg = pic.crop(box).convert("RGB")
-    rgb = numpy.array(rgbimg.getdata())
-    return [__round(rgb[:,0]),
-            __round(rgb[:,1]),
-            __round(rgb[:,2])]# }}}
+def wrap_search_node_array(args):
+    return args[0](*args[1:])
 
-def color(array, flg=1):# {{{
-    col = {}
-    if flg == 0:
-        col["r"] = [205, 110, 130]
-        col["b"] = [100, 140, 190]
-        col["g"] = [100, 160, 120]
-        col["l"] = [200, 175, 110]
-        col["d"] = [165, 90, 170]
-        col["c"] = [200, 100, 150]
-        #col["o"] = [40, 75, 100]    # ojama
-        #col["o"] = [225, 200, 130]    # ojama
-        #col["p"] = [250, 250, 245]    # poison
-    else:
-        col["1"] = [205, 110, 130]
-        col["2"] = [100, 140, 190]
-        col["3"] = [100, 160, 120]
-        col["4"] = [200, 175, 110]
-        col["5"] = [165, 90, 170]
-        col["6"] = [200, 100, 150]
-        #col["7"] = [85, 115, 130]    # ojama
-        #col["7"] = [225, 200, 130]    # ojama
-        #col["8"] = [250, 250, 245]    # poison
+def search_node_array(width, height, max_turn, playnum, parms, node_array, dummy_array):# {{{
+    for t in range(max_turn):
+        for k in node_array:
+            now_pos = k.route[-1]
+            if len(k.route) != 1:
+                prev_pos = k.route[-2]
+            else:
+                prev_pos = -1
 
-    max = 0
-    result = ""
-    for k, c in col.items():
-       tmp = numpy.corrcoef(numpy.array(array), numpy.array(c))[0][1]
-       if max < tmp:
-           result = k
-           max = tmp
-    return result# }}}
+            for j in get_adjacent(width, now_pos):
+                if  j != prev_pos:
+                    n = Node(k.route[0], k.board)
+                    n.set_route(k.route[:])
+                    n.board = swap(now_pos, j, k.board)
+                    n.score, n.combo = calc_score(width, height, n.board, parms)
+                    n.route.append(j)
+                    if len(dummy_array) > playnum:
+                        idx = 0
+                        worst = 999999
+                        for d,v in enumerate(dummy_array):
+                            if worst > v.score:
+                                worst = v.score
+                                idx = d
+                        del dummy_array[idx]
+                    dummy_array.append(n)
 
-def __round(array):# {{{
-    return int(round(numpy.average(array)))# }}}
+            # i += 1
+        node_array = []
+        node_array = dummy_array[:]
+        dummy_array = []
 
-def wrap_get_rgb_rows(args):# {{{
-    """ wrapper func """
-    print "wrap"
-    return args[0](*args[1:])# }}}
+    return node_array# }}}
 
-def get_rgb_rows(pic, rows, edges, i, flg):# {{{
-    print "get_rgb_rows"
-    clr = ""
-    for j in range(rows):
-        box = (edges['xa'] + edges['xs']*i,
-               edges['ya'] + edges['ys']*j,
-               edges['xb'] + edges['xs']*i,
-               edges['yb'] + edges['ys']*j)
-        rgb = get_rgb(pic, box)
-        clr = clr + color(rgb, flg)
-    return clr # }}}
+def Nbeam(width, height, start_board, max_turn, playnum, parms):# {{{
+    node_array = []
+    dummy_array = []
 
-def check_board(path, cols, rows, flg=1):# {{{
-    pic = Image.open(path, 'r')
+    for i in range(width * height):
+        n = Node(i, start_board)
+        node_array.append(n)
 
-    key1 = str(pic.width)
-    key2 = str(cols)+"x"+str(rows)
-    edges = {# {{{
-            'xa': 0,
-            'ya': 0,
-            'xb': 0,
-            'yb': 0,
-            'xs': 0,
-            'ys': 0,
-        }# }}}
+    print "start_board : " + str(start_board)
+    print "cpu count: " + str(multiprocessing.cpu_count())
+    p = multiprocessing.Pool()
+    func_args = []
+    for na in node_array:
+        #print "na: " + str(na)
+        func_args.append((search_node_array, width, height, max_turn, playnum, parms, na, dummy_array))
+    #print "func_args: " + str(func_args)
+    results = p.map(wrap_search_node_array, func_args)
+    print "results :" + str(results)
+    #node_array.append(p.map(wrap_search_node_array, func_args))
+    #print node_array
 
-    if pic_parm.has_key(key1):
-        if pic_parm[key1].has_key(key2):
-            for k in edges.keys():
-                edges[k] = pic_parm[key1][key2][k]
+    # node_array = search_node_array(width, height, max_turn, playnum, parms, node_array, dummy_array)
 
-    board = ""
-    for i in range(cols):
-        print " cpu_count : " + str(m.cpu_count())
-        p = m.Pool()
-        func_args = []
-        for r in range(rows):
-            func_args.append((get_rgb_rows, pic, r, edges, i, flg))
-        print " func_args: " + str(func_args)
-        board = board + p.map(wrap_get_rgb_rows, func_args)
+    idx = 0
+    best = 0
+    for k,v in enumerate(node_array):
+        if best < v.score:
+            best = v.score
+            idx = k
 
-        #board = board + get_rgb_rows(pic, rows, edges, i, flg)
+    print "best score:" + str(node_array[idx].score)
+    print "best combo:" + str(node_array[idx].combo)
 
-        #for j in range(rows):
-        #    box = (edges['xa'] + edges['xs']*i,
-        #           edges['ya'] + edges['ys']*j,
-        #           edges['xb'] + edges['xs']*i,
-        #           edges['yb'] + edges['ys']*j)
-        #    rgb = get_rgb(pic, box)
-        #    board = board + color(rgb, flg)
-    return board# }}}
+    return node_array[idx]# }}}
 
-def print_board(width, height, board):# {{{
-    for h in range(height):
-        print board[h*width:h*width+width]
-    return 1# }}}
+if __name__ == '__main__':
+    from multiprocessing import Pool
+    p = Pool()
+    func_args = []
+    node_array = []
+    dummy_array = []
 
+    WIDTH = 6
+    HEIGHT = 5
 
-path = ".\screen_sh-01f_5x4.png"
-WIDTH = 5
-HEIGHT = 4
+    MAX_TURN = 45
+    PLAYNUM = 500
 
-temp_board = padboard.check_board(path, WIDTH, HEIGHT)
-board = pazdracombo.convert_h_w_5x4(temp_board)
-print "[4drops-check]"
-print board
-print ""
-padboard.print_board(WIDTH, HEIGHT, board)
-print ""
+    start_board = "grllggglgrlrgrlrlggrlgggrlllrr"
+
+    DEFAULT_PARMS = {# {{{
+            'name'  : "default",
+            'red'  : 0.0,
+            'blue' : 0.0,
+            'green': 0.0,
+            'light': 0.0,
+            'dark' : 0.0,
+            'cure' : 0.0,
+            '3colors'  : 0.0,
+            '4colors'  : 0.0,
+            '5colors'  : 0.0,
+            '3colors+cure'  : 0.0,
+            '4colors+cure'  : 0.0,
+            '5colors+cure'  : 0.0,
+            '4drops-red'  : 0.0,
+            '4drops-blue' : 0.0,
+            '4drops-green': 0.0,
+            '4drops-light': 0.0,
+            '4drops-dark' : 0.0,
+            '4drops-cure' : 0.0,
+            '5drops-red'  : 0.0,
+            '5drops-blue' : 0.0,
+            '5drops-green': 0.0,
+            '5drops-light': 0.0,
+            '5drops-dark' : 0.0,
+            '5drops-cure' : 0.0,
+            '1line-red'  : 0.0,
+            '1line-blue' : 0.0,
+            '1line-green': 0.0,
+            '1line-light': 0.0,
+            '1line-dark' : 0.0,
+            '1line-cure' : 0.0,
+            }# }}}
+
+    parms = DEFAULT_PARMS
+
+    for i in range(6 * 5):
+        n = Node(i, start_board)
+        node_array.append(n)
+
+    print node_array
+    for na in node_array:
+        #func_args.append((search_node_array, 6, 5, 45, playnum, parms, node_array, dummy_array) )
+        func_args.append((search_node_array, 6, 5, 45, 500, parms, na, dummy_array) )
+
+    print func_args
+    results = p.map(wrap_search_node_array, func_args)
+    print results
+
+#if __name__ == '__main__':
+#    from multiprocessing import Pool
+#    p = Pool()
+#    func_args = []
+#    for a in xrange(1,10):
+#        for b in xrange(1,10):
+#            func_args.append( (myfunc, a, b) )
+#    results = p.map(argwrapper, func_args)
+#    print results

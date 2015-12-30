@@ -3,6 +3,7 @@
 
 import pazdracombo
 import time
+import multiprocessing
 
 # 隣接リスト
 adjacent_4x3 = [# {{{
@@ -87,15 +88,11 @@ class Node:# {{{
     def set_route(self, lst):
         self.route = lst# }}}
 
-#def Nbeam(width, height, start_board, max_turn, playnum, red, blue, green, light, dark, cure):
-def Nbeam(width, height, start_board, max_turn, playnum, parms):
-    node_array = []
+def wrap_search_node_array(args):
+    return args[0](*args[1:])
+
+def search_node_array(width, height, max_turn, playnum, parms, node_array):# {{{
     dummy_array = []
-
-    for i in range(width * height):
-        n = Node(i, start_board)
-        node_array.append(n)
-
     for t in range(max_turn):
         for k in node_array:
             now_pos = k.route[-1]
@@ -121,47 +118,63 @@ def Nbeam(width, height, start_board, max_turn, playnum, parms):
                         del dummy_array[idx]
                     dummy_array.append(n)
 
-            # if width == 5:# {{{
-            #     for j in adjacent_5x4[now_pos]:
-            #         if  j != prev_pos:
-            #             n = Node(k.route[0], k.board)
-            #             n.set_route(k.route[:])
-            #             n.board = swap(now_pos, j, k.board)
-            #             n.score, n.combo = calc_score(width, height, n.board, parms)
-            #             n.route.append(j)
-            #             if len(dummy_array) > playnum:
-            #                 idx = 0
-            #                 worst = 999999
-            #                 for d,v in enumerate(dummy_array):
-            #                     if worst > v.score:
-            #                         worst = v.score
-            #                         idx = d
-            #                 del dummy_array[idx]
-            #             dummy_array.append(n)
-            #
-            # if width == 6:
-            #     for j in adjacent_6x5[now_pos]:
-            #         if  j != prev_pos:
-            #             n = Node(k.route[0], k.board)
-            #             n.set_route(k.route[:])
-            #             n.board = swap(now_pos, j, k.board)
-            #             #n.score = calc_score(width, height, n.board, parms)
-            #             n.score, n.combo = calc_score(width, height, n.board, parms)
-            #             n.route.append(j)
-            #             if len(dummy_array) > playnum:
-            #                 idx = 0
-            #                 worst = 999999
-            #                 for d,v in enumerate(dummy_array):
-            #                     if worst > v.score:
-            #                         worst = v.score
-            #                         idx = d
-            #                 del dummy_array[idx]
-            #             dummy_array.append(n)# }}}
-
-            i += 1
+            # i += 1
         node_array = []
         node_array = dummy_array[:]
         dummy_array = []
+
+    return node_array# }}}
+
+def Nbeam(width, height, start_board, max_turn, playnum, parms):
+    node_array = []
+    #dummy_array = []
+
+    for i in range(width * height):
+        n = Node(i, start_board)
+        node_array.append(n)
+
+    #print "start_board : " + str(start_board)
+    #print "cpu count: " + str(multiprocessing.cpu_count())
+    #p = multiprocessing.Pool()
+    #func_args = []
+    #for na in node_array:
+    #    func_args.append((search_node_array, width, height, max_turn, playnum, parms, na))
+    #results = p.map(wrap_search_node_array, func_args)
+    ##print "results :" + str(results)
+    #node_array.append(p.map(wrap_search_node_array, func_args))
+    ##print node_array
+
+    node_array = search_node_array(width, height, max_turn, playnum, parms, node_array)
+
+    # for t in range(max_turn):# {{{
+    #     for k in node_array:
+    #         now_pos = k.route[-1]
+    #         if len(k.route) != 1:
+    #             prev_pos = k.route[-2]
+    #         else:
+    #             prev_pos = -1
+    #
+    #         for j in get_adjacent(width, now_pos):
+    #             if  j != prev_pos:
+    #                 n = Node(k.route[0], k.board)
+    #                 n.set_route(k.route[:])
+    #                 n.board = swap(now_pos, j, k.board)
+    #                 n.score, n.combo = calc_score(width, height, n.board, parms)
+    #                 n.route.append(j)
+    #                 if len(dummy_array) > playnum:
+    #                     idx = 0
+    #                     worst = 999999
+    #                     for d,v in enumerate(dummy_array):
+    #                         if worst > v.score:
+    #                             worst = v.score
+    #                             idx = d
+    #                     del dummy_array[idx]
+    #                 dummy_array.append(n)
+    #
+    #         i += 1
+    #     node_array = []
+    #     node_array = dummy_array[:]
+    #     dummy_array = []# }}}
 
     idx = 0
     best = 0

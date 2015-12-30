@@ -50,7 +50,7 @@ def set_game_parms(pattern):# {{{
     else:
         return (40, 500, 4)# }}}
 
-MAX_TURN, PLAYNUM, SWIPE = set_game_parms('default')
+# MAX_TURN, PLAYNUM, SWIPE = set_game_parms('default')
 #show_game_parms()
 
 DEFAULT_PARMS = {# {{{
@@ -141,7 +141,7 @@ PARMS_PATTERN = {# {{{
             },
         }# }}}
 
-PARMS = DEFAULT_PARMS
+# PARMS = DEFAULT_PARMS
 
 import padboard
 #import uiautomator
@@ -157,8 +157,7 @@ def print_board(width, height, board):# {{{
         print board[h*width:h*width+width]
     return 1# }}}
 
-device_path = "/sdcard/screen.png"
-
+# device_path = "/sdcard/screen.png"
 def get_screenshot(device_path):# {{{
     screencap_cmd = ["adb", "shell", "screencap", device_path]
     subprocess.check_call(screencap_cmd, shell=True)
@@ -234,11 +233,15 @@ def move_drop(pos_x, pos_y, swipe_time):# {{{
     uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y, "-e","\"t\"", swipe_time]
     subprocess.check_call(uiautomator_cmd, shell=True)# }}}
 
-def getting_screenshot(device_path, path, WIDTH, HEIGHT):# {{{
-    #print "getting screenshot ..."
-    print "useing old screen.png  ..."
-    start_time = time.time()
-    #get_screenshot(device_path)
+def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{
+    if use_old == 0:
+        print "getting screenshot ..."
+        start_time = time.time()
+        get_screenshot(device_path)
+    else:
+        print "using old screenshot ..."
+        start_time = time.time()
+
     if WIDTH == 5:
         board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))
     elif WIDTH == 6:
@@ -250,6 +253,8 @@ def getting_screenshot(device_path, path, WIDTH, HEIGHT):# {{{
     return board# }}}
 
 def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{
+    if board is None:
+        board = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)  # すでに取得済みのscreenshotを利用する
     print "searching ..."
     start_time = time.time()
     n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
@@ -357,43 +362,49 @@ def select_parms_pattern(PARMS):# {{{
                 PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
     return PARMS# }}}
 
-path = ".\screen.png"
 
-# main routine
+if __name__ == '__main__':
 
-end_flg = True
+    MAX_TURN, PLAYNUM, SWIPE = set_game_parms('default')
+    PARMS = DEFAULT_PARMS
+    device_path = "/sdcard/screen.png"
+    path = ".\screen.png"
+    board = None
 
+    # main routine
 
-while(end_flg):
+    end_flg = True
 
-    print "press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, "
-    print "           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, 99: exit )"
-    input_test_word = input(">>>  ")
-    if input_test_word == 1:
-        board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-    elif input_test_word == 2:
-        pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-    elif input_test_word == 3:
-        moving(pos_x, pos_y, SWIPE)
-    if input_test_word == 4:
-        board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-        pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-    elif input_test_word == 5:
-        pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-        moving(pos_x, pos_y, SWIPE)
-    elif input_test_word == 6:
-        board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-        pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-        moving(pos_x, pos_y, SWIPE)
-    elif input_test_word == 7:
-        PARMS = select_parms_pattern(PARMS)
-    elif input_test_word == 8:
-        WIDTH, HEIGHT = select_board(WIDTH, HEIGHT)
-        print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
-    elif input_test_word == 99:
-        print "pad_auto exit!!"
-        end_flg = False
-    else:
-        print "press correct key!!"
-        #end_flg = False
+    while(end_flg):
+
+        print "press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, "
+        print "           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, 99: exit )"
+        input_test_word = input(">>>  ")
+        if input_test_word == 1:
+            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
+        elif input_test_word == 2:
+            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+        elif input_test_word == 3:
+            moving(pos_x, pos_y, SWIPE)
+        if input_test_word == 4:
+            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
+            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+        elif input_test_word == 5:
+            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            moving(pos_x, pos_y, SWIPE)
+        elif input_test_word == 6:
+            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
+            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            moving(pos_x, pos_y, SWIPE)
+        elif input_test_word == 7:
+            PARMS = select_parms_pattern(PARMS)
+        elif input_test_word == 8:
+            WIDTH, HEIGHT = select_board(WIDTH, HEIGHT)
+            print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
+        elif input_test_word == 99:
+            print "pad_auto exit!!"
+            end_flg = False
+        else:
+            print "press correct key!!"
+            #end_flg = False
 
