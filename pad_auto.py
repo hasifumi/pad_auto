@@ -236,10 +236,15 @@ def move_drop(pos_x, pos_y, swipe_time):# {{{
     uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y, "-e","\"t\"", swipe_time]
     subprocess.check_call(uiautomator_cmd, shell=True)# }}}
 
-def getting_screenshot(device_path, path, WIDTH, HEIGHT):# {{{
-    print "getting screenshot ..."
-    start_time = time.time()
-    get_screenshot(device_path)
+def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{
+    if use_old == 0:
+        print "getting screenshot ..."
+        start_time = time.time()
+        get_screenshot(device_path)
+    else:
+        print "using old screenshot ..."
+        start_time = time.time()
+
     if WIDTH == 5:
         board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))
     elif WIDTH == 6:
@@ -251,6 +256,8 @@ def getting_screenshot(device_path, path, WIDTH, HEIGHT):# {{{
     return board# }}}
 
 def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{
+    if board is None:
+        board = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)  # すでに取得済みのscreenshotを利用する
     print "searching ..."
     start_time = time.time()
     n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
@@ -359,11 +366,11 @@ def select_parms_pattern(PARMS):# {{{
     return PARMS# }}}
 
 path = ".\screen.png"
+board = None
 
 # main routine
 
 end_flg = True
-
 
 while(end_flg):
 
