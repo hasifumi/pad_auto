@@ -72,6 +72,10 @@ print pdc.print_lst2str("board")
 pdc.check_erasable()
 pdc.calc_combo()
 
+# 確認用
+print "[erase]"
+print pdc.print_lst2str("erase")
+
 ## 確認用
 print "[combo]"
 print pdc.print_combo()
@@ -80,6 +84,6 @@ print "score: " + str(score) + ", combo: " + str(combo)
 
 print pdc.combo
 
-color = pdc.chk1LineColor()
-print color
+#color = pdc.chk1LineColor()
+#print color
 
