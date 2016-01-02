@@ -3,6 +3,7 @@
 
 import numpy
 from PIL import Image
+import multiprocessing as mp
 
 pic_parm = {
         '800': {   # Nexus7(2012)
@@ -95,6 +96,20 @@ def color(array, flg=1):# {{{
 def __round(array):# {{{
     return int(round(numpy.average(array)))# }}}
 
+def wrap_func(args):# {{{
+    return args[0](*args[1:])# }}}
+
+def get_rows_rgb(rows, edges, pic, i, flg):# {{{
+    rows_rgb = ""
+    for j in range(rows):
+        box = (edges['xa'] + edges['xs']*i,
+               edges['ya'] + edges['ys']*j,
+               edges['xb'] + edges['xs']*i,
+               edges['yb'] + edges['ys']*j)
+        rgb = get_rgb(pic, box)
+        rows_rgb += color(rgb, flg)
+    return rows_rgb# }}}
+
 def check_board(path, cols, rows, flg=1):# {{{
     pic = Image.open(path, 'r')
 
@@ -110,21 +125,15 @@ def check_board(path, cols, rows, flg=1):# {{{
         }
 
     if pic_parm.has_key(key1):
-        #print "has " + key1
         if pic_parm[key1].has_key(key2):
             for k in edges.keys():
                 edges[k] = pic_parm[key1][key2][k]
-                #print "edges[k]: " + str(edges[k])
 
     board = ""
     for i in range(cols):
-        for j in range(rows):
-            box = (edges['xa'] + edges['xs']*i,
-                   edges['ya'] + edges['ys']*j,
-                   edges['xb'] + edges['xs']*i,
-                   edges['yb'] + edges['ys']*j)
-            rgb = get_rgb(pic, box)
-            board = board + color(rgb, flg)
+        rows_rgb = get_rows_rgb(rows, edges, pic, i, flg)
+        board += rows_rgb
+
     return board# }}}
 
 def print_board(width, height, board):# {{{

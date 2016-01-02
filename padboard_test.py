@@ -3,6 +3,9 @@
 
 import padboard
 import pazdracombo
+import time
+
+start_time = time.time()
 
 path = ".\screen_sh-01f_5x4.png"
 WIDTH = 5
@@ -48,6 +51,9 @@ else:
     print "wrong!!"
 padboard.print_board(WIDTH, HEIGHT, board)
 print ""
+
+elapsed_time = time.time() - start_time
+print("searching time:{0}".format(elapsed_time)) + "[sec]"
 
 # answer
 #
