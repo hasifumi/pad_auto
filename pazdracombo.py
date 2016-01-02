@@ -236,6 +236,8 @@ clllll
         self.board = param
         self.board_l = self.str2lst(param, width, height)
         self.erase_l = copy.deepcopy(self.board_l)
+        self.erase2_l = copy.deepcopy(self.board_l)
+        self.fall_l = copy.deepcopy(self.board_l)
         self.combo = []
         # combo : 1)find_seq, 2)start_x_pos, 3)start_y_pos, 4)vector(h/v), 5)color, 6)combo_seq# }}}
 
@@ -278,6 +280,18 @@ clllll
                     self.erase_l[j+2][i] = self.str_e(ers)
                     self.combo.append([ers, i, j, "v", self.board_l[j][i], ers])
                     ers += 1# }}}
+
+    def check_renkentsu_erasable(self, width=6, height=5):# {{{
+        cmb_l = list(self.board)
+        cnt = 0
+        for i in self.combo:
+            if i[3] == "h":
+                for j in self.renketsu_6x5_h[self.xy2idx(i[1], i[2])]:
+                    cmb_l[j] = self.str_e(i[5])
+            elif i[3] == "v":
+                for j in self.renketsu_6x5_v[self.xy2idx(i[1], i[2])]:
+                    cmb_l[j] = self.str_e(i[5])
+        self.erase2_l = cmb_l# }}}
 
     def str_e(self,e):# {{{
         if 0 <= e <= 9:
@@ -327,6 +341,8 @@ clllll
             lst = copy.deepcopy(self.board_l)
         elif mod == "erase":
             lst = copy.deepcopy(self.erase_l)
+        elif mod == "erase2":
+            lst = copy.deepcopy(self.erase2_l)
 
         strs = "".join(list(itertools.chain.from_iterable(lst)))
         for h in range(self.height):
@@ -577,15 +593,16 @@ clllll
         return False# }}}
 
     def print_combo(self):# {{{
-        cmb_l = list(self.board)
-        for i in self.combo:
-            if i[3] == "h":
-                for j in self.renketsu_6x5_h[self.xy2idx(i[1], i[2])]:
-                    cmb_l[j] = self.str_e(i[5])
-            elif i[3] == "v":
-                for j in self.renketsu_6x5_v[self.xy2idx(i[1], i[2])]:
-                    cmb_l[j] = self.str_e(i[5])
-        strs = "".join(cmb_l)
+        # cmb_l = list(self.board)
+        # for i in self.combo:
+        #     if i[3] == "h":
+        #         for j in self.renketsu_6x5_h[self.xy2idx(i[1], i[2])]:
+        #             cmb_l[j] = self.str_e(i[5])
+        #     elif i[3] == "v":
+        #         for j in self.renketsu_6x5_v[self.xy2idx(i[1], i[2])]:
+        #             cmb_l[j] = self.str_e(i[5])
+        # strs = "".join(cmb_l)
+        strs = "".join(self.erase2_l)
         for h in range(self.height):
             print strs[h*self.width:h*self.width+self.width]
         return# }}}

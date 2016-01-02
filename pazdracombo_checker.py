@@ -71,10 +71,16 @@ print pdc.print_lst2str("board")
 
 pdc.check_erasable()
 pdc.calc_combo()
+pdc.check_renkentsu_erasable()
+
 
 # 確認用
 print "[erase]"
 print pdc.print_lst2str("erase")
+
+# 確認用
+print "[erase2]"
+print pdc.print_lst2str("erase2")
 
 ## 確認用
 print "[combo]"
