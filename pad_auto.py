@@ -20,7 +20,7 @@ DEFAULT_GAME_PARMS = {# {{{
 GAME_PARMS_PATTERN = {# {{{
         'default' : {
             'MAX_TURN' : 40,
-            'PLAYNUM'  : 30,
+            'PLAYNUM'  : 20,
             'SWIPE'    : 4,
             },
         'win_tablet' : {
@@ -91,6 +91,38 @@ DEFAULT_PARMS = {# {{{
         }# }}}
 
 PARMS_PATTERN = {# {{{
+        'default': {
+            'red'  : 0.0,
+            'blue' : 0.0,
+            'green': 0.0,
+            'light': 0.0,
+            'dark' : 0.0,
+            'cure' : 0.0,
+            '3colors'  : 0.0,
+            '4colors'  : 0.0,
+            '5colors'  : 0.0,
+            '3colors+cure'  : 0.0,
+            '4colors+cure'  : 0.0,
+            '5colors+cure'  : 0.0,
+            '4drops-red'  : 0.0,
+            '4drops-blue' : 0.0,
+            '4drops-green': 0.0,
+            '4drops-light': 0.0,
+            '4drops-dark' : 0.0,
+            '4drops-cure' : 0.0,
+            '5drops-red'  : 0.0,
+            '5drops-blue' : 0.0,
+            '5drops-green': 0.0,
+            '5drops-light': 0.0,
+            '5drops-dark' : 0.0,
+            '5drops-cure' : 0.0,
+            '1line-red'  : 0.0,
+            '1line-blue' : 0.0,
+            '1line-green': 0.0,
+            '1line-light': 0.0,
+            '1line-dark' : 0.0,
+            '1line-cure' : 0.0,
+            },
         'saria, tall': {
             'red': 5.0,
             'light': 10.0,
@@ -143,8 +175,6 @@ PARMS_PATTERN = {# {{{
             '3colors': 10.0,
             },
         }# }}}
-
-# PARMS = DEFAULT_PARMS
 
 import padboard
 #import uiautomator
@@ -369,7 +399,12 @@ def select_parms_pattern(PARMS):# {{{
 if __name__ == '__main__':
 
     MAX_TURN, PLAYNUM, SWIPE = set_game_parms('default')
-    PARMS = DEFAULT_PARMS
+    #PARMS = DEFAULT_PARMS
+    PARMS = {}
+    PARMS['name'] = 'default'
+    for k in PARMS_PATTERN['default'].keys():
+        PARMS[k] = PARMS_PATTERN['default'][k]
+    print "initail pattern name = " + PARMS['name']
     device_path = "/sdcard/screen.png"
     path = ".\screen.png"
     board = None

@@ -133,7 +133,11 @@ def search_node_array(width, height, max_turn, playnum, parms, node_i, start_boa
     return node_array# }}}
 
 def Nbeam(width, height, start_board, max_turn, playnum, parms):
-    use_cpu_count = mp.cpu_count() - 1
+    if mp.cpu_count() == 1:
+        use_cpu_count = 1
+    else:
+        use_cpu_count = mp.cpu_count() - 1
+    #use_cpu_count = 1
     print "use cpu count: " + str(use_cpu_count)
     p = mp.Pool(use_cpu_count)
     func_args = []
@@ -141,8 +145,6 @@ def Nbeam(width, height, start_board, max_turn, playnum, parms):
         func_args.append((search_node_array, width, height, max_turn, playnum, parms, i, start_board))
     node_array = p.map(wrap_search_node_array, func_args)
     node_array = list(itertools.chain.from_iterable(node_array))
-    #print "len(node_array): " + str(len(node_array))
-    #print "node_array[:2] " + str(node_array[:2])
 
     idx = 0
     best = 0
