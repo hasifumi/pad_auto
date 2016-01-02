@@ -13,24 +13,24 @@ HEIGHT = 5# }}}
 
 DEFAULT_GAME_PARMS = {# {{{
         'MAX_TURN' : 40,
-        'PLAYNUM' : 500,
+        'PLAYNUM' : 30,
         'SWIPE' : 4,
         }# }}}
 
 GAME_PARMS_PATTERN = {# {{{
         'default' : {
             'MAX_TURN' : 40,
-            'PLAYNUM'  : 500,
+            'PLAYNUM'  : 30,
             'SWIPE'    : 4,
             },
         'win_tablet' : {
             'MAX_TURN' : 30,
-            'PLAYNUM'  : 400,
+            'PLAYNUM'  : 25,
             'SWIPE'    : 5,
             },
         'long_thinking' : {
             'MAX_TURN' : 50,
-            'PLAYNUM'  : 100,
+            'PLAYNUM'  : 50,
             'SWIPE'    : 5,
             },
         }# }}}

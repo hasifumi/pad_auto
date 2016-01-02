@@ -3,7 +3,8 @@
 
 import pazdracombo
 import time
-import multiprocessing
+import multiprocessing as mp
+import itertools
 
 # 隣接リスト
 adjacent_4x3 = [# {{{
@@ -91,8 +92,14 @@ class Node:# {{{
 def wrap_search_node_array(args):
     return args[0](*args[1:])
 
-def search_node_array(width, height, max_turn, playnum, parms, node_array):# {{{
+def search_node_array(width, height, max_turn, playnum, parms, node_i, start_board):# {{{
+    node_array = []
     dummy_array = []
+
+    #for i in range(width * height):
+    n = Node(node_i, start_board)
+    node_array.append(n)
+
     for t in range(max_turn):
         for k in node_array:
             now_pos = k.route[-1]
@@ -126,55 +133,16 @@ def search_node_array(width, height, max_turn, playnum, parms, node_array):# {{{
     return node_array# }}}
 
 def Nbeam(width, height, start_board, max_turn, playnum, parms):
-    node_array = []
-    #dummy_array = []
-
-    for i in range(width * height):
-        n = Node(i, start_board)
-        node_array.append(n)
-
-    #print "start_board : " + str(start_board)
-    #print "cpu count: " + str(multiprocessing.cpu_count())
-    #p = multiprocessing.Pool()
-    #func_args = []
-    #for na in node_array:
-    #    func_args.append((search_node_array, width, height, max_turn, playnum, parms, na))
-    #results = p.map(wrap_search_node_array, func_args)
-    ##print "results :" + str(results)
-    #node_array.append(p.map(wrap_search_node_array, func_args))
-    ##print node_array
-
-    node_array = search_node_array(width, height, max_turn, playnum, parms, node_array)
-
-    # for t in range(max_turn):# {{{
-    #     for k in node_array:
-    #         now_pos = k.route[-1]
-    #         if len(k.route) != 1:
-    #             prev_pos = k.route[-2]
-    #         else:
-    #             prev_pos = -1
-    #
-    #         for j in get_adjacent(width, now_pos):
-    #             if  j != prev_pos:
-    #                 n = Node(k.route[0], k.board)
-    #                 n.set_route(k.route[:])
-    #                 n.board = swap(now_pos, j, k.board)
-    #                 n.score, n.combo = calc_score(width, height, n.board, parms)
-    #                 n.route.append(j)
-    #                 if len(dummy_array) > playnum:
-    #                     idx = 0
-    #                     worst = 999999
-    #                     for d,v in enumerate(dummy_array):
-    #                         if worst > v.score:
-    #                             worst = v.score
-    #                             idx = d
-    #                     del dummy_array[idx]
-    #                 dummy_array.append(n)
-    #
-    #         i += 1
-    #     node_array = []
-    #     node_array = dummy_array[:]
-    #     dummy_array = []# }}}
+    use_cpu_count = mp.cpu_count() - 1
+    print "use cpu count: " + str(use_cpu_count)
+    p = mp.Pool(use_cpu_count)
+    func_args = []
+    for i in range(width*height):
+        func_args.append((search_node_array, width, height, max_turn, playnum, parms, i, start_board))
+    node_array = p.map(wrap_search_node_array, func_args)
+    node_array = list(itertools.chain.from_iterable(node_array))
+    #print "len(node_array): " + str(len(node_array))
+    #print "node_array[:2] " + str(node_array[:2])
 
     idx = 0
     best = 0
