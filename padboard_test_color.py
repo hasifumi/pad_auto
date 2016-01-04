@@ -6,7 +6,8 @@ import pazdracombo
 import time
 
 #path = ".\screen_ojama.png"
-path = ".\screen.png"
+path = ".\screen_poison.png"
+#path = ".\screen.png"
 WIDTH = 6
 HEIGHT = 5
 

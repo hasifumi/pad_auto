@@ -120,11 +120,10 @@ def color(array, flg=1):# {{{
         col["b"] = [100, 140, 190]
         col["g"] = [100, 160, 120]
         col["l"] = [200, 175, 110]
-        col["d"] = [165, 90, 170]
+        col["d"] = [165, 90,  170]
         col["c"] = [200, 100, 150]
-        #col["o"] = [40, 75, 100]    # ojama
-        #col["o"] = [225, 200, 130]    # ojama
-        #col["p"] = [250, 250, 245]    # poison
+        col["o"] = [45,  45,  55]     # ojama
+        col["p"] = [120, 95,  115]    # poison
     else:
         col["1"] = [205, 110, 130]
         col["2"] = [100, 140, 190]
@@ -132,9 +131,8 @@ def color(array, flg=1):# {{{
         col["4"] = [200, 175, 110]
         col["5"] = [165, 90, 170]
         col["6"] = [200, 100, 150]
-        #col["7"] = [85, 115, 130]    # ojama
-        #col["7"] = [225, 200, 130]    # ojama
-        #col["8"] = [250, 250, 245]    # poison
+        col["7"] = [45,  45,  55]     # ojama
+        col["8"] = [120, 95,  115]    # poison
 
     max = 0
     result = ""
@@ -159,6 +157,7 @@ def get_rows_rgb(rows, edges, pic, i, flg):# {{{
                edges['xb'] + edges['xs']*i,
                edges['yb'] + edges['ys']*j)
         rgb = get_rgb(pic, box)
+        #print "rgb: " + str(rgb)
         rows_rgb += color(rgb, flg)
     return rows_rgb# }}}
 
