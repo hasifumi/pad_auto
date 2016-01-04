@@ -177,7 +177,6 @@ PARMS_PATTERN = {# {{{
         }# }}}
 
 import padboard
-import padboard2
 #import uiautomator
 import time
 import subprocess
@@ -185,7 +184,9 @@ import os
 import pad_search
 import pazdracombo
 from PIL import Image
-import pad_get_ss
+import pyws as m
+import ImageGrab
+import winxpgui
 
 def print_board(width, height, board):# {{{
     for h in range(height):
@@ -193,8 +194,27 @@ def print_board(width, height, board):# {{{
     return 1# }}}
 
 # device_path = "/sdcard/screen.png"
-def get_screenshot(device_name, filename):# {{{
-    pad_get_ss.get_ss_by_pyws(device_name, filename)
+def get_screenshot(device_path, device_name, filename):# {{{
+    if device_path != "":
+        screencap_cmd = ["adb", "shell", "screencap", device_path]
+        subprocess.check_call(screencap_cmd, shell=True)
+
+        pull_cmd = ["adb", "pull", device_path]
+        subprocess.check_call(pull_cmd, shell=True)
+
+    else:
+        # get window handle
+        hwnd = m.getid(device_name)
+        # get window position
+        rect = winxpgui.GetWindowRect(hwnd)
+        # get window size
+        size = winxpgui.GetClientRect(hwnd)
+        # make list [x, y, w, h]
+        cap = [rect[0],rect[1],size[2]+rect[0],size[3]+rect[1]]
+        # capture
+        img = ImageGrab.grab(cap)
+        # save
+        img.save(filename)
 
     return# }}}
 
@@ -265,11 +285,11 @@ def move_drop(pos_x, pos_y, swipe_time):# {{{
     uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y, "-e","\"t\"", swipe_time]
     subprocess.check_call(uiautomator_cmd, shell=True)# }}}
 
-def getting_screenshot(device_name, filename, path, WIDTH, HEIGHT, use_old=0):# {{{
+def getting_screenshot(device_path, device_name, filename, path, WIDTH, HEIGHT, use_old=0):# {{{
     if use_old == 0:
         print "getting screenshot ..."
         start_time = time.time()
-        get_screenshot(device_name, filename)
+        get_screenshot(device_path, device_name, filename)
     else:
         print "using old screenshot ..."
         start_time = time.time()
@@ -280,18 +300,18 @@ def getting_screenshot(device_name, filename, path, WIDTH, HEIGHT, use_old=0):# 
     print "checking board ..."
     start_time = time.time()
     if WIDTH == 5:
-        board = pazdracombo.convert_h_w_5x4(padboard2.check_board(path, WIDTH, HEIGHT, 0))
+        board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))
     elif WIDTH == 6:
-        board = pazdracombo.convert_h_w_6x5(padboard2.check_board(path, WIDTH, HEIGHT, 0))
+        board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
     elif WIDTH == 7:
-        board = pazdracombo.convert_h_w_7x6(padboard2.check_board(path, WIDTH, HEIGHT, 0))
+        board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))
     elapsed_time = time.time() - start_time
     print("checking time:{0}".format(elapsed_time)) + "[sec]"
     return board# }}}
 
-def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{
+def searching(device_name, filename, WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{
     if board is None:
-        board = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)  # すでに取得済みのscreenshotを利用する
+        board = getting_screenshot(device_path, device_name, filename, path, WIDTH, HEIGHT, 1)  # すでに取得済みのscreenshotを利用する
     print "searching ..."
     start_time = time.time()
     n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
@@ -399,6 +419,21 @@ def select_parms_pattern(PARMS):# {{{
                 PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
     return PARMS# }}}
 
+def select_device_name(device_name):# {{{
+    print "current device name = " + device_name
+    print "select parms pattern 1: SH-01F, 2: Nexus 7, ... 99: cancel "
+    input_test_word = input(">>>  ")
+    if   input_test_word == 1:
+        device_name = "SH-01F"
+        print "changed device name = SH-01F"
+    elif input_test_word == 2:
+        device_name = "Nexus 7"
+        print "changed device name = Nexus 7"
+    elif input_test_word == 99:
+        print "canceled changing parms"
+    else:
+        print " wrong key ... exit "
+    return device_name # }}}
 
 if __name__ == '__main__':
 
@@ -409,10 +444,11 @@ if __name__ == '__main__':
     for k in PARMS_PATTERN['default'].keys():
         PARMS[k] = PARMS_PATTERN['default'][k]
     print "initail pattern name = " + PARMS['name']
-    device_path = "/sdcard/screen.png"
+    #device_path = "/sdcard/screen.png"
+    device_path = ""
     path = ".\screen.png"
-    device_name = "SH-01F"
-    print " device_name: " + str(device_name)
+    #device_name = "SH-01F"
+    device_name = "Nexus 7"
     filename = "screen.png"
     board = None
 
@@ -422,33 +458,36 @@ if __name__ == '__main__':
 
     while(end_flg):
 
-        print "press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, "
-        print "           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, 99: exit )"
+        print "press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, ... "
+        print "           6: get_ss & search & move, ... "
+        print "           11: select pattern, 12: change WIDTH & HEIGHT, 13: select device, ... "
+        print "           99: exit )"
         input_test_word = input(">>>  ")
         if input_test_word == 1:
             #board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-            board = getting_screenshot(device_name, filename, path, WIDTH, HEIGHT)
+            board = getting_screenshot(device_path, device_name, filename, path, WIDTH, HEIGHT)
         elif input_test_word == 2:
-            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            #pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            pos_x, pos_y = searching(device_name, filename, WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
         elif input_test_word == 3:
             moving(pos_x, pos_y, SWIPE)
         if input_test_word == 4:
-            #board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-            board = getting_screenshot(device_name, filename, path, WIDTH, HEIGHT)
-            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            board = getting_screenshot(device_path, device_name, filename, path, WIDTH, HEIGHT)
+            pos_x, pos_y = searching(device_name, filename, WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
         elif input_test_word == 5:
             pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
             moving(pos_x, pos_y, SWIPE)
         elif input_test_word == 6:
-            #board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-            board = getting_screenshot(device_name, filename, path, WIDTH, HEIGHT)
-            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            board = getting_screenshot(device_path, device_name, filename, path, WIDTH, HEIGHT)
+            pos_x, pos_y = searching(device_name, filename, WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
             moving(pos_x, pos_y, SWIPE)
-        elif input_test_word == 7:
+        elif input_test_word == 11:
             PARMS = select_parms_pattern(PARMS)
-        elif input_test_word == 8:
+        elif input_test_word == 12:
             WIDTH, HEIGHT = select_board(WIDTH, HEIGHT)
             print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
+        elif input_test_word == 13:
+            device_name = select_device_name(device_name)
         elif input_test_word == 99:
             print "pad_auto exit!!"
             end_flg = False

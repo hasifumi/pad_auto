@@ -21,5 +21,6 @@ def get_ss_by_pyws(device_name, filename):
 
 if __name__ == "__main__":
     device_name = "SH-01F"
+    #device_name = "Nexus 7"
     filename = "screenshot_pyws.png"
     get_ss_by_pyws(device_name, filename)
