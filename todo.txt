@@ -1,5 +1,6 @@
 ■4つ消し
 □5つ消し
+■7x6盤面　というか縦、横自在
 ■並列処理
 　■search_node_array
   ■check_board
