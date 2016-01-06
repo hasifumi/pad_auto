@@ -78,6 +78,27 @@ adjacent_6x5 = [# {{{
         [23, 28]
 ]# }}}
 
+def xy2idx(x, y, width):# {{{
+    return y*width+x# }}}
+
+def make_adjcent(width, height):# {{{
+    ary = []
+    for h in range(height):
+        for w in range(width):
+            ary_b = []
+            if 0 <= w - 1:
+                ary_b.append(xy2idx(w - 1, h, width))
+            if w + 1 < width:
+                ary_b.append(xy2idx(w + 1, h, width))
+            if 0 <= h - 1:
+                ary_b.append(xy2idx(w, h - 1, width))
+            if h + 1 < height:
+                ary_b.append(xy2idx(w, h + 1, width))
+            ary.append(ary_b)
+    return ary# }}}
+
+adjacent_7x6 = make_adjcent(7, 6)
+
 class Node:# {{{
     def __init__(self, start, board):
         self.score = 0
@@ -163,6 +184,8 @@ def get_adjacent(width, now_pos):# {{{
         return adjacent_5x4[now_pos]
     elif width == 6:
         return adjacent_6x5[now_pos]
+    elif width == 7:
+        return adjacent_7x6[now_pos]
     else:
         return# }}}
 

@@ -279,7 +279,7 @@ clllll
                 ary.append(ary_b)
         return ary# }}}
 
-    def make_renketsu(self, vector):
+    def make_renketsu(self, vector):# {{{
         ary = []
         for h in range(self.height):
             for w in range(self.width):
@@ -293,7 +293,7 @@ clllll
                         ary.append([self.xy2idx(w, h), self.xy2idx(w, h+1), self.xy2idx(w, h+2)])
                     else:
                         ary.append([])
-        return ary
+        return ary# }}}
 
     def check_erasable(self, width=6, height=5):# {{{
         ers = 0
@@ -580,51 +580,73 @@ clllll
         idx1 = self.xy2idx(x1, y1)
         idx2 = self.xy2idx(x2, y2)
         if v1 == "h":
-            if self.width == 5:
-                for i in self.renketsu_5x4_h[idx1]:
-                    for j in self.adjacent_5x4[i]:
-                        if v2 == "h":
-                            for k in self.renketsu_5x4_h[idx2]:
-                                if j == k:
-                                    return True
-                        elif v2 == "v":
-                            for k in self.renketsu_5x4_v[idx2]:
-                                if j == k:
-                                    return True
-            if self.width == 6:
-                for i in self.renketsu_6x5_h[idx1]:
-                    for j in self.adjacent_6x5[i]:
-                        if v2 == "h":
-                            for k in self.renketsu_6x5_h[idx2]:
-                                if j == k:
-                                    return True
-                        elif v2 == "v":
-                            for k in self.renketsu_6x5_v[idx2]:
-                                if j == k:
-                                    return True
+            for i in self.renketsu_h[idx1]:
+                for j in self.adjacent[i]:
+                    if v2 == "h":
+                        for k in self.renketsu_h[idx2]:
+                            if j == k:
+                                return True
+                    elif v2 == "v":
+                        for k in self.renketsu_v[idx2]:
+                            if j == k:
+                                return True
         elif v1 == "v":
-            if self.width == 5:
-                for i in self.renketsu_5x4_v[idx1]:
-                    for j in self.adjacent_5x4[i]:
-                        if v2 == "h":
-                            for k in self.renketsu_5x4_h[idx2]:
-                                if j == k:
-                                    return True
-                        elif v2 == "v":
-                            for k in self.renketsu_5x4_v[idx2]:
-                                if j == k:
-                                    return True
-            if self.width == 6:
-                for i in self.renketsu_6x5_v[idx1]:
-                    for j in self.adjacent_6x5[i]:
-                        if v2 == "h":
-                            for k in self.renketsu_6x5_h[idx2]:
-                                if j == k:
-                                    return True
-                        elif v2 == "v":
-                            for k in self.renketsu_6x5_v[idx2]:
-                                if j == k:
-                                    return True
+            for i in self.renketsu_v[idx1]:
+                for j in self.adjacent[i]:
+                    if v2 == "h":
+                        for k in self.renketsu_h[idx2]:
+                            if j == k:
+                                return True
+                    elif v2 == "v":
+                        for k in self.renketsu_v[idx2]:
+                            if j == k:
+                                return True
+        # if v1 == "h":# {{{
+        #    if self.width == 5:
+        #        for i in self.renketsu_5x4_h[idx1]:
+        #            for j in self.adjacent_5x4[i]:
+        #                if v2 == "h":
+        #                    for k in self.renketsu_5x4_h[idx2]:
+        #                        if j == k:
+        #                            return True
+        #                elif v2 == "v":
+        #                    for k in self.renketsu_5x4_v[idx2]:
+        #                        if j == k:
+        #                            return True
+        #    if self.width == 6:
+        #        for i in self.renketsu_6x5_h[idx1]:
+        #            for j in self.adjacent_6x5[i]:
+        #                if v2 == "h":
+        #                    for k in self.renketsu_6x5_h[idx2]:
+        #                        if j == k:
+        #                            return True
+        #                elif v2 == "v":
+        #                    for k in self.renketsu_6x5_v[idx2]:
+        #                        if j == k:
+        #                            return True
+        # elif v1 == "v":
+        #    if self.width == 5:
+        #        for i in self.renketsu_5x4_v[idx1]:
+        #            for j in self.adjacent_5x4[i]:
+        #                if v2 == "h":
+        #                    for k in self.renketsu_5x4_h[idx2]:
+        #                        if j == k:
+        #                            return True
+        #                elif v2 == "v":
+        #                    for k in self.renketsu_5x4_v[idx2]:
+        #                        if j == k:
+        #                            return True
+        #    if self.width == 6:
+        #        for i in self.renketsu_6x5_v[idx1]:
+        #            for j in self.adjacent_6x5[i]:
+        #                if v2 == "h":
+        #                    for k in self.renketsu_6x5_h[idx2]:
+        #                        if j == k:
+        #                            return True
+        #                elif v2 == "v":
+        #                    for k in self.renketsu_6x5_v[idx2]:
+        #                        if j == k:
+        #                            return True# }}}
         return False# }}}
 
     def print_combo(self):# {{{

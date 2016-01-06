@@ -6,14 +6,16 @@ import pazdracombo
 import time
 
 #path = ".\screen_ojama.png"
-path = ".\screen_poison.png"
+#path = ".\screen_poison.png"
+path = ".\screen_sh-01f_7x6.png"
 #path = ".\screen.png"
-WIDTH = 6
-HEIGHT = 5
+WIDTH = 7
+HEIGHT = 6
 
 start_time = time.time()
 
-board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
+#board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
+board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))
 print "[4drops-check]"
 print board
 print ""
