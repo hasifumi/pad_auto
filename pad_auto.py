@@ -287,6 +287,9 @@ def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{
         board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
     elif WIDTH == 7:
         board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))
+        #print "7x6 board: " + str(board)
+        #print " sorry, no implement 7x6 board"
+        #return (WIDTH, HEIGHT)
     elapsed_time = time.time() - start_time
     print("checking time:{0}".format(elapsed_time)) + "[sec]"
     return board# }}}
@@ -325,9 +328,7 @@ def select_board(WIDTH, HEIGHT):# {{{
     elif input_test_word == 2:
         return (6, 5)
     elif input_test_word == 3:
-        print " sorry, no implement 7x6 board"
-        return (WIDTH, HEIGHT)
-        #return (7, 6)
+        return (7, 6)
     elif input_test_word == 99:
         print "canceled changing board"
         return (WIDTH, HEIGHT)

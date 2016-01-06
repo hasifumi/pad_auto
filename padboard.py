@@ -106,7 +106,9 @@ pic_parm = {
 
 def get_rgb(pic, box=""):# {{{
     if box == "":
-        box = (0, 0, pic.width, pic.height)
+        #box = (0, 0, pic.width, pic.height)
+        box = (0, 0, pic.size[0], pic.size[1])
+    #print "box: " + str(box)
     rgbimg = pic.crop(box).convert("RGB")
     rgb = numpy.array(rgbimg.getdata())
     return [__round(rgb[:,0]),
