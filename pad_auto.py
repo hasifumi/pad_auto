@@ -20,7 +20,7 @@ DEFAULT_GAME_PARMS = {# {{{
 GAME_PARMS_PATTERN = {# {{{
         'default' : {
             'MAX_TURN' : 40,
-            'PLAYNUM'  : 20,
+            'PLAYNUM'  : 30,
             'SWIPE'    : 4,
             },
         'win_tablet' : {
@@ -124,15 +124,19 @@ PARMS_PATTERN = {# {{{
             '1line-cure' : 0.0,
             },
         'saria, tall': {
-            'red': 5.0,
-            'light': 10.0,
+            'red': 2.0,
+            'green': 3.0,
+            'light': 3.0,
             'cure': 5.0,
             '4drops-red' : 5.0,
             '4drops-blue': 3.0,
+            '4drops-green': 5.0,
             '4drops-light' : 10.0,
-            '4drops-dark': 3.0,
+            '5drops-red' : -5.0,
+            '5drops-green' : -10.0,
+            '5drops-light' : -10.0,
             '1line-red': 10.0,
-            '1line-light': 50.0,
+            '1line-light': 30.0,
             },
         'blue-sonia, ryune': {
             'blue': 10.0,
@@ -173,6 +177,15 @@ PARMS_PATTERN = {# {{{
             },
         'isis': {
             '3colors': 10.0,
+            },
+        'izuizu, ryune': {
+            'dark': 5.0,
+            'blue': 15.0,
+            'cure': 10.0,
+            '4drops-blue': 20.0,
+            '4drops-dark': 10.0,
+            '1line-blue': -10.0,
+            '1line-dark': -10.0,
             },
         }# }}}
 
