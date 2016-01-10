@@ -19,13 +19,13 @@ DEFAULT_GAME_PARMS = {# {{{
 
 GAME_PARMS_PATTERN = {# {{{
         'default' : {
-            'MAX_TURN' : 40,
-            'PLAYNUM'  : 30,
+            'MAX_TURN' : 35,
+            'PLAYNUM'  : 25,
             'SWIPE'    : 4,
             },
         'win_tablet' : {
             'MAX_TURN' : 30,
-            'PLAYNUM'  : 25,
+            'PLAYNUM'  : 20,
             'SWIPE'    : 5,
             },
         'long_thinking' : {
