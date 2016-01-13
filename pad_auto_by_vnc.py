@@ -138,6 +138,8 @@ PARMS_PATTERN = {# {{{
             'blue': 10.0,
             'dark': 5.0,
             'cure': 5.0,
+            '4drops-blue': 3.0,
+            '4drops-dark': 3.0,
             '5drops-blue': 50.0,
             '1line-blue': 50.0,
             '1line-dark': 10.0,
@@ -447,8 +449,8 @@ if __name__ == '__main__':
     #device_path = "/sdcard/screen.png"
     device_path = ""
     path = ".\screen.png"
-    #device_name = "SH-01F"
-    device_name = "Nexus 7"
+    device_name = "SH-01F"
+    #device_name = "Nexus 7"
     filename = "screen.png"
     board = None
 

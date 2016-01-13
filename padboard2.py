@@ -188,7 +188,7 @@ def check_board(path, cols, rows, flg=1):# {{{
         rows_rgb = get_rows_rgb(rows, edges, pic, i, flg)
         board += rows_rgb
 
-    return board# }}}
+    return board, pic.size[0]# }}}
 
 def print_board(width, height, board):# {{{
     for h in range(height):
@@ -206,5 +206,5 @@ if __name__ == "__main__":
     #board = check_board(argvs[1], int(argvs[2]), int(argvs[3]), 0)
 
     path = ".\\" + argvs[1]
-    board = check_board(path, int(argvs[2]), int(argvs[3]), 0)
-    print board
+    board, pic_width = check_board(path, int(argvs[2]), int(argvs[3]), 0)
+    print board+","+str(pic_width)

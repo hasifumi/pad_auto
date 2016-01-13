@@ -39,6 +39,13 @@ PARMS = {# {{{
         '1line-cure' : 0.0,
         }# }}}
 
+
+import time
+start_time = time.time()
+#elapsed_time = time.time() - start_time
+#print("checking time:{0}".format(elapsed_time)) + "[sec]"
+
+
 board = """
 rrrrgg
 bbbbcc
@@ -80,6 +87,9 @@ print ""
 #pdc.calc_score(parms)# }}}
 #print pdc.combo
 #print pdc.chk_drops4()
+
+elapsed_time = time.time() - start_time
+print("checking time:{0}".format(elapsed_time)) + "[sec]"
 
 # width = 7
 # height = 6

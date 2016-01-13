@@ -142,6 +142,9 @@ PARMS_PATTERN = {# {{{
             'blue': 10.0,
             'dark': 5.0,
             'cure': 5.0,
+            '4drops-blue': 10.0,
+            '4drops-light' : 5.0,
+            '4drops-dark' : 5.0,
             '5drops-blue': 50.0,
             '1line-blue': 50.0,
             '1line-dark': 10.0,
@@ -151,6 +154,7 @@ PARMS_PATTERN = {# {{{
             'green': 10.0,
             'cure': 5.0,
             '4drops-red': 50.0,
+            '4drops-blue': 50.0,
             '4drops-green': 50.0,
             '1line-red': -10.0,
             '1line-green': -10.0,
@@ -186,6 +190,14 @@ PARMS_PATTERN = {# {{{
             '4drops-dark': 10.0,
             '1line-blue': -10.0,
             '1line-dark': -10.0,
+            },
+        'horus': {
+            'cure': 5.0,
+            '4colors'  : 10.0,
+            '5colors'  : 5.0,
+            '3colors+cure'  : 5.0,
+            '4colors+cure'  : 5.0,
+            '5colors+cure'  : 5.0,
             },
         }# }}}
 
