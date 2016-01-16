@@ -3,11 +3,13 @@
 import uiautomator
 import time
 
-server = uiautomator.AutomatorServer()
+#server = uiautomator.AutomatorServer()
 device = uiautomator.Device()
 #adb = uiautomator.Adb()
 
 device.screen.on()
+
+#device.click(450, 700)
 
 #print server.sdk_version()
 
@@ -19,7 +21,7 @@ def adb_cmd(device, cmd, *parm):
 
 #adb_cmd(device, "shell", "screencap /sdcard/screen.png")
 #adb_cmd(device, "pull", "sdcard/screen.png")
-adb_cmd(device, "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e", "\"x\"", "\"90,350,90\"", "-e", "\"y\"", "\"625,625,755\"")
+#adb_cmd(device, "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e", "\"x\"", "\"90,350,90\"", "-e", "\"y\"", "\"625,625,755\"")
 
 #ss = server.adb
 #if ss is None:

@@ -199,16 +199,23 @@ PARMS_PATTERN = {# {{{
             '4colors+cure'  : 5.0,
             '5colors+cure'  : 5.0,
             },
+        'goemon_shukai': {
+            'red': 10.0,
+            'green': 3.0,
+            'light': 5.0,
+            'dark': 3.0,
+            },
         }# }}}
 
-import padboard
+#import padboard
 #import uiautomator
 import time
 import subprocess
 import os
 import pad_search
 import pazdracombo
-from PIL import Image
+#from PIL import Image
+import sys
 
 def print_board(width, height, board):# {{{
     for h in range(height):
@@ -233,11 +240,17 @@ def is_nexus(path):# {{{
     else:
         return False# }}}
 
+def is_nexus2(width):# {{{
+    if width == 800:
+        return True
+    else:
+        return False# }}}
+
 def idx2xy(width, idx):# {{{
     return[int(idx/width), int(idx%width)]# }}}
 
-def conv_x(i, is_nexus, width=6):# {{{
-    if is_nexus:
+def conv_x(i, is_nexus2, width=6):# {{{
+    if is_nexus2:
         if width == 5:
             return 15 + 78 + 155 * (int(i))
         elif width == 6:
@@ -250,8 +263,8 @@ def conv_x(i, is_nexus, width=6):# {{{
         elif width == 7:
             return 25 +  73 + 145 * (int(i))# }}}
 
-def conv_y(i, is_nexus, width=6):# {{{
-    if is_nexus:
+def conv_y(i, is_nexus2, width=6):# {{{
+    if is_nexus2:
         if width == 5:
             return 575 + 78 + 155 * (int(i))
         elif width == 6:
@@ -264,19 +277,19 @@ def conv_y(i, is_nexus, width=6):# {{{
         elif width == 7:
             return 850 +  73 + 145 * (int(i))# }}}
 
-def calc_i(flag, ary, is_nexus, width):# {{{
+def calc_i(flag, ary, is_nexus2, width):# {{{
     pos_i = "\""
     for i,v in enumerate(ary):
         if flag == "x":
-            pos_i += str(conv_x(ary[i], is_nexus, width))
+            pos_i += str(conv_x(ary[i], is_nexus2, width))
         else:
-            pos_i += str(conv_y(ary[i], is_nexus, width))
+            pos_i += str(conv_y(ary[i], is_nexus2, width))
         pos_i += ","
     pos_i = pos_i.rstrip(",")
     pos_i += "\""
     return pos_i# }}}
 
-def get_route(route, is_nexus, width):# {{{
+def get_route(route, is_nexus2, width):# {{{
     #print "get_route width:" + str(width)
     x = []
     y = []
@@ -284,8 +297,8 @@ def get_route(route, is_nexus, width):# {{{
         ans = idx2xy(WIDTH, r)
         x.append(ans[1])
         y.append(ans[0])
-    pos_x = calc_i("x", x, is_nexus, width)
-    pos_y = calc_i("y", y, is_nexus, width)
+    pos_x = calc_i("x", x, is_nexus2, width)
+    pos_y = calc_i("y", y, is_nexus2, width)
     return (pos_x, pos_y)# }}}
 
 def move_drop(pos_x, pos_y, swipe_time):# {{{
@@ -306,26 +319,29 @@ def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{
 
     print "checking board ..."
     start_time = time.time()
+    cmd = ["python", "padboard2.py", path, str(WIDTH), str(HEIGHT)]
+    #print "cmd:" + str(cmd)
+    p = subprocess.check_output(cmd)
+    #print "p:" + str(p)
+    sout = p.rstrip().split(",")
     if WIDTH == 5:
-        board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))
+        board = pazdracombo.convert_h_w_5x4(sout[0])
     elif WIDTH == 6:
-        board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
+        board = pazdracombo.convert_h_w_6x5(sout[0])
     elif WIDTH == 7:
-        board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))
-        #print "7x6 board: " + str(board)
-        #print " sorry, no implement 7x6 board"
-        #return (WIDTH, HEIGHT)
+        board = pazdracombo.convert_h_w_7x6(sout[0])
     elapsed_time = time.time() - start_time
     print("checking time:{0}".format(elapsed_time)) + "[sec]"
-    return board# }}}
+    #print "board:" + str(board) + " , sout[1]:" + str(sout[1])
+    return board, sout[1]# }}}
 
-def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{
+def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, pic_width):# {{{
     if board is None:
-        board = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)  # すでに取得済みのscreenshotを利用する
+        board, pic_width = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)  # すでに取得済みのscreenshotを利用する
     print "searching ..."
     start_time = time.time()
     n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-    pos_x, pos_y = get_route(n_best.route, is_nexus(path), WIDTH)
+    pos_x, pos_y = get_route(n_best.route, is_nexus2(pic_width), WIDTH)
     # 確認用
     print "[board]"
     print print_board(WIDTH, HEIGHT, board)
@@ -340,8 +356,6 @@ def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{
 def moving(pos_x, pos_y, SWIPE):# {{{
     print "moving drops ..."
     start_time = time.time()
-    print "pos_x: " + str(pos_x)
-    print "pos_y: " + str(pos_y)
     move_drop(pos_x, pos_y, str(SWIPE))
     elapsed_time = time.time() - start_time
     print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
@@ -429,54 +443,116 @@ def select_parms_pattern(PARMS):# {{{
                 PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
     return PARMS# }}}
 
+def ryofu_skill(SWIPE):# {{{
+    print "ryofu skill fire ..."
+    pos_x = "440,450,440"
+    pos_y = "700,700,700"
+    moving(pos_x, pos_y, SWIPE)
+    time.sleep(1)
+
+    print "ryofu skill select ..."
+    pos_x = "300,310,300"
+    pos_y = "1450,1450,1450"
+    moving(pos_x, pos_y, SWIPE)
+    time.sleep(2)# }}}
+
+def takeru_skill(SWIPE):# {{{
+    print "takeru skill fire ..."
+    pos_x = "280,290,280"
+    pos_y = "700,700,700"
+    moving(pos_x, pos_y, SWIPE)
+    time.sleep(1)
+
+    print "takeru skill select ..."
+    pos_x = "300,310,300"
+    pos_y = "1450,1450,1450"
+    moving(pos_x, pos_y, SWIPE)
+    time.sleep(2)# }}}
+
+def takeru_moving(device_path, path, WIDTH, HEIGHT, MAX_TURN, PLAYNUM, PARMS, SWIPE):# {{{
+    print "takeru moving ..."
+    board, pic_width = getting_screenshot(device_path, path, WIDTH, HEIGHT)
+    pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, pic_width)
+    moving(pos_x, pos_y, SWIPE)# }}}
+
+def goemon_skill(SWIPE, leader_flg=0):# {{{
+
+    if leader_flg == 0:
+        member = "leader"
+        pos_x = "100,110,100"
+    else:
+        member = "friend"
+        pos_x = "980,990,980"
+
+    print "goemon(" + str(member) + ") skill fire ..."
+    pos_y = "700,700,700"
+    moving(pos_x, pos_y, SWIPE)
+    time.sleep(1)
+
+    print "goemon(" + str(member) + ") skill select ..."
+    pos_x = "300,310,300"
+    pos_y = "1450,1450,1450"
+    moving(pos_x, pos_y, SWIPE)
+    time.sleep(2)# }}}
+
+def goemon_moving(SWIPE):# {{{
+    print "goemon skill (only move) ..."
+    pos_x = "100,100,200"
+    pos_y = "950,1150,1150"
+    moving(pos_x, pos_y, SWIPE)# }}}
 
 if __name__ == '__main__':
 
+    start_time = time.time()
+
     MAX_TURN, PLAYNUM, SWIPE = set_game_parms('default')
-    #PARMS = DEFAULT_PARMS
     PARMS = {}
-    PARMS['name'] = 'default'
-    for k in PARMS_PATTERN['default'].keys():
-        PARMS[k] = PARMS_PATTERN['default'][k]
+    PARMS['name'] = 'goemon_shukai'
+    for k in PARMS_PATTERN['goemon_shukai'].keys():
+        PARMS[k] = PARMS_PATTERN['goemon_shukai'][k]
     print "initail pattern name = " + PARMS['name']
     device_path = "/sdcard/screen.png"
-    path = ".\screen.png"
+    path = "screen.png"
     board = None
+    pic_width = 0
 
-    # main routine
+    # first floor
+    # ryofu skill
+    time.sleep(1)
 
-    end_flg = True
+    ryofu_skill(SWIPE)
 
-    while(end_flg):
+    time.sleep(8)
 
-        print "press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, "
-        print "           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, 99: exit )"
-        input_test_word = input(">>>  ")
-        if input_test_word == 1:
-            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-        elif input_test_word == 2:
-            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-        elif input_test_word == 3:
-            moving(pos_x, pos_y, SWIPE)
-        if input_test_word == 4:
-            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-        elif input_test_word == 5:
-            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-            moving(pos_x, pos_y, SWIPE)
-        elif input_test_word == 6:
-            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-            moving(pos_x, pos_y, SWIPE)
-        elif input_test_word == 7:
-            PARMS = select_parms_pattern(PARMS)
-        elif input_test_word == 8:
-            WIDTH, HEIGHT = select_board(WIDTH, HEIGHT)
-            print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
-        elif input_test_word == 99:
-            print "pad_auto exit!!"
-            end_flg = False
-        else:
-            print "press correct key!!"
-            #end_flg = False
+    # second floor
+    # takeru skill
+    takeru_skill(SWIPE)
 
+    time.sleep(1)
+
+    # getting, searching, moving
+    takeru_moving(device_path, path, WIDTH, HEIGHT, MAX_TURN, PLAYNUM, PARMS, SWIPE)
+
+    time.sleep(22)
+
+    # third floor
+    # goemon(leader) skill
+    goemon_skill(SWIPE, leader_flg=0)  # leader
+
+    time.sleep(8)
+
+    # forth floor
+    goemon_moving(SWIPE)
+
+    time.sleep(15)
+
+    # fifth floor
+    # goemon(friend) skill
+    goemon_skill(SWIPE, leader_flg=1)  # friend
+
+    time.sleep(2)
+
+    goemon_moving(SWIPE)
+
+    elapsed_time = time.time() - start_time
+    print("goemon_shukai time:{0}".format(elapsed_time)) + "[sec]"# }}}
