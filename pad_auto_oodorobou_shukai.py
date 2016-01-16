@@ -443,63 +443,39 @@ def select_parms_pattern(PARMS):# {{{
                 PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
     return PARMS# }}}
 
-def ryofu_skill(SWIPE):# {{{
-    print "ryofu skill fire ..."
-    pos_x = "440,450,440"
+def skill_fire(SWIPE, name, position):  # position  leader, sub1, sub2, ,,, friend# {{{
+    position_x = {
+        "leader": "100,110,100",
+        "sub1"  : "280,290,280",
+        "sub2"  : "440,450,440",
+        "sub3"  : "640,650,640",
+        "sub4"  : "800,810,800",
+        "friend": "980,990,980",
+        }
+    print name + " skill fire ..."
+    pos_x = position_x[position]
     pos_y = "700,700,700"
     moving(pos_x, pos_y, SWIPE)
-    time.sleep(1)
+    time.sleep(1)# }}}
 
-    print "ryofu skill select ..."
+def skill_select(SWIPE, name):# {{{
+    print name + " skill select ..."
     pos_x = "300,310,300"
     pos_y = "1450,1450,1450"
     moving(pos_x, pos_y, SWIPE)
     time.sleep(2)# }}}
 
-def takeru_skill(SWIPE):# {{{
-    print "takeru skill fire ..."
-    pos_x = "280,290,280"
-    pos_y = "700,700,700"
-    moving(pos_x, pos_y, SWIPE)
-    time.sleep(1)
-
-    print "takeru skill select ..."
-    pos_x = "300,310,300"
-    pos_y = "1450,1450,1450"
-    moving(pos_x, pos_y, SWIPE)
-    time.sleep(2)# }}}
-
-def takeru_moving(device_path, path, WIDTH, HEIGHT, MAX_TURN, PLAYNUM, PARMS, SWIPE):# {{{
-    print "takeru moving ..."
+def drop_moving(device_path, path, WIDTH, HEIGHT, MAX_TURN, PLAYNUM, PARMS, SWIPE, name):# {{{# {{{
+    print name + " moving ..."
     board, pic_width = getting_screenshot(device_path, path, WIDTH, HEIGHT)
     pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, pic_width)
-    moving(pos_x, pos_y, SWIPE)# }}}
+    moving(pos_x, pos_y, SWIPE)# }}}# }}}
 
-def goemon_skill(SWIPE, leader_flg=0):# {{{
-
-    if leader_flg == 0:
-        member = "leader"
-        pos_x = "100,110,100"
-    else:
-        member = "friend"
-        pos_x = "980,990,980"
-
-    print "goemon(" + str(member) + ") skill fire ..."
-    pos_y = "700,700,700"
-    moving(pos_x, pos_y, SWIPE)
-    time.sleep(1)
-
-    print "goemon(" + str(member) + ") skill select ..."
-    pos_x = "300,310,300"
-    pos_y = "1450,1450,1450"
-    moving(pos_x, pos_y, SWIPE)
-    time.sleep(2)# }}}
-
-def goemon_moving(SWIPE):# {{{
-    print "goemon skill (only move) ..."
-    pos_x = "100,100,200"
-    pos_y = "950,1150,1150"
-    moving(pos_x, pos_y, SWIPE)# }}}
+def hanabi_zurasi(SWIPE, name):# {{{# {{{
+    print name + " hanabi zurasi ..."
+    pos_x = "100,100,200,200"
+    pos_y = "950,1150,1150,950"
+    moving(pos_x, pos_y, SWIPE)# }}}# }}}
 
 if __name__ == '__main__':
 
@@ -516,43 +492,43 @@ if __name__ == '__main__':
     board = None
     pic_width = 0
 
-    # first floor
-    # ryofu skill
     time.sleep(1)
 
-    ryofu_skill(SWIPE)
+    # first floor
+
+    skill_fire(SWIPE, "ryofu", "sub2")
+    skill_select(SWIPE, "ryofu")
 
     time.sleep(8)
 
     # second floor
-    # takeru skill
-    takeru_skill(SWIPE)
+    skill_fire(SWIPE, "takeru", "sub1")
+    skill_select(SWIPE, "takeru")
 
     time.sleep(1)
 
-    # getting, searching, moving
-    takeru_moving(device_path, path, WIDTH, HEIGHT, MAX_TURN, PLAYNUM, PARMS, SWIPE)
+    drop_moving(device_path, path, WIDTH, HEIGHT, MAX_TURN, PLAYNUM, PARMS, SWIPE, "takeru")
 
     time.sleep(22)
 
     # third floor
-    # goemon(leader) skill
-    goemon_skill(SWIPE, leader_flg=0)  # leader
+    skill_fire(SWIPE, "goemon(leader)", "leader")
+    skill_select(SWIPE, "goemon(leader)")
 
     time.sleep(8)
 
     # forth floor
-    goemon_moving(SWIPE)
+    hanabi_zurasi(SWIPE, "goemon(leader)")
 
     time.sleep(15)
 
     # fifth floor
-    # goemon(friend) skill
-    goemon_skill(SWIPE, leader_flg=1)  # friend
+    skill_fire(SWIPE, "goemon(friend)", "friend")
+    skill_select(SWIPE, "goemon(friend)")
 
     time.sleep(2)
 
-    goemon_moving(SWIPE)
+    hanabi_zurasi(SWIPE, "goemon(friend)")
 
     elapsed_time = time.time() - start_time
     print("goemon_shukai time:{0}".format(elapsed_time)) + "[sec]"# }}}
