@@ -326,7 +326,7 @@ def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{
         board = pazdracombo.convert_h_w_7x6(sout[0])
     elapsed_time = time.time() - start_time
     print("checking time:{0}".format(elapsed_time)) + "[sec]"
-    print "board:" + str(board) + " , sout[1]:" + str(sout[1])
+    #print "board:" + str(board) + " , sout[1]:" + str(sout[1])
     return board, sout[1]# }}}
 
 def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, pic_width):# {{{
