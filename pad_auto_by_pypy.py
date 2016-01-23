@@ -199,6 +199,12 @@ PARMS_PATTERN = {# {{{
             '4colors+cure'  : 5.0,
             '5colors+cure'  : 5.0,
             },
+        'awaken lucifer': {
+            'cure': 5.0,
+            '4drops-blue': 5.0,
+            '4drops-dark': 10.0,
+            '1line-dark':  20.0,
+            },
         }# }}}
 
 #import padboard
