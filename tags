@@ -7,31 +7,45 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8J2	//
+BOARD_PATTERN	.\pad_game_parms.py	/^    BOARD_PATTERN = {# {{{$/;"	v	class:GameParms
+Board	.\pad_board.py	/^class Board():$/;"	c
 COL	.\ref\pazdra_kun.cpp	23;"	d	file:
 COL	.\ref\pazdra_kun_old.cpp	23;"	d	file:
 COL	.\ref\pazdra_kun_orig.cpp	22;"	d	file:
 DEFAULT_GAME_PARMS	.\pad_auto.py	/^DEFAULT_GAME_PARMS = {# {{{$/;"	v
-DEFAULT_GAME_PARMS	.\pad_search_test.py	/^DEFAULT_GAME_PARMS = {# {{{$/;"	v
+DEFAULT_GAME_PARMS	.\pad_auto_by_vnc.py	/^DEFAULT_GAME_PARMS = {# {{{$/;"	v
+DEFAULT_GAME_PARMS	.\pad_auto_oodorobou_shukai.py	/^DEFAULT_GAME_PARMS = {# {{{$/;"	v
+DEFAULT_GAME_PARMS	.\pad_simu.py	/^DEFAULT_GAME_PARMS = {# {{{$/;"	v
 DEFAULT_GAME_PARMS	.\test3.py	/^DEFAULT_GAME_PARMS = {$/;"	v
 DEFAULT_PARMS	.\pad_auto.py	/^DEFAULT_PARMS = {# {{{$/;"	v
-DEFAULT_PARMS	.\pad_search_test.py	/^DEFAULT_PARMS = {# {{{$/;"	v
+DEFAULT_PARMS	.\pad_auto_by_vnc.py	/^DEFAULT_PARMS = {# {{{$/;"	v
+DEFAULT_PARMS	.\pad_auto_oodorobou_shukai.py	/^DEFAULT_PARMS = {# {{{$/;"	v
+DEFAULT_PARMS	.\pad_simu.py	/^DEFAULT_PARMS = {# {{{$/;"	v
 DEFAULT_PARMS	.\test4.py	/^    DEFAULT_PARMS = {# {{{$/;"	v
 DEPTH	.\ref\pazdra_kun.cpp	24;"	d	file:
 DEPTH	.\ref\pazdra_kun_old.cpp	24;"	d	file:
 DEPTH	.\ref\pazdra_kun_orig.cpp	23;"	d	file:
+DROP	.\pad_simu.py	/^DROP = {# {{{$/;"	v
+DROP_RGB	.\pad_board.py	/^    DROP_RGB = {# {{{$/;"	v	class:Board
 GAME_PARMS_PATTERN	.\pad_auto.py	/^GAME_PARMS_PATTERN = {# {{{$/;"	v
-GAME_PARMS_PATTERN	.\pad_search_test.py	/^GAME_PARMS_PATTERN = {# {{{$/;"	v
+GAME_PARMS_PATTERN	.\pad_auto_by_vnc.py	/^GAME_PARMS_PATTERN = {# {{{$/;"	v
+GAME_PARMS_PATTERN	.\pad_auto_oodorobou_shukai.py	/^GAME_PARMS_PATTERN = {# {{{$/;"	v
+GAME_PARMS_PATTERN	.\pad_simu.py	/^GAME_PARMS_PATTERN = {# {{{$/;"	v
 GAME_PARMS_PATTERN	.\test3.py	/^GAME_PARMS_PATTERN = {$/;"	v
+GameParms	.\pad_game_parms.py	/^class GameParms():$/;"	c
 HEIGHT	.\pad_auto.py	/^HEIGHT = 5# }}}$/;"	v
-HEIGHT	.\pad_search_test.py	/^HEIGHT = 5# }}}$/;"	v
-HEIGHT	.\padboard_test.py	/^HEIGHT = 4$/;"	v
-HEIGHT	.\padboard_test.py	/^HEIGHT = 5$/;"	v
-HEIGHT	.\padboard_test.py	/^HEIGHT = 6$/;"	v
-HEIGHT	.\padboard_test_color.py	/^HEIGHT = 5$/;"	v
+HEIGHT	.\pad_auto_by_vnc.py	/^HEIGHT = 5# }}}$/;"	v
+HEIGHT	.\pad_auto_oodorobou_shukai.py	/^HEIGHT = 5# }}}$/;"	v
+HEIGHT	.\pad_simu.py	/^HEIGHT = 5# }}}$/;"	v
+HEIGHT	.\screenshot.py	/^HEIGHT = 5$/;"	v
+HEIGHT	.\test1.py	/^HEIGHT = "5"$/;"	v
 HEIGHT	.\test4.py	/^    HEIGHT = 5$/;"	v
 Image	.\pad_auto.py	/^from PIL import Image$/;"	i
-Image	.\pad_search_test.py	/^from PIL import Image$/;"	i
-Image	.\padboard.py	/^from PIL import Image$/;"	i
+Image	.\pad_auto_by_vnc.py	/^from PIL import Image$/;"	i
+Image	.\pad_board.py	/^from PIL import Image$/;"	i
+ImageGrab	.\pad_auto_by_vnc.py	/^import ImageGrab$/;"	i
+ImageGrab	.\pad_get_ss_by_vnc.py	/^import ImageGrab$/;"	i
+ImageGrab	.\pyws.py	/^import ImageGrab$/;"	i
 MAX_CHAIN	.\ref\pazdra_kun.cpp	29;"	d	file:
 MAX_CHAIN	.\ref\pazdra_kun_old.cpp	29;"	d	file:
 MAX_CHAIN	.\ref\pazdra_kun_orig.cpp	28;"	d	file:
@@ -39,21 +53,24 @@ MAX_TURN	.\ref\pazdra_kun.cpp	30;"	d	file:
 MAX_TURN	.\ref\pazdra_kun_old.cpp	30;"	d	file:
 MAX_TURN	.\ref\pazdra_kun_orig.cpp	29;"	d	file:
 MAX_TURN	.\test4.py	/^    MAX_TURN = 45$/;"	v
-Nbeam	.\pad_search.py	/^def Nbeam(width, height, start_board, max_turn, playnum, parms):$/;"	f
 Nbeam	.\ref\pazdra_kun.cpp	/^void Nbeam(){$/;"	f
 Nbeam	.\ref\pazdra_kun_old.cpp	/^void Nbeam(){$/;"	f
 Nbeam	.\ref\pazdra_kun_orig.cpp	/^void Nbeam(){$/;"	f
-Nbeam	.\test4.py	/^def Nbeam(width, height, start_board, max_turn, playnum, parms):# {{{$/;"	f
-Node	.\pad_search.py	/^class Node:# {{{$/;"	c
+Nbeam	.\test4.py	/^def Nbeam(width, height, start_board, max_turn, playnum, parms):$/;"	f
+Node	.\pad_searcher.py	/^class Node:# {{{$/;"	c
 Node	.\test4.py	/^class Node:# {{{$/;"	c
 PARMS	.\pad_auto.py	/^            PARMS = select_parms_pattern(PARMS)$/;"	v
-PARMS	.\pad_auto.py	/^    PARMS = DEFAULT_PARMS$/;"	v
-PARMS	.\pad_search_test.py	/^            PARMS = select_parms_pattern(PARMS)$/;"	v
-PARMS	.\pad_search_test.py	/^    PARMS = DEFAULT_PARMS$/;"	v
-PARMS	.\pazdracombo.py	/^PARMS = {# {{{$/;"	v
-PARMS	.\pazdracombo_checker.py	/^PARMS = {# {{{$/;"	v
+PARMS	.\pad_auto.py	/^    PARMS = {}$/;"	v
+PARMS	.\pad_auto_by_pypy.py	/^            PARMS = select_parms_pattern(PARMS)$/;"	v
+PARMS	.\pad_auto_by_vnc.py	/^            PARMS = select_parms_pattern(PARMS)$/;"	v
+PARMS	.\pad_auto_by_vnc.py	/^    PARMS = {}$/;"	v
+PARMS	.\pad_auto_oodorobou_shukai.py	/^    PARMS = {}$/;"	v
+PARMS	.\pad_simu.py	/^    PARMS = {}$/;"	v
 PARMS_PATTERN	.\pad_auto.py	/^PARMS_PATTERN = {# {{{$/;"	v
-PARMS_PATTERN	.\pad_search_test.py	/^PARMS_PATTERN = {# {{{$/;"	v
+PARMS_PATTERN	.\pad_auto_by_vnc.py	/^PARMS_PATTERN = {# {{{$/;"	v
+PARMS_PATTERN	.\pad_auto_oodorobou_shukai.py	/^PARMS_PATTERN = {# {{{$/;"	v
+PARMS_PATTERN	.\pad_simu.py	/^PARMS_PATTERN = {# {{{$/;"	v
+PIC_PARM	.\pad_board.py	/^    PIC_PARM = {# {{{$/;"	v	class:Board
 PLAY	.\ref\pazdra_kun.cpp	28;"	d	file:
 PLAY	.\ref\pazdra_kun_old.cpp	28;"	d	file:
 PLAY	.\ref\pazdra_kun_orig.cpp	27;"	d	file:
@@ -61,66 +78,80 @@ PLAYNUM	.\ref\pazdra_kun.cpp	31;"	d	file:
 PLAYNUM	.\ref\pazdra_kun_old.cpp	31;"	d	file:
 PLAYNUM	.\ref\pazdra_kun_orig.cpp	30;"	d	file:
 PLAYNUM	.\test4.py	/^    PLAYNUM = 500$/;"	v
-PazdraComboChecker	.\pazdracombo.py	/^class PazdraComboChecker():$/;"	c
-Pool	.\test4.py	/^    from multiprocessing import Pool$/;"	i
+PadCombo	.\pad_combo.py	/^class PadCombo():$/;"	c
+Person	.\test4-1.py	/^class Person():$/;"	c
 Pool	.\test5.py	/^    from multiprocessing import Pool$/;"	i
-Pool	.\test6.py	/^from multiprocessing import Pool, cpu_count$/;"	i
+PostClick	.\pyws.py	/^def PostClick(hwnd,x,y,pbtn = "L"):$/;"	f
 ROW	.\ref\pazdra_kun.cpp	22;"	d	file:
 ROW	.\ref\pazdra_kun_old.cpp	22;"	d	file:
 ROW	.\ref\pazdra_kun_orig.cpp	21;"	d	file:
+Route	.\pad_route.py	/^class Route():$/;"	c
+SCORE_PARMS_PATTERN	.\pad_score_parms.py	/^    SCORE_PARMS_PATTERN = {# {{{$/;"	v	class:ScoreParms
+SEARCH_PARMS_PATTERN	.\pad_search_parms.py	/^    SEARCH_PARMS_PATTERN = {# {{{$/;"	v	class:SearchParms
+ScoreParms	.\pad_score_parms.py	/^class ScoreParms():$/;"	c
+SearchParms	.\pad_search_parms.py	/^class SearchParms():$/;"	c
+Searcher	.\pad_searcher.py	/^class Searcher():$/;"	c
 Static1	.\pad_thinter.py	/^Static1 = Tkinter.Label(text=str(max_cmb))$/;"	v
 Tkinter	.\pad_thinter.py	/^import Tkinter$/;"	i
 UiAutomator	.\ref\UiAutomator\src\com\hahahassy\android\UiAutomator.java	/^public class UiAutomator extends UiAutomatorTestCase {$/;"	c
 WIDTH	.\pad_auto.py	/^WIDTH = 6# {{{$/;"	v
-WIDTH	.\pad_search_test.py	/^WIDTH = 6# {{{$/;"	v
-WIDTH	.\padboard_test.py	/^WIDTH = 5$/;"	v
-WIDTH	.\padboard_test.py	/^WIDTH = 6$/;"	v
-WIDTH	.\padboard_test.py	/^WIDTH = 7$/;"	v
-WIDTH	.\padboard_test_color.py	/^WIDTH = 6$/;"	v
+WIDTH	.\pad_auto_by_vnc.py	/^WIDTH = 6# {{{$/;"	v
+WIDTH	.\pad_auto_oodorobou_shukai.py	/^WIDTH = 6# {{{$/;"	v
+WIDTH	.\pad_simu.py	/^WIDTH = 6# {{{$/;"	v
+WIDTH	.\screenshot.py	/^WIDTH = 6$/;"	v
+WIDTH	.\test1.py	/^WIDTH = "6"$/;"	v
 WIDTH	.\test4.py	/^    WIDTH = 6$/;"	v
-__init__	.\pad_search.py	/^    def __init__(self, start, board):$/;"	m	class:Node
-__init__	.\pazdracombo.py	/^    def __init__(self, width, height, param=None):# {{{$/;"	m	class:PazdraComboChecker
+__init__	.\pad_board.py	/^    def __init__(self, cols, rows, pic_path):# {{{$/;"	m	class:Board
+__init__	.\pad_combo.py	/^    def __init__(self, cols, rows, board, pad_score_parms):# {{{$/;"	m	class:PadCombo
+__init__	.\pad_game_parms.py	/^    def __init__(self, board_pattern_name="6x5", swipe=4):# {{{$/;"	m	class:GameParms
+__init__	.\pad_route.py	/^    def __init__(self, cols, rows, pic_width):# {{{$/;"	m	class:Route
+__init__	.\pad_score_parms.py	/^    def __init__(self, pattern_name='default'):# {{{$/;"	m	class:ScoreParms
+__init__	.\pad_search_parms.py	/^    def __init__(self, pattern_name='default'):# {{{$/;"	m	class:SearchParms
+__init__	.\pad_searcher.py	/^    def __init__(self, game_parms, score_parms, search_parms, board):# {{{$/;"	m	class:Searcher
+__init__	.\pad_searcher.py	/^    def __init__(self, start, board):$/;"	m	class:Node
+__init__	.\test4-1.py	/^    def __init__(self, name, age):$/;"	m	class:Person
 __init__	.\test4.py	/^    def __init__(self, start, board):$/;"	m	class:Node
-__round	.\padboard.py	/^def __round(array):# {{{$/;"	f	file:
+__round	.\pad_board.py	/^    def __round(self, array):# {{{$/;"	m	class:Board	file:
 adb_cmd	.\pad_uiautomator.py	/^def adb_cmd(device, cmd, *parm):$/;"	f
 adjacent_3x2	.\trash\pad.py	/^adjacent_3x2 = ((1, 3),         # 0$/;"	v
-adjacent_4x3	.\pad_search.py	/^adjacent_4x3 = [# {{{$/;"	v
-adjacent_5x4	.\pad_search.py	/^adjacent_5x4 = [# {{{$/;"	v
-adjacent_5x4	.\pazdracombo.py	/^    adjacent_5x4 = [# {{{$/;"	v	class:PazdraComboChecker
-adjacent_6x5	.\pad_search.py	/^adjacent_6x5 = [# {{{$/;"	v
-adjacent_6x5	.\pazdracombo.py	/^    adjacent_6x5 = [# {{{$/;"	v	class:PazdraComboChecker
+adjacent_4x3	.\test4.py	/^adjacent_4x3 = [# {{{$/;"	v
+adjacent_5x4	.\test4.py	/^adjacent_5x4 = [# {{{$/;"	v
+adjacent_6x5	.\test4.py	/^adjacent_6x5 = [# {{{$/;"	v
 ans	.\ref\pazdra_kun.cpp	/^int ans[MAX_TURN][2];\/\/solution move point$/;"	v
 ans	.\ref\pazdra_kun_old.cpp	/^int ans[MAX_TURN][2];\/\/solution move point$/;"	v
 ans	.\ref\pazdra_kun_orig.cpp	/^int ans[MAX_TURN][2];\/\/solution move point$/;"	v
-ans	.\test6.py	/^    ans = 0$/;"	v
-ans	.\test6.py	/^    ans = sum(p.map(f, [(a,n) for a in range(1, n+1)]))$/;"	v
 ans_goal	.\ref\pazdra_kun.cpp	/^int ans_goal[2];\/\/solution end point$/;"	v
 ans_goal	.\ref\pazdra_kun_old.cpp	/^int ans_goal[2];\/\/solution end point$/;"	v
 ans_goal	.\ref\pazdra_kun_orig.cpp	/^int ans_goal[2];\/\/solution end point$/;"	v
 ans_start	.\ref\pazdra_kun.cpp	/^int ans_start[2];\/\/solution start point$/;"	v
 ans_start	.\ref\pazdra_kun_old.cpp	/^int ans_start[2];\/\/solution start point$/;"	v
 ans_start	.\ref\pazdra_kun_orig.cpp	/^int ans_start[2];\/\/solution start point$/;"	v
-answer_5x4	.\padboard_test.py	/^answer_5x4 = "dbdcbbddcrldrgllrcbc"$/;"	v
-answer_6x5	.\padboard_test.py	/^answer_6x5 = "rlrbbgrbcrgrdgddgcllcrdrbgbldg"$/;"	v
-answer_7x6	.\padboard_test.py	/^answer_7x6 = "cdgrlbrllbldldrbbdrgcbllddbclgbgbglggcgrbl"$/;"	v
+app	.\pad_pywinauto.py	/^app = application.Application()$/;"	v
+application	.\pad_pywinauto.py	/^from pywinauto import application$/;"	i
+argvs	.\pad_board.py	/^    argvs = sys.argv$/;"	v	class:Board
+ary	.\test6.py	/^    ary = make_renketsu(5, 4, "h")$/;"	v
+beam_search	.\pad_searcher.py	/^    def beam_search(self): # {{{$/;"	m	class:Searcher
 board	.\pad_auto.py	/^            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)$/;"	v
 board	.\pad_auto.py	/^    board = None$/;"	v
-board	.\pad_search_test.py	/^            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)$/;"	v
-board	.\pad_search_test.py	/^    board = None$/;"	v
-board	.\padboard_test.py	/^board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))$/;"	v
-board	.\padboard_test.py	/^board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))$/;"	v
-board	.\padboard_test.py	/^board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))$/;"	v
-board	.\padboard_test_color.py	/^board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))$/;"	v
-board	.\pazdracombo_checker.py	/^board = "bdbbbddbdgdgbbbbbbggddddbdbbbg"$/;"	v
+board	.\pad_auto_by_pypy.py	/^    board = None$/;"	v
+board	.\pad_auto_by_vnc.py	/^            board = getting_screenshot(device_path, device_name, filename, path, WIDTH, HEIGHT)$/;"	v
+board	.\pad_auto_by_vnc.py	/^    board = None$/;"	v
+board	.\pad_auto_oodorobou_shukai.py	/^    board = None$/;"	v
+board	.\pad_board_test.py	/^board = "012345678901234567890123456789"$/;"	v
+board	.\pad_simu.py	/^        board = make_random_drop(WIDTH, HEIGHT, DROP)$/;"	v
+board	.\pad_simu.py	/^    board = None$/;"	v
 c1	.\pad_thinter.py	/^c1 = Tkinter.Canvas(root, width=width*circle_height, height=height*2*circle_height+50)$/;"	v
 c1_circles	.\pad_thinter.py	/^c1_circles = []$/;"	v
 c2_circles	.\pad_thinter.py	/^c2_circles = []$/;"	v
-calc_combo	.\pazdracombo.py	/^    def calc_combo(self):# {{{$/;"	m	class:PazdraComboChecker
+calc_combo	.\pad_combo.py	/^    def calc_combo(self):# {{{$/;"	m	class:PadCombo
 calc_i	.\pad_auto.py	/^def calc_i(flag, ary, is_nexus, width):# {{{$/;"	f
-calc_i	.\pad_search_test.py	/^def calc_i(flag, ary, is_nexus, width):# {{{$/;"	f
-calc_i	.\test1.py	/^def calc_i(flag, ary):$/;"	f
-calc_score	.\pad_search.py	/^def calc_score(width, height, board, parms):# {{{$/;"	f
-calc_score	.\pazdracombo.py	/^    def calc_score(self, PARMS):# {{{$/;"	m	class:PazdraComboChecker
+calc_i	.\pad_auto_by_pypy.py	/^def calc_i(flag, ary, is_nexus, width):# {{{$/;"	f
+calc_i	.\pad_auto_by_vnc.py	/^def calc_i(flag, ary, is_nexus, width):# {{{$/;"	f
+calc_i	.\pad_auto_oodorobou_shukai.py	/^def calc_i(flag, ary, is_nexus2, width):# {{{$/;"	f
+calc_i	.\pad_route.py	/^    def calc_i(self, flag, ary):# {{{$/;"	m	class:Route
+calc_score	.\pad_combo.py	/^    def calc_score(self, pad_score_parms):# {{{$/;"	m	class:PadCombo
+calc_score	.\pad_searcher.py	/^    def calc_score(self, board):# {{{$/;"	m	class:Searcher
+calc_score	.\test4.py	/^def calc_score(width, height, board, parms):# {{{$/;"	f
 chain	.\ref\pazdra_kun.cpp	/^void chain(int now_row, int now_col, int d, int count){$/;"	f
 chain	.\ref\pazdra_kun_old.cpp	/^void chain(int now_row, int now_col, int d, int count){$/;"	f
 chain	.\ref\pazdra_kun_orig.cpp	/^void chain(int now_row, int now_col, int d, int count){$/;"	f
@@ -133,59 +164,81 @@ check	.\ref\pazdra_kun_orig.cpp	/^int check(){$/;"	f
 check2	.\ref\pazdra_kun.cpp	/^int check2(int play){$/;"	f
 check2	.\ref\pazdra_kun_old.cpp	/^int check2(int play){$/;"	f
 check2	.\ref\pazdra_kun_orig.cpp	/^int check2(int play){$/;"	f
-check_board	.\padboard.py	/^def check_board(path, cols, rows, flg=1):# {{{$/;"	f
-check_erasable	.\pazdracombo.py	/^    def check_erasable(self, width=6, height=5):# {{{$/;"	m	class:PazdraComboChecker
-chk1LineColor	.\pazdracombo.py	/^    def chk1LineColor(self):# {{{$/;"	m	class:PazdraComboChecker
-chkdrops4	.\pazdracombo.py	/^    def chkdrops4(self):# {{{$/;"	m	class:PazdraComboChecker
+check_board	.\pad_board.py	/^    def check_board(self):# {{{$/;"	m	class:Board
+check_erasable	.\pad_combo.py	/^    def check_erasable(self):# {{{$/;"	m	class:PadCombo
+check_renkentsu_erasable	.\pad_combo.py	/^    def check_renkentsu_erasable(self):# {{{$/;"	m	class:PadCombo
+chk_1LineColor	.\pad_combo.py	/^    def chk_1LineColor(self):# {{{$/;"	m	class:PadCombo
+chk_drops4	.\pad_combo.py	/^    def chk_drops4(self):# {{{$/;"	m	class:PadCombo
+chk_drops5	.\pad_combo.py	/^    def chk_drops5(self):# {{{$/;"	m	class:PadCombo
+chk_drops_color	.\pad_combo.py	/^    def chk_drops_color(self):# {{{$/;"	m	class:PadCombo
+chk_nexus	.\pad_route.py	/^    def chk_nexus(self):# {{{$/;"	m	class:Route
+chkimg	.\pyws.py	/^def chkimg(imgname,check = 5,hwnd = None):$/;"	f
 circle_height	.\pad_thinter.py	/^circle_height = 50$/;"	v
-color	.\padboard.py	/^def color(array, flg=1):# {{{$/;"	f
-color	.\pazdracombo_checker.py	/^color = pdc.chk1LineColor()$/;"	v
+click	.\pyws.py	/^def click(x = -1,y = -1,wait = 0.2):$/;"	f
+cmd	.\test1.py	/^cmd = ["python", "padboard2.py", png_file_name, WIDTH, HEIGHT]$/;"	v
+color	.\pad_board.py	/^    def color(self, array):# {{{$/;"	m	class:Board
+cols	.\pad_board_test.py	/^cols = 6$/;"	v
+cols	.\pad_route_test.py	/^cols = 6$/;"	v
 com.hahahassy.android	.\ref\UiAutomator\src\com\hahahassy\android\UiAutomator.java	/^package com.hahahassy.android;$/;"	p
+combos	.\pad_simu.py	/^    combos = 0$/;"	v
+compareImg	.\pyws.py	/^def compareImg(comImgNp,npimg,check):$/;"	f
 conv_x	.\pad_auto.py	/^def conv_x(i, is_nexus, width=6):# {{{$/;"	f
-conv_x	.\pad_search_test.py	/^def conv_x(i, is_nexus, width=6):# {{{$/;"	f
-conv_x	.\test1.py	/^def conv_x(i):$/;"	f
+conv_x	.\pad_auto_by_pypy.py	/^def conv_x(i, is_nexus, width=6):# {{{$/;"	f
+conv_x	.\pad_auto_by_vnc.py	/^def conv_x(i, is_nexus, width=6):# {{{$/;"	f
+conv_x	.\pad_auto_oodorobou_shukai.py	/^def conv_x(i, is_nexus2, width=6):# {{{$/;"	f
+conv_x	.\pad_route.py	/^    def conv_x(self, i):# {{{$/;"	m	class:Route
 conv_y	.\pad_auto.py	/^def conv_y(i, is_nexus, width=6):# {{{$/;"	f
-conv_y	.\pad_search_test.py	/^def conv_y(i, is_nexus, width=6):# {{{$/;"	f
-conv_y	.\test1.py	/^def conv_y(i):$/;"	f
-convert_h_w	.\pazdracombo.py	/^def convert_h_w(lst):# {{{$/;"	f
-convert_h_w_5x4	.\pazdracombo.py	/^def convert_h_w_5x4(lst):# {{{$/;"	f
-convert_h_w_6x5	.\pazdracombo.py	/^def convert_h_w_6x5(lst):# {{{$/;"	f
-convert_h_w_7x6	.\pazdracombo.py	/^def convert_h_w_7x6(lst):# {{{$/;"	f
-copy	.\pazdracombo.py	/^import copy$/;"	i
+conv_y	.\pad_auto_by_pypy.py	/^def conv_y(i, is_nexus, width=6):# {{{$/;"	f
+conv_y	.\pad_auto_by_vnc.py	/^def conv_y(i, is_nexus, width=6):# {{{$/;"	f
+conv_y	.\pad_auto_oodorobou_shukai.py	/^def conv_y(i, is_nexus2, width=6):# {{{$/;"	f
+conv_y	.\pad_route.py	/^    def conv_y(self, i):# {{{$/;"	m	class:Route
+convert_r_c	.\pad_board.py	/^    def convert_r_c(self, lst): # {{{{$/;"	m	class:Board
+copy	.\pad_combo.py	/^import copy$/;"	i
 copy	.\trash\pad.py	/^import copy$/;"	i
-cpu_count	.\test6.py	/^from multiprocessing import Pool, cpu_count$/;"	i
 create_drops_random	.\trash\pad.py	/^def create_drops_random(w=6, h=5, d="rbgldc"):$/;"	f
 create_goal_drops	.\trash\pad.py	/^def create_goal_drops(sorted_drops_lst, max_combo):$/;"	f
+cv	.\pyws.py	/^import cv2.cv as cv$/;"	i
+cv2	.\pyws.py	/^import cv2$/;"	i
+cv2	.\pyws.py	/^import cv2.cv as cv$/;"	i
 d_rnd	.\ref\pazdra_kun.cpp	/^double d_rnd(double mini, double maxi){$/;"	f
 d_rnd	.\ref\pazdra_kun_old.cpp	/^double d_rnd(double mini, double maxi){$/;"	f
 d_rnd	.\ref\pazdra_kun_orig.cpp	/^double d_rnd(double mini, double maxi){$/;"	f
 dct	.\pad_thinter.py	/^dct = pad.pivot_drops(lst1)$/;"	v
 device	.\pad_uiautomator.py	/^device = uiautomator.Device()$/;"	v
 device	.\screencap.py	/^device = uiautomator.Device()$/;"	v
+device_name	.\pad_auto_by_vnc.py	/^            device_name = select_device_name(device_name)$/;"	v
+device_name	.\pad_auto_by_vnc.py	/^    device_name = "SH-01F"$/;"	v
+device_name	.\pad_get_ss_by_vnc.py	/^    device_name = "SH-01F"$/;"	v
 device_path	.\pad_auto.py	/^    device_path = "\/sdcard\/screen.png"$/;"	v
-device_path	.\pad_search_test.py	/^    device_path = "\/sdcard\/screen.png"$/;"	v
+device_path	.\pad_auto_by_pypy.py	/^    device_path = "\/sdcard\/screen.png"$/;"	v
+device_path	.\pad_auto_by_vnc.py	/^    device_path = ""$/;"	v
+device_path	.\pad_auto_oodorobou_shukai.py	/^    device_path = "\/sdcard\/screen.png"$/;"	v
+device_path	.\pad_get_ss.py	/^device_path = "\/sdcard\/screen.png"$/;"	v
+device_path	.\screenshot.py	/^device_path = "\/sdcard\/screenshot.png"$/;"	v
 dfs	.\ref\pazdra_kun.cpp	/^void dfs(int now_row, int now_col, int depth){$/;"	f
 dfs	.\ref\pazdra_kun_old.cpp	/^void dfs(int now_row, int now_col, int depth){$/;"	f
 dfs	.\ref\pazdra_kun_orig.cpp	/^void dfs(int now_row, int now_col, int depth){$/;"	f
 draw_circles	.\pad_thinter.py	/^def draw_circles(circles, x, y):$/;"	f
+drop_moving	.\pad_auto_oodorobou_shukai.py	/^def drop_moving(device_path, path, WIDTH, HEIGHT, MAX_TURN, PLAYNUM, PARMS, SWIPE, name):# {{{# {{{$/;"	f
 dum	.\ref\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 dum	.\ref\pazdra_kun_old.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 dum	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 dummy	.\ref\pazdra_kun.cpp	/^int dummy[ROW][COL];$/;"	v
 dummy	.\ref\pazdra_kun_old.cpp	/^int dummy[ROW][COL];$/;"	v
 dummy	.\ref\pazdra_kun_orig.cpp	/^int dummy[ROW][COL];$/;"	v
-dummy_array	.\test4.py	/^    dummy_array = []$/;"	v
+elapsed_time	.\pad_auto_oodorobou_shukai.py	/^    elapsed_time = time.time() - start_time$/;"	v
 end_flg	.\pad_auto.py	/^            end_flg = False$/;"	v
 end_flg	.\pad_auto.py	/^    end_flg = True$/;"	v
-end_flg	.\pad_search_test.py	/^            end_flg = False$/;"	v
-end_flg	.\pad_search_test.py	/^    end_flg = True$/;"	v
-evalCombo	.\pad_search.py	/^def evalCombo(width, height, board):# {{{$/;"	f
+end_flg	.\pad_auto_by_pypy.py	/^            end_flg = False$/;"	v
+end_flg	.\pad_auto_by_pypy.py	/^    end_flg = True$/;"	v
+end_flg	.\pad_auto_by_vnc.py	/^            end_flg = False$/;"	v
+end_flg	.\pad_auto_by_vnc.py	/^    end_flg = True$/;"	v
+evalCombo	.\test4.py	/^def evalCombo(width, height, board):# {{{$/;"	f
 evalute	.\ref\pazdra_kun.cpp	/^int evalute(){$/;"	f
 evalute	.\ref\pazdra_kun_old.cpp	/^int evalute(){$/;"	f
 evalute	.\ref\pazdra_kun_orig.cpp	/^int evalute(){$/;"	f
 evalute_light	.\ref\pazdra_kun.cpp	/^int evalute_light(){$/;"	f
 exchange	.\trash\pad.py	/^def exchange(lst, ex1, ex2):  # 0:first_item$/;"	f
-f	.\test6.py	/^def f(an):$/;"	f
 f_field	.\ref\pazdra_kun.cpp	/^int f_field[ROW][COL];$/;"	v
 f_field	.\ref\pazdra_kun_old.cpp	/^int f_field[ROW][COL];$/;"	v
 f_field	.\ref\pazdra_kun_orig.cpp	/^int f_field[ROW][COL];$/;"	v
@@ -198,56 +251,99 @@ fff	.\ref\pazdra_kun_orig.cpp	/^int fff = 0;$/;"	v
 field	.\ref\pazdra_kun.cpp	/^int field[ROW][COL];$/;"	v
 field	.\ref\pazdra_kun_old.cpp	/^int field[ROW][COL];$/;"	v
 field	.\ref\pazdra_kun_orig.cpp	/^int field[ROW][COL];$/;"	v
+filename	.\pad_auto_by_vnc.py	/^    filename = "screen.png"$/;"	v
+filename	.\pad_get_ss_by_vnc.py	/^    filename = "screenshot_pyws.png"$/;"	v
 fill_circles	.\pad_thinter.py	/^def fill_circles(circles, lst, cvs):$/;"	f
 func_args	.\test4.py	/^    func_args = []$/;"	v
 func_args	.\test5.py	/^    func_args = []$/;"	v
+g_img_x	.\pyws.py	/^g_img_x = -1$/;"	v
+g_img_y	.\pyws.py	/^g_img_y = -1$/;"	v
 g_turn	.\ref\pazdra_kun.cpp	/^int g_turn;\/\/solution end turn$/;"	v
 g_turn	.\ref\pazdra_kun_old.cpp	/^int g_turn;\/\/solution end turn$/;"	v
 g_turn	.\ref\pazdra_kun_orig.cpp	/^int g_turn;\/\/solution end turn$/;"	v
-gcd	.\test6.py	/^def gcd(a, b):$/;"	f
-get_adjacent	.\pad_search.py	/^def get_adjacent(width, now_pos):# {{{$/;"	f
-get_rgb	.\padboard.py	/^def get_rgb(pic, box=""):# {{{$/;"	f
+game_parms	.\pad_auto_by_pypy.py	/^    game_parms = pad_game_parms.GameParms()$/;"	v
+game_parms	.\pad_game_parms_test.py	/^game_parms = pad_game_parms.GameParms()$/;"	v
+getName	.\test4-1.py	/^    def getName(self):$/;"	m	class:Person
+get_adjacent	.\pad_searcher.py	/^    def get_adjacent(self, now_pos):# {{{$/;"	m	class:Searcher
+get_adjacent	.\test4.py	/^def get_adjacent(width, now_pos):# {{{$/;"	f
+get_board_pattern	.\pad_game_parms.py	/^    def get_board_pattern(self):# {{{$/;"	m	class:GameParms
+get_rgb	.\pad_board.py	/^    def get_rgb(self, pic, box=""):# {{{$/;"	m	class:Board
 get_route	.\pad_auto.py	/^def get_route(route, is_nexus, width):# {{{$/;"	f
-get_route	.\pad_search_test.py	/^def get_route(route, is_nexus, width):# {{{$/;"	f
+get_route	.\pad_auto_by_pypy.py	/^def get_route(route, is_nexus, width):# {{{$/;"	f
+get_route	.\pad_auto_by_vnc.py	/^def get_route(route, is_nexus, width):# {{{$/;"	f
+get_route	.\pad_auto_oodorobou_shukai.py	/^def get_route(route, is_nexus2, width):# {{{$/;"	f
+get_route	.\pad_route.py	/^    def get_route(self, route):# {{{$/;"	m	class:Route
+get_rows_rgb	.\pad_board.py	/^    def get_rows_rgb(self, col):# {{{$/;"	m	class:Board
+get_score_parms_patttern	.\pad_score_parms.py	/^    def get_score_parms_patttern(self):# {{{$/;"	m	class:ScoreParms
 get_screenshot	.\pad_auto.py	/^def get_screenshot(device_path):# {{{$/;"	f
-get_screenshot	.\pad_search_test.py	/^def get_screenshot(device_path):# {{{$/;"	f
+get_screenshot	.\pad_auto_by_pypy.py	/^def get_screenshot(device_path):# {{{$/;"	f
+get_screenshot	.\pad_auto_by_vnc.py	/^def get_screenshot(device_path, device_name, filename):# {{{$/;"	f
+get_screenshot	.\pad_auto_oodorobou_shukai.py	/^def get_screenshot(device_path):# {{{$/;"	f
+get_screenshot	.\pad_get_ss.py	/^def get_screenshot(device_path):$/;"	f
+get_screenshot	.\screenshot.py	/^def get_screenshot(device_path):# {{{$/;"	f
+get_search_parms_patttern	.\pad_search_parms.py	/^    def get_search_parms_patttern(self):# {{{$/;"	m	class:SearchParms
+get_ss_by_pyws	.\pad_get_ss_by_vnc.py	/^def get_ss_by_pyws(device_name, filename):$/;"	f
+getid	.\pyws.py	/^def getid(title,n = 0):$/;"	f
+getkeystate	.\pyws.py	/^def getkeystate(key,wait = 1):$/;"	f
 getting_screenshot	.\pad_auto.py	/^def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{$/;"	f
-getting_screenshot	.\pad_search_test.py	/^def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{$/;"	f
+getting_screenshot	.\pad_auto_by_pypy.py	/^def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{$/;"	f
+getting_screenshot	.\pad_auto_by_vnc.py	/^def getting_screenshot(device_path, device_name, filename, path, WIDTH, HEIGHT, use_old=0):# {{{$/;"	f
+getting_screenshot	.\pad_auto_oodorobou_shukai.py	/^def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{$/;"	f
+getting_screenshot	.\screenshot.py	/^def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{$/;"	f
 goal	.\ref\pazdra_kun.cpp	/^	int goal[2];\/\/end point$/;"	m	struct:member	file:
 goal	.\ref\pazdra_kun.cpp	/^int goal[2];\/\/end point$/;"	v
 goal	.\ref\pazdra_kun_old.cpp	/^	int goal[2];\/\/end point$/;"	m	struct:member	file:
 goal	.\ref\pazdra_kun_old.cpp	/^int goal[2];\/\/end point$/;"	v
 goal	.\ref\pazdra_kun_orig.cpp	/^	int goal[2];\/\/end point$/;"	m	struct:member	file:
 goal	.\ref\pazdra_kun_orig.cpp	/^int goal[2];\/\/end point$/;"	v
+hanabi_zurasi	.\pad_auto_oodorobou_shukai.py	/^def hanabi_zurasi(SWIPE, name):# {{{# {{{$/;"	f
 height	.\pad_thinter.py	/^height = 6$/;"	v
-height	.\pazdracombo_checker.py	/^height = 5$/;"	v
 hill_climb	.\ref\pazdra_kun.cpp	/^void hill_climb(){$/;"	f
 hill_climb	.\ref\pazdra_kun_old.cpp	/^void hill_climb(){$/;"	f
 hill_climb	.\ref\pazdra_kun_orig.cpp	/^void hill_climb(){$/;"	f
 idx2xy	.\pad_auto.py	/^def idx2xy(width, idx):# {{{$/;"	f
-idx2xy	.\pad_search_test.py	/^def idx2xy(width, idx):# {{{$/;"	f
-idx2xy	.\pazdracombo.py	/^    def idx2xy(self, idx):# {{{$/;"	m	class:PazdraComboChecker
+idx2xy	.\pad_auto_by_pypy.py	/^def idx2xy(width, idx):# {{{$/;"	f
+idx2xy	.\pad_auto_by_vnc.py	/^def idx2xy(width, idx):# {{{$/;"	f
+idx2xy	.\pad_auto_oodorobou_shukai.py	/^def idx2xy(width, idx):# {{{$/;"	f
+idx2xy	.\pad_combo.py	/^    def idx2xy(self, idx):# {{{$/;"	m	class:PadCombo
+idx2xy	.\pad_route.py	/^    def idx2xy(self, idx):# {{{$/;"	m	class:Route
 init	.\ref\pazdra_kun.cpp	/^void init(){$/;"	f
 init	.\ref\pazdra_kun_old.cpp	/^void init(){$/;"	f
 init	.\ref\pazdra_kun_orig.cpp	/^void init(){$/;"	f
 init2	.\ref\pazdra_kun.cpp	/^void init2(char *p){$/;"	f
 init2	.\ref\pazdra_kun_old.cpp	/^void init2(char *p){$/;"	f
 input_test_word	.\pad_auto.py	/^        input_test_word = input(">>>  ")$/;"	v
-input_test_word	.\pad_search_test.py	/^        input_test_word = input(">>>  ")$/;"	v
+input_test_word	.\pad_auto_by_pypy.py	/^        input_test_word = input(">>>  ")$/;"	v
+input_test_word	.\pad_auto_by_vnc.py	/^        input_test_word = input(">>>  ")$/;"	v
+introduce	.\test4-1.py	/^    def introduce(self):$/;"	m	class:Person
 isEqual_list	.\trash\pad.py	/^def isEqual_list(lst1, lst2):$/;"	f
-isKinsetsu	.\pazdracombo.py	/^    def isKinsetsu(self, x1, y1, v1, x2, y2, v2):  # x:x座標、y:y座標, v:方向# {{{$/;"	m	class:PazdraComboChecker
-isRenketsu	.\pazdracombo.py	/^    def isRenketsu(self, x, y, vector="h"):# {{{$/;"	m	class:PazdraComboChecker
+isKinsetsu	.\pad_combo.py	/^    def isKinsetsu(self, x1, y1, v1, x2, y2, v2):  # x:x座標、y:y座標, v:方向# {{{$/;"	m	class:PadCombo
+isRenketsu	.\pad_combo.py	/^    def isRenketsu(self, x, y, vector="h"):# {{{$/;"	m	class:PadCombo
 is_nexus	.\pad_auto.py	/^def is_nexus(path):# {{{$/;"	f
-is_nexus	.\pad_search_test.py	/^def is_nexus(path):# {{{$/;"	f
-itertools	.\pazdracombo.py	/^import itertools$/;"	i
+is_nexus	.\pad_auto_by_pypy.py	/^def is_nexus(pic_width):# {{{$/;"	f
+is_nexus	.\pad_auto_by_vnc.py	/^def is_nexus(path):# {{{$/;"	f
+is_nexus	.\pad_auto_oodorobou_shukai.py	/^def is_nexus(path):# {{{$/;"	f
+is_nexus2	.\pad_auto_oodorobou_shukai.py	/^def is_nexus2(width):# {{{$/;"	f
+itertools	.\pad_board.py	/^import itertools$/;"	i
+itertools	.\pad_combo.py	/^import itertools$/;"	i
+itertools	.\pad_searcher.py	/^import itertools$/;"	i
+kbd	.\pyws.py	/^def kbd(keycode):$/;"	f
 lst	.\pad_thinter.py	/^lst = pad.create_goal_drops(lst2, max_cmb)$/;"	v
 lst1	.\pad_thinter.py	/^lst1 = pad.create_drops_random(width, height, "bgr")$/;"	v
 lst2	.\pad_thinter.py	/^lst2 = pad.sort_drops(dct)$/;"	v
+m	.\pad_auto_by_vnc.py	/^import pyws as m$/;"	i
+m	.\pad_get_ss_by_vnc.py	/^import pyws as m$/;"	i
 main	.\ref\pazdra_kun.cpp	/^int main(int argc, char *argv[]){$/;"	f
 main	.\ref\pazdra_kun_old.cpp	/^int main(int argc, char *argv[]){$/;"	f
 main	.\ref\pazdra_kun_orig.cpp	/^int main(){$/;"	f
 main	.\ref\sample.cpp	/^int main(int argc,char *argv[])$/;"	f
 main	.\ref\sample2.cpp	/^int main(int argc,char *argv[])$/;"	f
+make_adjacent	.\pad_combo.py	/^    def make_adjacent(self):# {{{$/;"	m	class:PadCombo
+make_adjacent	.\pad_searcher.py	/^    def make_adjacent(self):# {{{$/;"	m	class:Searcher
+make_adjcent	.\test6.py	/^def make_adjcent(width, height):# {{{$/;"	f
+make_random_drop	.\pad_simu.py	/^def make_random_drop(WIDTH, HEIGHT, DROP):# {{{$/;"	f
+make_renketsu	.\pad_combo.py	/^    def make_renketsu(self, vector):# {{{$/;"	m	class:PadCombo
+make_renketsu	.\test6.py	/^def make_renketsu(width, height, vector):$/;"	f
 max_cmb	.\pad_thinter.py	/^max_cmb = pad.max_combo(dct)$/;"	v
 max_combo	.\trash\pad.py	/^def max_combo(pivoted_drops_dct):$/;"	f
 max_count	.\ref\pazdra_kun.cpp	/^int max_count;$/;"	v
@@ -259,11 +355,14 @@ max_score	.\ref\pazdra_kun_orig.cpp	/^int max_score;$/;"	v
 member	.\ref\pazdra_kun.cpp	/^struct member{$/;"	s	file:
 member	.\ref\pazdra_kun_old.cpp	/^struct member{$/;"	s	file:
 member	.\ref\pazdra_kun_orig.cpp	/^struct member{$/;"	s	file:
+mmv	.\pyws.py	/^def mmv(x = -1,y = -1):$/;"	f
 monte_carlo	.\ref\pazdra_kun.cpp	/^void monte_carlo(){$/;"	f
 monte_carlo	.\ref\pazdra_kun_old.cpp	/^void monte_carlo(){$/;"	f
 monte_carlo	.\ref\pazdra_kun_orig.cpp	/^void monte_carlo(){$/;"	f
 move_drop	.\pad_auto.py	/^def move_drop(pos_x, pos_y, swipe_time):# {{{$/;"	f
-move_drop	.\pad_search_test.py	/^def move_drop(pos_x, pos_y, swipe_time):# {{{$/;"	f
+move_drop	.\pad_auto_by_pypy.py	/^def move_drop(pos_x, pos_y, swipe_time):# {{{$/;"	f
+move_drop	.\pad_auto_by_vnc.py	/^def move_drop(pos_x, pos_y, swipe_time):# {{{$/;"	f
+move_drop	.\pad_auto_oodorobou_shukai.py	/^def move_drop(pos_x, pos_y, swipe_time):# {{{$/;"	f
 movei	.\ref\pazdra_kun.cpp	/^	int movei[MAX_TURN][2];\/\/move point$/;"	m	struct:member	file:
 movei	.\ref\pazdra_kun.cpp	/^int movei[MAX_TURN][2];\/\/move point$/;"	v
 movei	.\ref\pazdra_kun_old.cpp	/^	int movei[MAX_TURN][2];\/\/move point$/;"	m	struct:member	file:
@@ -271,78 +370,121 @@ movei	.\ref\pazdra_kun_old.cpp	/^int movei[MAX_TURN][2];\/\/move point$/;"	v
 movei	.\ref\pazdra_kun_orig.cpp	/^	int movei[MAX_TURN][2];\/\/move point$/;"	m	struct:member	file:
 movei	.\ref\pazdra_kun_orig.cpp	/^int movei[MAX_TURN][2];\/\/move point$/;"	v
 moving	.\pad_auto.py	/^def moving(pos_x, pos_y, SWIPE):# {{{$/;"	f
-moving	.\pad_search_test.py	/^def moving(pos_x, pos_y, SWIPE):# {{{$/;"	f
-multiprocessing	.\pad_search.py	/^import multiprocessing$/;"	i
+moving	.\pad_auto_by_pypy.py	/^def moving(pos_x, pos_y, SWIPE):# {{{$/;"	f
+moving	.\pad_auto_by_vnc.py	/^def moving(pos_x, pos_y, SWIPE):# {{{$/;"	f
+moving	.\pad_auto_oodorobou_shukai.py	/^def moving(pos_x, pos_y, SWIPE):# {{{$/;"	f
+mp	.\pad_board.py	/^import multiprocessing as mp$/;"	i
+mp	.\pad_searcher.py	/^import multiprocessing as mp$/;"	i
+mp	.\test4-1.py	/^import multiprocessing as mp$/;"	i
+mp	.\test4.py	/^    import multiprocessing as mp$/;"	i
+multiprocessing	.\test4.py	/^import multiprocessing$/;"	i
 myfunc	.\test5.py	/^def myfunc(a, b, c, d):$/;"	f
-n	.\test4.py	/^        n = Node(i, start_board)$/;"	v
-n	.\test6.py	/^    n = 300$/;"	v
 node	.\ref\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 node	.\ref\pazdra_kun_old.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 node	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
-node_array	.\test4.py	/^    node_array = []$/;"	v
 nowC	.\ref\pazdra_kun.cpp	/^	int nowC;$/;"	m	struct:member	file:
 nowC	.\ref\pazdra_kun_old.cpp	/^	int nowC;$/;"	m	struct:member	file:
 nowC	.\ref\pazdra_kun_orig.cpp	/^	int nowC;$/;"	m	struct:member	file:
 nowR	.\ref\pazdra_kun.cpp	/^	int nowR;$/;"	m	struct:member	file:
 nowR	.\ref\pazdra_kun_old.cpp	/^	int nowR;$/;"	m	struct:member	file:
 nowR	.\ref\pazdra_kun_orig.cpp	/^	int nowR;$/;"	m	struct:member	file:
-numpy	.\padboard.py	/^import numpy$/;"	i
+np	.\pyws.py	/^import numpy as np$/;"	i
+numpy	.\pad_board.py	/^import numpy$/;"	i
 operation	.\ref\pazdra_kun.cpp	/^void operation(){$/;"	f
 operation	.\ref\pazdra_kun_old.cpp	/^void operation(){$/;"	f
 operation	.\ref\pazdra_kun_orig.cpp	/^void operation(){$/;"	f
 os	.\pad_auto.py	/^import os$/;"	i
-os	.\pad_search_test.py	/^import os$/;"	i
-p	.\test4.py	/^    p = Pool()$/;"	v
+os	.\pad_auto_by_pypy.py	/^import os$/;"	i
+os	.\pad_auto_by_vnc.py	/^import os$/;"	i
+os	.\pad_auto_oodorobou_shukai.py	/^import os$/;"	i
+os	.\pad_simu.py	/^import os$/;"	i
+p	.\test1.py	/^p = subprocess.check_output(cmd)$/;"	v
+p	.\test4.py	/^    p = mp.Pool()$/;"	v
 p	.\test5.py	/^    p = Pool()$/;"	v
-p	.\test6.py	/^    p = Pool()$/;"	v
 pad	.\pad_thinter.py	/^import pad$/;"	i
+pad_board	.\pad_auto_by_pypy.py	/^import pad_board$/;"	i
+pad_board	.\pad_board.py	/^    pad_board = Board(argvs[2], argvs[3], pic_path)$/;"	v	class:Board
+pad_board	.\pad_board_test.py	/^import pad_board$/;"	i
+pad_board	.\pad_board_test.py	/^pad_board = pad_board.Board(cols, rows, pic_path)$/;"	v
+pad_combo	.\pad_auto_by_pypy.py	/^import pad_combo$/;"	i
+pad_combo	.\pad_combo_test.py	/^                               pad_searcher.score_parms)$/;"	v
+pad_combo	.\pad_combo_test.py	/^import pad_combo$/;"	i
+pad_combo	.\pad_searcher.py	/^import pad_combo$/;"	i
+pad_game_parms	.\pad_auto_by_pypy.py	/^import pad_game_parms$/;"	i
+pad_game_parms	.\pad_combo_test.py	/^import pad_game_parms$/;"	i
+pad_game_parms	.\pad_combo_test.py	/^pad_game_parms = pad_game_parms.GameParms()$/;"	v
+pad_game_parms	.\pad_game_parms_test.py	/^import pad_game_parms$/;"	i
+pad_game_parms	.\pad_searcher_test.py	/^import pad_game_parms$/;"	i
+pad_game_parms	.\pad_searcher_test.py	/^pad_game_parms = pad_game_parms.GameParms()$/;"	v
+pad_route	.\pad_route_test.py	/^import pad_route$/;"	i
+pad_route	.\pad_route_test.py	/^pad_route = pad_route.Route(cols, rows, pic_width)$/;"	v
+pad_score_parms	.\pad_auto_by_pypy.py	/^import pad_score_parms$/;"	i
+pad_score_parms	.\pad_combo_test.py	/^import pad_score_parms$/;"	i
+pad_score_parms	.\pad_combo_test.py	/^pad_score_parms = pad_score_parms.ScoreParms()$/;"	v
+pad_score_parms	.\pad_score_parms_test.py	/^import pad_score_parms$/;"	i
+pad_score_parms	.\pad_searcher_test.py	/^import pad_score_parms$/;"	i
+pad_score_parms	.\pad_searcher_test.py	/^pad_score_parms = pad_score_parms.ScoreParms()$/;"	v
 pad_search	.\pad_auto.py	/^import pad_search$/;"	i
-pad_search	.\pad_search_test.py	/^import pad_search$/;"	i
+pad_search	.\pad_auto_by_vnc.py	/^import pad_search$/;"	i
+pad_search	.\pad_auto_oodorobou_shukai.py	/^import pad_search$/;"	i
+pad_search	.\pad_simu.py	/^import pad_search$/;"	i
+pad_search_parms	.\pad_auto_by_pypy.py	/^import pad_search_parms$/;"	i
+pad_search_parms	.\pad_combo_test.py	/^import pad_search_parms$/;"	i
+pad_search_parms	.\pad_combo_test.py	/^pad_search_parms = pad_search_parms.SearchParms()$/;"	v
+pad_search_parms	.\pad_search_parms_test.py	/^import pad_search_parms$/;"	i
+pad_search_parms	.\pad_searcher_test.py	/^import pad_search_parms$/;"	i
+pad_search_parms	.\pad_searcher_test.py	/^pad_search_parms = pad_search_parms.SearchParms()$/;"	v
+pad_searcher	.\pad_auto_by_pypy.py	/^import pad_searcher$/;"	i
+pad_searcher	.\pad_combo_test.py	/^import pad_searcher$/;"	i
+pad_searcher	.\pad_combo_test.py	/^pad_searcher = pad_searcher.Searcher(pad_game_parms, pad_score_parms, pad_search_parms, board)$/;"	v
+pad_searcher	.\pad_searcher_test.py	/^import pad_searcher$/;"	i
+pad_searcher	.\pad_searcher_test.py	/^pad_searcher = pad_searcher.Searcher(pad_game_parms, pad_score_parms, pad_search_parms, board)$/;"	v
 padboard	.\pad_auto.py	/^import padboard$/;"	i
-padboard	.\pad_search_test.py	/^import padboard$/;"	i
-padboard	.\padboard_test.py	/^import padboard$/;"	i
-padboard	.\padboard_test_color.py	/^import padboard$/;"	i
-padboard	.\pazdracombo.py	/^import padboard$/;"	i
-padboard	.\pazdracombo_checker.py	/^import padboard$/;"	i
+padboard	.\pad_auto_by_vnc.py	/^import padboard$/;"	i
+padboard	.\pad_simu.py	/^import padboard$/;"	i
 parms	.\test4.py	/^    parms = DEFAULT_PARMS$/;"	v
 path	.\pad_auto.py	/^    path = ".\\screen.png"$/;"	v
-path	.\pad_search_test.py	/^    path = ".\\screen.png"$/;"	v
-path	.\padboard_test.py	/^path = ".\\screen_sh-01f_5x4.png"$/;"	v
-path	.\padboard_test.py	/^path = ".\\screen_sh-01f_6x5.png"$/;"	v
-path	.\padboard_test.py	/^path = ".\\screen_sh-01f_7x6.png"$/;"	v
-path	.\padboard_test_color.py	/^path = ".\\screen.png"$/;"	v
+path	.\pad_auto_by_pypy.py	/^    path = "screen.png"$/;"	v
+path	.\pad_auto_by_vnc.py	/^    path = ".\\screen.png"$/;"	v
+path	.\pad_auto_oodorobou_shukai.py	/^    path = "screen.png"$/;"	v
+path	.\screenshot.py	/^path = ".\\screenshot.png"$/;"	v
 pazdracombo	.\pad_auto.py	/^import pazdracombo$/;"	i
-pazdracombo	.\pad_search.py	/^import pazdracombo$/;"	i
-pazdracombo	.\pad_search_test.py	/^import pazdracombo$/;"	i
-pazdracombo	.\padboard_test.py	/^import pazdracombo$/;"	i
-pazdracombo	.\padboard_test_color.py	/^import pazdracombo$/;"	i
-pazdracombo	.\pazdracombo_checker.py	/^import pazdracombo$/;"	i
-pdc	.\pazdracombo_checker.py	/^pdc = pazdracombo.PazdraComboChecker(width, height, board)$/;"	v
-pdc_combo_ascii_table	.\pazdracombo.py	/^    pdc_combo_ascii_table = list("abcdefghij")$/;"	v	class:PazdraComboChecker
-pic_parm	.\padboard.py	/^pic_parm = {$/;"	v
+pazdracombo	.\pad_auto_by_vnc.py	/^import pazdracombo$/;"	i
+pazdracombo	.\pad_auto_oodorobou_shukai.py	/^import pazdracombo$/;"	i
+pazdracombo	.\test4.py	/^import pazdracombo$/;"	i
+persons	.\test4-1.py	/^    persons = [$/;"	v
+pic_path	.\pad_board.py	/^    pic_path = ".\\\\" + argvs[1]$/;"	v	class:Board
+pic_path	.\pad_board_test.py	/^pic_path = ".\\\\screen.png"$/;"	v
+pic_width	.\pad_auto_by_pypy.py	/^    pic_width = 0$/;"	v
+pic_width	.\pad_auto_oodorobou_shukai.py	/^    pic_width = 0$/;"	v
+pic_width	.\pad_route_test.py	/^pic_width = 1080$/;"	v
 pivot_drops	.\trash\pad.py	/^def pivot_drops(drops_lst):$/;"	f
 player	.\ref\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 player	.\ref\pazdra_kun_old.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 player	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
-pos_x	.\test1.py	/^pos_x = "470,600,600,470,470,470,470,600,600,470,470,340,340,340,340,340,210,80,80,80,80,210"$/;"	v
-pos_y	.\test1.py	/^pos_y = "1015,1015,1145,1145,1015,885,755,755,625,625,755,755,885,755,885,1015,1015,1015,885,755,625,625"$/;"	v
+plus_years	.\test4-1.py	/^def plus_years(person, years, last_name):$/;"	f
+png_file_name	.\test1.py	/^png_file_name = "screen.png"$/;"	v
 print_board	.\pad_auto.py	/^def print_board(width, height, board):# {{{$/;"	f
-print_board	.\pad_search_test.py	/^def print_board(width, height, board):# {{{$/;"	f
-print_board	.\padboard.py	/^def print_board(width, height, board):# {{{$/;"	f
-print_combo	.\pazdracombo.py	/^    def print_combo(self):# {{{$/;"	m	class:PazdraComboChecker
+print_board	.\pad_auto_by_pypy.py	/^def print_board(width, height, board):# {{{$/;"	f
+print_board	.\pad_auto_by_vnc.py	/^def print_board(width, height, board):# {{{$/;"	f
+print_board	.\pad_auto_oodorobou_shukai.py	/^def print_board(width, height, board):# {{{$/;"	f
+print_board	.\pad_board.py	/^    def print_board(game_parms, board):# {{{$/;"	m	class:Board
+print_board	.\pad_simu.py	/^def print_board(width, height, board):# {{{$/;"	f
 print_game_parms	.\test3.py	/^def print_game_parms():$/;"	f
-print_lst2str	.\pazdracombo.py	/^    def print_lst2str(self, mod="board"):# {{{$/;"	m	class:PazdraComboChecker
+print_lst2str	.\pad_combo.py	/^    def print_lst2str(self, mod="board"):# {{{$/;"	m	class:PadCombo
+proc	.\pyws.py	/^def proc(hwnd,ar):$/;"	f
+random	.\pad_simu.py	/^import random$/;"	i
+random	.\pyws.py	/^import random$/;"	i
 random	.\trash\pad.py	/^import random$/;"	i
-renketsu_5x4_h	.\pazdracombo.py	/^    renketsu_5x4_h = [# {{{$/;"	v	class:PazdraComboChecker
-renketsu_5x4_v	.\pazdracombo.py	/^    renketsu_5x4_v = [# {{{$/;"	v	class:PazdraComboChecker
-renketsu_6x5_h	.\pazdracombo.py	/^    renketsu_6x5_h = [# {{{$/;"	v	class:PazdraComboChecker
-renketsu_6x5_v	.\pazdracombo.py	/^    renketsu_6x5_v = [# {{{$/;"	v	class:PazdraComboChecker
 results	.\test4.py	/^    results = p.map(wrap_search_node_array, func_args)$/;"	v
 results	.\test5.py	/^    results = p.map(wrap_myfunc, func_args)$/;"	v
 rnd	.\ref\pazdra_kun.cpp	/^unsigned int rnd(int mini, int maxi){$/;"	f
 rnd	.\ref\pazdra_kun_old.cpp	/^unsigned int rnd(int mini, int maxi){$/;"	f
 rnd	.\ref\pazdra_kun_orig.cpp	/^unsigned int rnd(int mini, int maxi){$/;"	f
 root	.\pad_thinter.py	/^root = Tkinter.Tk()$/;"	v
+route	.\pad_route_test.py	/^route = [0,1,2,3,4,5,6,7]$/;"	v
+rows	.\pad_board_test.py	/^rows = 5$/;"	v
+rows	.\pad_route_test.py	/^rows = 5$/;"	v
 sample	.\ref\pazdra_kun.cpp	/^void sample(char *p){$/;"	f
 sample	.\ref\pazdra_kun_old.cpp	/^void sample(char *p){$/;"	f
 sample	.\ref\sample2.cpp	/^void sample(char *p){$/;"	f
@@ -352,31 +494,61 @@ save	.\ref\pazdra_kun_orig.cpp	/^double save;$/;"	v
 score	.\ref\pazdra_kun.cpp	/^	int score;$/;"	m	struct:member	file:
 score	.\ref\pazdra_kun_old.cpp	/^	int score;$/;"	m	struct:member	file:
 score	.\ref\pazdra_kun_orig.cpp	/^	int score;$/;"	m	struct:member	file:
+score_parms	.\pad_auto_by_pypy.py	/^    score_parms = pad_score_parms.ScoreParms()$/;"	v
+score_parms	.\pad_score_parms_test.py	/^score_parms = pad_score_parms.ScoreParms()$/;"	v
+scores	.\pad_simu.py	/^    scores = 0$/;"	v
 search	.\trash\pad.py	/^def search(goal_drops, path, prev_drops, adjacent):$/;"	f
-search_node_array	.\pad_search.py	/^def search_node_array(width, height, max_turn, playnum, parms, node_array):# {{{$/;"	f
-search_node_array	.\test4.py	/^def search_node_array(width, height, max_turn, playnum, parms, node_array, dummy_array):# {{{$/;"	f
+search_node_array	.\pad_searcher.py	/^    def search_node_array(self, node_i):# {{{$/;"	m	class:Searcher
+search_node_array	.\test4.py	/^def search_node_array(width, height, max_turn, playnum, parms, start_board):# {{{$/;"	f
+search_parms	.\pad_search_parms_test.py	/^search_parms = pad_search_parms.SearchParms()$/;"	v
 searching	.\pad_auto.py	/^def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{$/;"	f
-searching	.\pad_search_test.py	/^def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{$/;"	f
+searching	.\pad_auto_by_pypy.py	/^def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, pic_width):# {{{$/;"	f
+searching	.\pad_auto_by_vnc.py	/^def searching(device_name, filename, WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{$/;"	f
+searching	.\pad_auto_oodorobou_shukai.py	/^def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, pic_width):# {{{$/;"	f
+searching	.\pad_simu.py	/^def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{$/;"	f
 select_board	.\pad_auto.py	/^def select_board(WIDTH, HEIGHT):# {{{$/;"	f
-select_board	.\pad_search_test.py	/^def select_board(WIDTH, HEIGHT):# {{{$/;"	f
+select_board	.\pad_auto_by_pypy.py	/^def select_board(WIDTH, HEIGHT):# {{{$/;"	f
+select_board	.\pad_auto_by_vnc.py	/^def select_board(WIDTH, HEIGHT):# {{{$/;"	f
+select_board	.\pad_auto_oodorobou_shukai.py	/^def select_board(WIDTH, HEIGHT):# {{{$/;"	f
+select_board	.\pad_simu.py	/^def select_board(WIDTH, HEIGHT):# {{{$/;"	f
+select_device_name	.\pad_auto_by_vnc.py	/^def select_device_name(device_name):# {{{$/;"	f
 select_parms_pattern	.\pad_auto.py	/^def select_parms_pattern(PARMS):# {{{$/;"	f
-select_parms_pattern	.\pad_search_test.py	/^def select_parms_pattern(PARMS):# {{{$/;"	f
-server	.\pad_uiautomator.py	/^server = uiautomator.AutomatorServer()$/;"	v
+select_parms_pattern	.\pad_auto_by_pypy.py	/^def select_parms_pattern(PARMS):# {{{$/;"	f
+select_parms_pattern	.\pad_auto_by_vnc.py	/^def select_parms_pattern(PARMS):# {{{$/;"	f
+select_parms_pattern	.\pad_auto_oodorobou_shukai.py	/^def select_parms_pattern(PARMS):# {{{$/;"	f
+select_parms_pattern	.\pad_simu.py	/^def select_parms_pattern(PARMS):# {{{$/;"	f
 set	.\ref\pazdra_kun.cpp	/^void set(){$/;"	f
 set	.\ref\pazdra_kun_old.cpp	/^void set(){$/;"	f
 set	.\ref\pazdra_kun_orig.cpp	/^void set(){$/;"	f
+set_board_parms	.\pad_game_parms.py	/^    def set_board_parms(self, pattern_name):# {{{$/;"	m	class:GameParms
 set_game_parms	.\pad_auto.py	/^def set_game_parms(pattern):# {{{$/;"	f
-set_game_parms	.\pad_search_test.py	/^def set_game_parms(pattern):# {{{$/;"	f
+set_game_parms	.\pad_auto_by_vnc.py	/^def set_game_parms(pattern):# {{{$/;"	f
+set_game_parms	.\pad_auto_oodorobou_shukai.py	/^def set_game_parms(pattern):# {{{$/;"	f
+set_game_parms	.\pad_simu.py	/^def set_game_parms(pattern):# {{{$/;"	f
 set_game_parms	.\test3.py	/^def set_game_parms(pattern):$/;"	f
-set_route	.\pad_search.py	/^    def set_route(self, lst):$/;"	m	class:Node
+set_route	.\pad_searcher.py	/^    def set_route(self, lst):$/;"	m	class:Node
 set_route	.\test4.py	/^    def set_route(self, lst):$/;"	m	class:Node
+set_score_parms	.\pad_score_parms.py	/^    def set_score_parms(self, pattern_name):# {{{$/;"	m	class:ScoreParms
+set_search_parms	.\pad_search_parms.py	/^    def set_search_parms(self, pattern_name):# {{{$/;"	m	class:SearchParms
+set_swipe	.\pad_game_parms.py	/^    def set_swipe(self, SWIPE):# {{{$/;"	m	class:GameParms
 show_game_parms	.\pad_auto.py	/^def show_game_parms():# {{{$/;"	f
-show_game_parms	.\pad_search_test.py	/^def show_game_parms():# {{{$/;"	f
+show_game_parms	.\pad_auto_by_vnc.py	/^def show_game_parms():# {{{$/;"	f
+show_game_parms	.\pad_auto_oodorobou_shukai.py	/^def show_game_parms():# {{{$/;"	f
+show_game_parms	.\pad_game_parms.py	/^    def show_game_parms(self):# {{{$/;"	m	class:GameParms
+show_game_parms	.\pad_simu.py	/^def show_game_parms():# {{{$/;"	f
 show_parms	.\pad_auto.py	/^def show_parms(PARMS):# {{{$/;"	f
-show_parms	.\pad_search_test.py	/^def show_parms(PARMS):# {{{$/;"	f
+show_parms	.\pad_auto_by_vnc.py	/^def show_parms(PARMS):# {{{$/;"	f
+show_parms	.\pad_auto_oodorobou_shukai.py	/^def show_parms(PARMS):# {{{$/;"	f
+show_parms	.\pad_simu.py	/^def show_parms(PARMS):# {{{$/;"	f
+show_score_parms	.\pad_score_parms.py	/^    def show_score_parms(self):# {{{$/;"	m	class:ScoreParms
+show_search_parms	.\pad_search_parms.py	/^    def show_search_parms(self):# {{{$/;"	m	class:SearchParms
 similarity_rate	.\ref\pazdra_kun.cpp	/^const double similarity_rate = 0.8;$/;"	v
 similarity_rate	.\ref\pazdra_kun_old.cpp	/^const double similarity_rate = 0.8;$/;"	v
 similarity_rate	.\ref\pazdra_kun_orig.cpp	/^const double similarity_rate = 0.8;$/;"	v
+simu_times	.\pad_simu.py	/^    simu_times = 5$/;"	v
+skill_fire	.\pad_auto_oodorobou_shukai.py	/^def skill_fire(SWIPE, name, position):  # position  leader, sub1, sub2, ,,, friend# {{{$/;"	f
+skill_select	.\pad_auto_oodorobou_shukai.py	/^def skill_select(SWIPE, name):# {{{$/;"	f
+sleep	.\pyws.py	/^def sleep(wait):$/;"	f
 solve	.\ref\pazdra_kun.cpp	/^void solve(int num){$/;"	f
 solve	.\ref\pazdra_kun_old.cpp	/^void solve(int num){$/;"	f
 solve	.\ref\pazdra_kun_orig.cpp	/^void solve(int num){$/;"	f
@@ -386,7 +558,6 @@ solve2	.\ref\pazdra_kun_orig.cpp	/^void solve2(int num){$/;"	f
 solve_b	.\ref\pazdra_kun.cpp	/^void solve_b(char *p){$/;"	f
 solve_b	.\ref\pazdra_kun_old.cpp	/^void solve_b(char *p){$/;"	f
 sort_drops	.\trash\pad.py	/^def sort_drops(pivoted_drops_dct):$/;"	f
-st	.\test6.py	/^    st = time.time()$/;"	v
 start	.\ref\pazdra_kun.cpp	/^	int start[2];\/\/start point$/;"	m	struct:member	file:
 start	.\ref\pazdra_kun.cpp	/^int start[2];\/\/start point$/;"	v
 start	.\ref\pazdra_kun_old.cpp	/^	int start[2];\/\/start point$/;"	m	struct:member	file:
@@ -394,43 +565,65 @@ start	.\ref\pazdra_kun_old.cpp	/^int start[2];\/\/start point$/;"	v
 start	.\ref\pazdra_kun_orig.cpp	/^	int start[2];\/\/start point$/;"	m	struct:member	file:
 start	.\ref\pazdra_kun_orig.cpp	/^int start[2];\/\/start point$/;"	v
 start_board	.\test4.py	/^    start_board = "grllggglgrlrgrlrlggrlgggrlllrr"$/;"	v
-str2lst	.\pazdracombo.py	/^    def str2lst(self, param, width, height):# {{{$/;"	m	class:PazdraComboChecker
-str_e	.\pazdracombo.py	/^    def str_e(self,e):# {{{$/;"	m	class:PazdraComboChecker
+start_time	.\pad_auto_oodorobou_shukai.py	/^    start_time = time.time()$/;"	v
+str2lst	.\pad_combo.py	/^    def str2lst(self, board):# {{{$/;"	m	class:PadCombo
+str_e	.\pad_combo.py	/^    def str_e(self,e):# {{{$/;"	m	class:PadCombo
 subprocess	.\pad_auto.py	/^import subprocess$/;"	i
-subprocess	.\pad_search_test.py	/^import subprocess$/;"	i
-subprocess	.\pazdracombo.py	/^import subprocess$/;"	i
-subprocess	.\pazdracombo_checker.py	/^import subprocess$/;"	i
+subprocess	.\pad_auto_by_pypy.py	/^import subprocess$/;"	i
+subprocess	.\pad_auto_by_vnc.py	/^import subprocess$/;"	i
+subprocess	.\pad_auto_oodorobou_shukai.py	/^import subprocess$/;"	i
+subprocess	.\pad_combo.py	/^import subprocess$/;"	i
+subprocess	.\pad_get_ss.py	/^import subprocess$/;"	i
+subprocess	.\pad_simu.py	/^import subprocess$/;"	i
+subprocess	.\screenshot.py	/^import subprocess$/;"	i
 subprocess	.\test1.py	/^import subprocess$/;"	i
-sum_combo	.\pazdracombo.py	/^    def sum_combo(self):# {{{$/;"	m	class:PazdraComboChecker
 sum_e	.\ref\pazdra_kun.cpp	/^int sum_e(){\/\/evalute_ver$/;"	f
 sum_e	.\ref\pazdra_kun_old.cpp	/^int sum_e(){\/\/evalute_ver$/;"	f
 sum_e	.\ref\pazdra_kun_orig.cpp	/^int sum_e(){\/\/evalute_ver$/;"	f
 sum_evalute	.\ref\pazdra_kun.cpp	/^int sum_evalute(){\/\/real_ver$/;"	f
 sum_evalute	.\ref\pazdra_kun_old.cpp	/^int sum_evalute(){\/\/real_ver$/;"	f
 sum_evalute	.\ref\pazdra_kun_orig.cpp	/^int sum_evalute(){\/\/real_ver$/;"	f
-swap	.\pad_search.py	/^def swap(a, b, board):# {{{$/;"	f
+swap	.\pad_searcher.py	/^    def swap(self, a, b, board):# {{{$/;"	m	class:Searcher
+swap	.\test4.py	/^def swap(a, b, board):# {{{$/;"	f
 swipe	.\ref\UiAutomator\src\com\hahahassy\android\UiAutomator.java	/^	public void swipe(){$/;"	m	class:UiAutomator
+sys	.\pad_auto_by_pypy.py	/^import sys$/;"	i
+sys	.\pad_auto_oodorobou_shukai.py	/^import sys$/;"	i
+sys	.\pad_board.py	/^    import sys$/;"	i
 sys	.\pad_thinter.py	/^import sys$/;"	i
+sys	.\pyws.py	/^import sys$/;"	i
 t_erase	.\ref\pazdra_kun.cpp	/^int t_erase[ROW][COL];$/;"	v
 t_erase	.\ref\pazdra_kun_old.cpp	/^int t_erase[ROW][COL];$/;"	v
 t_erase	.\ref\pazdra_kun_orig.cpp	/^int t_erase[ROW][COL];$/;"	v
 temp	.\ref\pazdra_kun.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 temp	.\ref\pazdra_kun_old.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
 temp	.\ref\pazdra_kun_orig.cpp	/^}player[3], temp, node[PLAYNUM], dum[PLAYNUM];$/;"	v	typeref:struct:member
+testMP	.\test4-1.py	/^def testMP(persons):$/;"	f
 time	.\pad_auto.py	/^import time$/;"	i
-time	.\pad_search.py	/^import time$/;"	i
-time	.\pad_search_test.py	/^import time$/;"	i
+time	.\pad_auto_by_pypy.py	/^import time$/;"	i
+time	.\pad_auto_by_vnc.py	/^import time$/;"	i
+time	.\pad_auto_oodorobou_shukai.py	/^import time$/;"	i
+time	.\pad_simu.py	/^import time$/;"	i
 time	.\pad_uiautomator.py	/^import time$/;"	i
-time	.\pazdracombo.py	/^import time$/;"	i
-time	.\test6.py	/^import time$/;"	i
+time	.\pyws.py	/^import time$/;"	i
+time	.\screenshot.py	/^import time$/;"	i
+time	.\test4.py	/^import time$/;"	i
+total_elapsed_time	.\pad_simu.py	/^    total_elapsed_time = 0$/;"	v
 uiautomator	.\pad_uiautomator.py	/^import uiautomator$/;"	i
 uiautomator	.\screencap.py	/^import uiautomator$/;"	i
-uiautomator_cmd	.\test1.py	/^uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\\"x\\"", pos_x, "-e","\\"y\\"", pos_y]$/;"	v
+user32	.\pyws.py	/^user32 = windll.user32$/;"	v
 width	.\pad_thinter.py	/^width = 7$/;"	v
-width	.\pazdracombo_checker.py	/^width = 6$/;"	v
+winclose	.\pyws.py	/^def winclose():$/;"	f
+winshow	.\pyws.py	/^def winshow(width,height,name = "main"):$/;"	f
+winxpgui	.\pad_auto_by_vnc.py	/^import winxpgui$/;"	i
+winxpgui	.\pad_get_ss_by_vnc.py	/^import winxpgui$/;"	i
+winxpgui	.\pyws.py	/^import winxpgui$/;"	i
+wrap_func	.\pad_board.py	/^    def wrap_func(self, args):# {{{$/;"	m	class:Board
+wrap_func	.\test4-1.py	/^def wrap_func(args):$/;"	f
 wrap_myfunc	.\test5.py	/^def wrap_myfunc(args):$/;"	f
-wrap_search_node_array	.\pad_search.py	/^def wrap_search_node_array(args):$/;"	f
+wrap_search_node_array	.\pad_searcher.py	/^    def wrap_search_node_array(self, args): # {{{$/;"	m	class:Searcher
 wrap_search_node_array	.\test4.py	/^def wrap_search_node_array(args):$/;"	f
-x	.\test1.py	/^x = ['1', '0', '1', '2', '2', '2']$/;"	v
-xy2idx	.\pazdracombo.py	/^    def xy2idx(self, x, y):# {{{$/;"	m	class:PazdraComboChecker
-y	.\test1.py	/^y = ['0', '0', '0', '0', '1', '2']$/;"	v
+x	.\pad_searcher_test.py	/^x = 1$/;"	v
+xy2idx	.\pad_combo.py	/^    def xy2idx(self, x, y):# {{{$/;"	m	class:PadCombo
+xy2idx	.\pad_searcher.py	/^    def xy2idx(self, x, y):# {{{$/;"	m	class:Searcher
+xy2idx	.\test6.py	/^def xy2idx(x, y, width):# {{{$/;"	f
+y	.\pad_searcher_test.py	/^y = 3$/;"	v
