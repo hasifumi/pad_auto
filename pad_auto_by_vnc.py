@@ -174,7 +174,9 @@ PARMS_PATTERN = {# {{{
             '1line-dark': -10.0,
             },
         'isis': {
+            'blue': 10.0,
             '3colors': 10.0,
+            '5colors+cure': 20.0,
             },
         }# }}}
 
@@ -228,6 +230,12 @@ def is_nexus(path):# {{{
     else:
         return False# }}}
 
+def is_nexus2(width):# {{{
+    if width == 800:
+        return True
+    else:
+        return False# }}}
+
 def idx2xy(width, idx):# {{{
     return[int(idx/width), int(idx%width)]# }}}
 
@@ -272,11 +280,13 @@ def calc_i(flag, ary, is_nexus, width):# {{{
     return pos_i# }}}
 
 def get_route(route, is_nexus, width):# {{{
+    #print "get_route route:" + str(route)
     #print "get_route width:" + str(width)
     x = []
     y = []
     for r in route:
-        ans = idx2xy(WIDTH, r)
+        #print "r:" + str(r)
+        ans = idx2xy(int(width), int(r))
         x.append(ans[1])
         y.append(ans[0])
     pos_x = calc_i("x", x, is_nexus, width)
@@ -314,17 +324,23 @@ def getting_screenshot(device_path, device_name, filename, path, WIDTH, HEIGHT, 
 def searching(device_name, filename, WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{
     if board is None:
         board = getting_screenshot(device_path, device_name, filename, path, WIDTH, HEIGHT, 1)  # すでに取得済みのscreenshotを利用する
-    print "searching ..."
-    start_time = time.time()
-    n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-    pos_x, pos_y = get_route(n_best.route, is_nexus(path), WIDTH)
-    # 確認用
     print "[board]"
     print print_board(WIDTH, HEIGHT, board)
     print ""
-    print "[combo]"
-    print print_board(WIDTH, HEIGHT, n_best.board)
-    print ""
+
+    print "searching ..."
+    start_time = time.time()
+
+    #n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+    cmd = ["pypy", "pad_search.py", str(WIDTH), str(HEIGHT), board, str(MAX_TURN), str(PLAYNUM), "isis"]
+    p = subprocess.check_output(cmd)
+    print "best_route:" + str(p)
+    sout = p.rstrip().split(",")
+    sout_route = []
+    for i in sout:
+        sout_route.append(i)
+    #pos_x, pos_y = get_route(sout_route, is_nexus2(pic_width), WIDTH)
+    pos_x, pos_y = get_route(sout_route, is_nexus(path), WIDTH)
     elapsed_time = time.time() - start_time
     print("searching time:{0}".format(elapsed_time)) + "[sec]"
     return (pos_x, pos_y)# }}}

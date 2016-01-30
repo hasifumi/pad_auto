@@ -180,7 +180,9 @@ PARMS_PATTERN = {# {{{
             '1line-dark': -10.0,
             },
         'isis': {
+            'ble': 5.0,
             '3colors': 10.0,
+            '5colors+cure': 20.0,
             },
         'izuizu, ryune': {
             'dark': 5.0,
@@ -287,8 +289,10 @@ def get_route(route, is_nexus2, width):# {{{
     #print "get_route width:" + str(width)
     x = []
     y = []
+    #print "route:" + str(route)
     for r in route:
-        ans = idx2xy(WIDTH, r)
+        #print "r:" + r
+        ans = idx2xy(WIDTH, int(r))
         x.append(ans[1])
         y.append(ans[0])
     pos_x = calc_i("x", x, is_nexus2, width)
@@ -332,17 +336,30 @@ def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{
 def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, pic_width):# {{{
     if board is None:
         board, pic_width = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)  # すでに取得済みのscreenshotを利用する
-    print "searching ..."
-    start_time = time.time()
-    n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-    pos_x, pos_y = get_route(n_best.route, is_nexus2(pic_width), WIDTH)
-    # 確認用
     print "[board]"
     print print_board(WIDTH, HEIGHT, board)
     print ""
-    print "[combo]"
-    print print_board(WIDTH, HEIGHT, n_best.board)
-    print ""
+
+    print "searching ..."
+    start_time = time.time()
+    #n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+    cmd = ["pypy", "pad_search.py", str(WIDTH), str(HEIGHT), board, str(MAX_TURN), str(PLAYNUM), "isis"]
+    #print "cmd:" + str(cmd)
+    p = subprocess.check_output(cmd)
+    #print "p(n_best.route):" + str(p)
+    sout = p.rstrip().split(",")
+    sout_route = []
+    for i in sout:
+        sout_route.append(i)
+    #pos_x, pos_y = get_route(n_best.route, is_nexus2(pic_width), WIDTH)
+    pos_x, pos_y = get_route(sout_route, is_nexus2(pic_width), WIDTH)
+    # 確認用
+    # print "[board]"
+    # print print_board(WIDTH, HEIGHT, board)
+    # print ""
+    # print "[combo]"
+    # print print_board(WIDTH, HEIGHT, n_best.board)
+    # print ""
     elapsed_time = time.time() - start_time
     print("searching time:{0}".format(elapsed_time)) + "[sec]"
     return (pos_x, pos_y)# }}}

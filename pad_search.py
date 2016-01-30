@@ -159,7 +159,7 @@ def Nbeam(width, height, start_board, max_turn, playnum, parms):
     else:
         use_cpu_count = mp.cpu_count() - 1
     #use_cpu_count = 1
-    print "use cpu count: " + str(use_cpu_count)
+    #print "use cpu count: " + str(use_cpu_count)
     p = mp.Pool(use_cpu_count)
     func_args = []
     for i in range(width*height):
@@ -174,8 +174,8 @@ def Nbeam(width, height, start_board, max_turn, playnum, parms):
             best = v.score
             idx = k
 
-    print "best score:" + str(node_array[idx].score)
-    print "best combo:" + str(node_array[idx].combo)
+    #print "best score:" + str(node_array[idx].score)
+    #print "best combo:" + str(node_array[idx].combo)
 
     return node_array[idx]
 
@@ -214,3 +214,141 @@ def calc_score(width, height, board, parms):# {{{
     pdc.check_erasable(width, height)
     pdc.calc_combo()
     return pdc.calc_score(parms)# }}}
+
+PARMS_PATTERN = {# {{{
+        'default': {
+            'red'  : 0.0,
+            'blue' : 0.0,
+            'green': 0.0,
+            'light': 0.0,
+            'dark' : 0.0,
+            'cure' : 0.0,
+            '3colors'  : 0.0,
+            '4colors'  : 0.0,
+            '5colors'  : 0.0,
+            '3colors+cure'  : 0.0,
+            '4colors+cure'  : 0.0,
+            '5colors+cure'  : 0.0,
+            '4drops-red'  : 0.0,
+            '4drops-blue' : 0.0,
+            '4drops-green': 0.0,
+            '4drops-light': 0.0,
+            '4drops-dark' : 0.0,
+            '4drops-cure' : 0.0,
+            '5drops-red'  : 0.0,
+            '5drops-blue' : 0.0,
+            '5drops-green': 0.0,
+            '5drops-light': 0.0,
+            '5drops-dark' : 0.0,
+            '5drops-cure' : 0.0,
+            '1line-red'  : 0.0,
+            '1line-blue' : 0.0,
+            '1line-green': 0.0,
+            '1line-light': 0.0,
+            '1line-dark' : 0.0,
+            '1line-cure' : 0.0,
+            },
+        'saria, tall': {
+            'red': 2.0,
+            'green': 3.0,
+            'light': 3.0,
+            'cure': 5.0,
+            '4drops-red' : 5.0,
+            '4drops-blue': 3.0,
+            '4drops-green': 5.0,
+            '4drops-light' : 10.0,
+            '5drops-red' : -5.0,
+            '5drops-green' : -10.0,
+            '5drops-light' : -10.0,
+            '1line-red': 10.0,
+            '1line-light': 30.0,
+            },
+        'blue-sonia, ryune': {
+            'blue': 10.0,
+            'dark': 5.0,
+            'cure': 5.0,
+            '4drops-blue': 10.0,
+            '4drops-light' : 5.0,
+            '4drops-dark' : 5.0,
+            '5drops-blue': 50.0,
+            '1line-blue': 50.0,
+            '1line-dark': 10.0,
+            },
+        'basteto/shiva': {
+            'red': 10.0,
+            'green': 10.0,
+            'cure': 5.0,
+            '4drops-red': 50.0,
+            '4drops-blue': 50.0,
+            '4drops-green': 50.0,
+            '1line-red': -10.0,
+            '1line-green': -10.0,
+            },
+        'athena': {
+            'light': 10.0,
+            'green': 5.0,
+            'cure': 5.0,
+            '4drops-green': 10.0,
+            '4drops-light': 30.0,
+            },
+        'zeroge-4drops': {
+            'dark': 30.0,
+            'blue': 10.0,
+            'cure': 10.0,
+            '4drops-dark': 20.0,
+            '1line-dark': -10.0,
+            },
+        'zeroge': {
+            'dark': 30.0,
+            'blue': 10.0,
+            'cure': 10.0,
+            '1line-dark': -10.0,
+            },
+        'isis': {
+            'blue': 5.0,
+            '3colors': 10.0,
+            '5colors+cure': 20.0,
+            },
+        'izuizu, ryune': {
+            'dark': 5.0,
+            'blue': 15.0,
+            'cure': 10.0,
+            '4drops-blue': 20.0,
+            '4drops-dark': 10.0,
+            '1line-blue': -10.0,
+            '1line-dark': -10.0,
+            },
+        'horus': {
+            'cure': 5.0,
+            '4colors'  : 10.0,
+            '5colors'  : 5.0,
+            '3colors+cure'  : 5.0,
+            '4colors+cure'  : 5.0,
+            '5colors+cure'  : 5.0,
+            },
+        }# }}}
+
+if __name__ == "__main__":
+    import sys
+    argvs = sys.argv
+    #print "len(argvs):" + str(len(argvs))
+
+    if len(argvs) != 7:
+        print "Usage: # python %s width height board max_turn playnum pattern_name" % argvs[0]
+        quit()
+
+    PARMS = {}
+    pattern_name = argvs[6]
+    PARMS['name'] = pattern_name
+    for k in PARMS_PATTERN[pattern_name].keys():
+        PARMS[k] = PARMS_PATTERN[pattern_name][k]
+
+    #print "1:" + str(int(argvs[1])) + ", 2:" + str(int(argvs[2])) + ", 3:" + str(argvs[3]) + ", 4:" + str(int(argvs[4])) + ", 5:" + str(int(argvs[5])) + ", 6:" + str(argvs[6])
+    #print PARMS
+    n_best = Nbeam(int(argvs[1]), int(argvs[2]), argvs[3], int(argvs[4]), int(argvs[5]), PARMS)
+    # print "n_best.route:" + str(n_best.route)
+    # print "len(n_best.route):" + str(len(n_best.route))
+    best_route = ""
+    for i in range(len(n_best.route)):
+        best_route = best_route + str(n_best.route[i]) + ","
+    print best_route[:len(best_route)-1]
