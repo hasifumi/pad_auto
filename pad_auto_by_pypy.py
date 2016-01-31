@@ -342,17 +342,17 @@ def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, pic_width):# {{{
 
     print "searching ..."
     start_time = time.time()
-    #n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-    cmd = ["pypy", "pad_search.py", str(WIDTH), str(HEIGHT), board, str(MAX_TURN), str(PLAYNUM), "isis"]
+    n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+    #cmd = ["pypy", "pad_search.py", str(WIDTH), str(HEIGHT), board, str(MAX_TURN), str(PLAYNUM), "isis"]
     #print "cmd:" + str(cmd)
-    p = subprocess.check_output(cmd)
+    #p = subprocess.check_output(cmd)
     #print "p(n_best.route):" + str(p)
-    sout = p.rstrip().split(",")
-    sout_route = []
-    for i in sout:
-        sout_route.append(i)
-    #pos_x, pos_y = get_route(n_best.route, is_nexus2(pic_width), WIDTH)
-    pos_x, pos_y = get_route(sout_route, is_nexus2(pic_width), WIDTH)
+    #sout = p.rstrip().split(",")
+    #sout_route = []
+    #for i in sout:
+    #    sout_route.append(i)
+    pos_x, pos_y = get_route(n_best.route, is_nexus2(pic_width), WIDTH)
+    #pos_x, pos_y = get_route(sout_route, is_nexus2(pic_width), WIDTH)
     # 確認用
     # print "[board]"
     # print print_board(WIDTH, HEIGHT, board)
