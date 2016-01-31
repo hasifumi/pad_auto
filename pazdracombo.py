@@ -649,7 +649,7 @@ clllll
                     score += PARMS['4drops-cure'] * 5000 * -1    # 罰
         return (score, self.combo_count)# }}}
 
-        for k, v in drops5.iteritems():
+        for k, v in drops5.iteritems():# {{{
             if   k == 'r' and PARMS.has_key('5drops-red'):
                 score += PARMS['5drops-red'] * 5000
                 if drops4.has_key(k):
@@ -673,7 +673,7 @@ clllll
             elif k == 'c' and PARMS.has_key('5drops-cure'):
                 score += PARMS['5drops-cure'] * 5000
                 if drops4.has_key(k):
-                    score += PARMS['5drops-cure'] * 5000 * -1    # 罰
+                    score += PARMS['5drops-cure'] * 5000 * -1    # 罰# }}}
 
         return (score, self.combo_count)# }}}
 
