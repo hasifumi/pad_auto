@@ -115,41 +115,21 @@ class Searcher(object):
         return node_array
         # }}}
 
-    def wrap_search_node_array(self, args): # {{{
-        return args[0](*args[1:])
-        # }}}
-
     def beam_search(self): # {{{
         import itertools as itrt
 
-        # ** Using multiprocing Pool (start) **
-        #
-        # if mp.cpu_count() == 1:
-        #     use_cpu_count = 1
-        # else:
-        #     use_cpu_count = mp.cpu_count() - 1
-        # print "use cpu count: " + str(use_cpu_count)
-        #
-        # p = mp.Pool(use_cpu_count)
-        # func_args = []
-        # # for i in range(self.game_parms.width * self.game_parms.height):
-        # #     func_args.append((self.search_node_array, i))
-        # # node_array = p.map(self.wrap_search_node_array, func_args)
-        # args = itrt.izip(itrt.repeat(self), \
-        #                  itrt.repeat("search_node_array"), \
-        #                  range(self.game_parms.width * self.game_parms.height))
-        # node_array = p.map(tomap, args)
-        #
-        # ** Using multiprocing Pool (end) **
+        if mp.cpu_count() == 1:
+            use_cpu_count = 1
+        else:
+            use_cpu_count = mp.cpu_count() - 1
+        print "use cpu count: " + str(use_cpu_count)
 
-        # ** Non-Using multiprocing Pool (start) **
-        #
-        node_array = []
-        for i in range(self.game_parms.width * self.game_parms.height):
-            node_array.append(self.search_node_array(i))
-        node_array = list(itertools.chain.from_iterable(node_array))  # flatten
-        #
-        # ** Non-Using multiprocing Pool (end) **
+        p = mp.Pool(use_cpu_count)
+        func_args = []
+        args = itrt.izip(itrt.repeat(self), \
+                         itrt.repeat("search_node_array"), \
+                         range(self.game_parms.width * self.game_parms.height))
+        node_array = p.map(tomap, args)
 
         idx = 0
         best = 0
@@ -167,37 +147,20 @@ class Searcher(object):
 def tomap(args):# {{{
     return getattr(args[0], args[1])(*args[2:])# }}}
 
-def toapply(cls, mtd_name, *args, **kwargs):# {{{
-    return getattr(cls, mtd_name)(*args, **kwargs)# }}}
+def search_with_beam(game_parms, score_parms, search_parms, board):# {{{
 
-class MultiHelper(object):# {{{
-    def __init__(self, cls, mtd_name):
-        self.cls = cls
-        self.mtd_name = mtd_name
+    pad_searcher = Searcher(game_parms, score_parms, search_parms, board)
 
-    def __call__(self, *args, **kwargs):
-        return getattr(self.cls, self.mtd_name)(*args, **kwargs)# }}}
+    pad_searcher.beam_search()
+    # }}}
 
-def search_with_beam(board):# {{{
+if __name__ == "__main__":
+
     import pad_game_parms
     import pad_score_parms
     import pad_search_parms
-
-#     board = """# {{{
-# ddcccd
-# cddddd
-# dddddd
-# dccddc
-# cddddd
-# """.replace('\n', '')# }}}
 
     pad_game_parms = pad_game_parms.GameParms()
     pad_score_parms = pad_score_parms.ScoreParms()
     pad_search_parms = pad_search_parms.SearchParms()
 
-    pad_searcher = Searcher(pad_game_parms, pad_score_parms, pad_search_parms, board)
-
-    pad_searcher.beam_search()# }}}
-
-# if __name__ == "__main__":
-#     search_with_beam()
