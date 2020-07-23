@@ -76,7 +76,33 @@ pic_parm = {
                 'ys': 130,
             },# }}}
         },
-        '1080': {   # SH-01F
+#        '1080': {   # SH-01F
+#            '5x4': {# {{{
+#                'xa': 5,
+#                'ya': 865,
+#                'xb': 215,
+#                'yb': 1075,
+#                'xs': 210,
+#                'ys': 210,
+#            },# }}}
+#            '6x5': {# {{{
+#                'xa': 5,
+#                'ya': 860,
+#                'xb': 185,
+#                'yb': 1030,
+#                'xs': 180,
+#                'ys': 180,
+#            },# }}}
+#            '7x6': {# {{{
+#                'xa': 25,
+#                'ya': 850,
+#                'xb': 170,
+#                'yb': 995,
+#                'xs': 145,
+#                'ys': 145,
+#            },# }}}
+#        },
+        '1080': {   # Galaxy S10
             '5x4': {# {{{
                 'xa': 5,
                 'ya': 865,
@@ -87,19 +113,21 @@ pic_parm = {
             },# }}}
             '6x5': {# {{{
                 'xa': 5,
-                'ya': 860,
+                'ya': 1370,
                 'xb': 185,
-                'yb': 1030,
+                'yb': 1550,
                 'xs': 180,
                 'ys': 180,
             },# }}}
-            '7x6': {# {{{
-                'xa': 25,
-                'ya': 850,
-                'xb': 170,
-                'yb': 995,
-                'xs': 145,
-                'ys': 145,
+        },
+        '392': {   # Galaxy S10 by scrcpy
+            '6x5': {# {{{
+                'xa': 10,
+                'ya': 510,
+                'xb': 70,
+                'yb': 570,
+                'xs': 60,
+                'ys': 60,
             },# }}}
         },
     }
@@ -108,12 +136,17 @@ def get_rgb(pic, box=""):# {{{
     if box == "":
         #box = (0, 0, pic.width, pic.height)
         box = (0, 0, pic.size[0], pic.size[1])
-    #print "box: " + str(box)
+    # print "box: " + str(box)
     rgbimg = pic.crop(box).convert("RGB")
     rgb = numpy.array(rgbimg.getdata())
-    return [__round(rgb[:,0]),
-            __round(rgb[:,1]),
-            __round(rgb[:,2])]# }}}
+    # print(rgb)
+    #return [__round(rgb[:,0]),
+    #        __round(rgb[:,1]),
+    #        __round(rgb[:,2])]
+    rgb0 = __round(rgb[:, 0])
+    rgb1 = __round(rgb[:, 1])
+    rgb2 = __round(rgb[:, 2])
+    return [rgb0, rgb1, rgb2]# }}}
 
 def color(array, flg=1):# {{{
     col = {}
@@ -240,6 +273,8 @@ def check_board(path, cols, rows, flg=1):# {{{
     #key1 = str(pic.width)
     key1 = str(pic.size[0])
     key2 = str(cols)+"x"+str(rows)
+    # print(key1)
+    # print(key2)
     edges = {
             'xa': 0,
             'ya': 0,
@@ -259,11 +294,11 @@ def check_board(path, cols, rows, flg=1):# {{{
         rows_rgb = get_rows_rgb(rows, edges, pic, i, flg)
         board += rows_rgb
 
-    return board# }}}
+    return board, key1, key2# }}}
 
 def print_board(width, height, board):# {{{
     for h in range(height):
-        print board[h*width:h*width+width]
+        print(board[h*width:h*width+width])
     return 1# }}}
 
 if __name__ == "__main__":
@@ -271,11 +306,13 @@ if __name__ == "__main__":
     argvs = sys.argv
 
     if (len(argvs) != 4):
-        print "Usage: # python %s path width height" % argvs[0]
+        print("Usage: # python %s path width height" % argvs[0])
         quit()
 
     #board = check_board(argvs[1], int(argvs[2]), int(argvs[3]), 0)
 
     path = ".\\" + argvs[1]
-    board = check_board(path, int(argvs[2]), int(argvs[3]), 0)
-    print board
+    board, key1, key2 = check_board(path, int(argvs[2]), int(argvs[3]), 0)
+    print(board)
+    print(key1)
+    print(key2)

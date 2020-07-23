@@ -12,9 +12,10 @@ HEIGHT = 5# }}}
 # SWIPE = 4# }}}
 
 DEFAULT_GAME_PARMS = {# {{{
-        'MAX_TURN' : 40,
+        'MAX_TURN' : 50,
         'PLAYNUM' : 30,
-        'SWIPE' : 4,
+        #'SWIPE' : 4,
+        'SWIPE' : 0.001,
         }# }}}
 
 GAME_PARMS_PATTERN = {# {{{
@@ -202,13 +203,18 @@ PARMS_PATTERN = {# {{{
         }# }}}
 
 import padboard
-#import uiautomator
+import uiautomator
 import time
 import subprocess
 import os
 import pad_search
 import pazdracombo
 from PIL import Image
+from PIL import ImageGrab
+import pyautogui
+import win32gui
+import win32api
+import call_julia_prog
 
 def print_board(width, height, board):# {{{
     for h in range(height):
@@ -225,6 +231,49 @@ def get_screenshot(device_path):# {{{
 
     return# }}}
 
+def set_activeWindow(window_id):# {{{
+
+    VK_TAB = 0x09
+    VK_SHIFT = 0x10
+    VK_MENU = 0x12
+    KEYEVENTF_KEYUP = 0x2
+    start = time.time()
+
+    while True:
+        hw = win32gui.GetForegroundWindow()
+        # print(hw)
+        if window_id == hw:
+            break
+        time.sleep(0.5)
+        if time.time() - start > 5:
+            print("fail set_activeWindow()!")
+            break
+
+        win32api.keybd_event(VK_MENU, 0, 0)
+        win32api.keybd_event(VK_SHIFT, 0, 0)
+        win32api.keybd_event(VK_TAB, 0, 0)
+        time.sleep(0.1)
+        win32api.keybd_event(VK_TAB, 0, KEYEVENTF_KEYUP)
+        win32api.keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP)
+        win32api.keybd_event(VK_MENU, 0, KEYEVENTF_KEYUP)
+        time.sleep(0.1)# }}}
+
+def get_screenshot_new(path):# {{{
+    a = win32gui.FindWindow(None, "SC-03L")
+    print(a)
+    print(win32gui.GetWindowText(a))
+    if a != 0:
+        win32gui.SetActiveWindow(a)
+        win32gui.BringWindowToTop(a)
+        set_activeWindow(a)
+        win32gui.MoveWindow(a, 700, 50, 392, 839, True)
+    time.sleep(2)
+    # win32gui.MoveWindow(a, 700, 50, 392, 839, True)
+    rect = win32gui.GetWindowRect(a)
+    print(rect)
+    ImageGrab.grab(rect).save(path)
+    print("get screenshot")# }}}
+
 def is_nexus(path):# {{{
     pic = Image.open(path, 'r')
     #if pic.width == 800:
@@ -235,6 +284,9 @@ def is_nexus(path):# {{{
 
 def idx2xy(width, idx):# {{{
     return[int(idx/width), int(idx%width)]# }}}
+
+def idx2xy_new(width, idx):# {{{
+    return[int(idx%width), int(idx/width)]# }}}
 
 def conv_x(i, is_nexus, width=6):# {{{
     if is_nexus:
@@ -260,7 +312,8 @@ def conv_y(i, is_nexus, width=6):# {{{
         if width == 5:
             return 865 + 105 + 210 * (int(i))
         elif width == 6:
-            return 860 +  90 + 180 * (int(i))
+            #return 860 +  90 + 180 * (int(i))
+            return 1370 +  90 + 180 * (int(i))
         elif width == 7:
             return 850 +  73 + 145 * (int(i))# }}}
 
@@ -275,6 +328,26 @@ def calc_i(flag, ary, is_nexus, width):# {{{
     pos_i = pos_i.rstrip(",")
     pos_i += "\""
     return pos_i# }}}
+
+def calc_i_new(ary, key1_size_width, key2_cols_rows, sc03l_x=700, sc03l_y=50):# {{{
+    route = []
+    if padboard.pic_parm.has_key(key1_size_width):
+        if padboard.pic_parm[key1_size_width].has_key(key2_cols_rows):
+            xa = padboard.pic_parm[key1_size_width][key2_cols_rows]['xa']
+            ya = padboard.pic_parm[key1_size_width][key2_cols_rows]['ya']
+            xs = padboard.pic_parm[key1_size_width][key2_cols_rows]['xs']
+            ys = padboard.pic_parm[key1_size_width][key2_cols_rows]['ys']
+    print("xa:"+str(xa))
+    print("ya:"+str(ya))
+    print("xs:"+str(xs))
+    print("ys:"+str(ys))
+    for a in ary:
+        ary_x = xa + (xs/2) + (xs * a[0]) + sc03l_x
+        ary_y = ya + (ys/2) + (ys * a[1]) + sc03l_y
+        route.append([ary_x, ary_y])
+    print("route:")
+    print(route)
+    return route# }}}
 
 def get_route(route, is_nexus, width):# {{{
     #print "get_route width:" + str(width)
@@ -292,11 +365,26 @@ def move_drop(pos_x, pos_y, swipe_time):# {{{
     uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y, "-e","\"t\"", swipe_time]
     subprocess.check_call(uiautomator_cmd, shell=True)# }}}
 
+def move_drop_new(route, dur):# {{{
+    a = win32gui.FindWindow(None, "SC-03L")
+    print(win32gui.GetWindowText(a))
+    if a != 0:
+        win32gui.SetActiveWindow(a)
+        win32gui.BringWindowToTop(a)
+        set_activeWindow(a)
+    time.sleep(2)
+
+    pyautogui.mouseDown(route[0][0], route[0][1], button='left')
+    for r in route:
+        pyautogui.moveTo(r[0], r[1], duration=dur)
+    pyautogui.mouseUp(r[0], r[1], button='left')# }}}
+
 def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{
     if use_old == 0:
         print "getting screenshot ..."
         start_time = time.time()
-        get_screenshot(device_path)
+        # get_screenshot(device_path)
+        get_screenshot_new(path)
     else:
         print "using old screenshot ..."
         start_time = time.time()
@@ -309,7 +397,9 @@ def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{
     if WIDTH == 5:
         board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))
     elif WIDTH == 6:
-        board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
+        # board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
+        board, key1, key2 = padboard.check_board(path, WIDTH, HEIGHT, 0)
+        board = pazdracombo.convert_h_w_6x5(board)
     elif WIDTH == 7:
         board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))
         #print "7x6 board: " + str(board)
@@ -317,25 +407,60 @@ def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{
         #return (WIDTH, HEIGHT)
     elapsed_time = time.time() - start_time
     print("checking time:{0}".format(elapsed_time)) + "[sec]"
-    return board# }}}
+    print("key1:"+key1)
+    print("key2:"+key2)
+    return board, key1, key2 # }}}
+
+def board_a2i(board):# {{{
+    board_i = ""
+    for i in board:
+        if i == "r":
+            board_i += "1"
+        elif i == "b":
+            board_i += "2"
+        elif i == "g":
+            board_i += "3"
+        elif i == "l":
+            board_i += "4"
+        elif i == "d":
+            board_i += "5"
+        elif i == "c":
+            board_i += "6"
+    # print board_i
+    return board_i# }}}
 
 def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{
     if board is None:
-        board = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)  # すでに取得済みのscreenshotを利用する
+        board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)  # すでに取得済みのscreenshotを利用する
     print "searching ..."
     start_time = time.time()
-    n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-    pos_x, pos_y = get_route(n_best.route, is_nexus(path), WIDTH)
-    # 確認用
-    print "[board]"
-    print print_board(WIDTH, HEIGHT, board)
-    print ""
-    print "[combo]"
-    print print_board(WIDTH, HEIGHT, n_best.board)
-    print ""
+
+    # n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+    # pos_x, pos_y = get_route(n_best.route, is_nexus(path), WIDTH)
+    # n_best_route_xy = []
+    # for r in n_best.route:
+    #     n_best_route_xy.append(idx2xy_new(WIDTH, r))
+    # # 確認用
+    # print "[board]"
+    # print print_board(WIDTH, HEIGHT, board)
+    # print ""
+    # print "[combo]"
+    # print print_board(WIDTH, HEIGHT, n_best.board)
+    # print ""
+    # print "[route]"
+    # print n_best.route
+    # print n_best_route_xy
+    # # print(pos_x)
+    # # print(pos_y)
+    # # print ""
+
+    n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board))
+
     elapsed_time = time.time() - start_time
     print("searching time:{0}".format(elapsed_time)) + "[sec]"
-    return (pos_x, pos_y)# }}}
+    #return (pos_x, pos_y)
+    # print(n_best_route_xy)
+    return (n_best_route_xy)# }}}
 
 def moving(pos_x, pos_y, SWIPE):# {{{
     print "moving drops ..."
@@ -343,6 +468,14 @@ def moving(pos_x, pos_y, SWIPE):# {{{
     print "pos_x: " + str(pos_x)
     print "pos_y: " + str(pos_y)
     move_drop(pos_x, pos_y, str(SWIPE))
+    elapsed_time = time.time() - start_time
+    print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
+
+def moving_new(route_xy, key1_size_width, key2_cols_rows):# {{{
+    print "moving drops ..."
+    start_time = time.time()
+    route = calc_i_new(route_xy, key1_size_width, key2_cols_rows)
+    move_drop_new(route, 0.1)
     elapsed_time = time.time() - start_time
     print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
 
@@ -453,21 +586,30 @@ if __name__ == '__main__':
         print "           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, 99: exit )"
         input_test_word = input(">>>  ")
         if input_test_word == 1:
-            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
+            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0)
         elif input_test_word == 2:
-            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            # pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
         elif input_test_word == 3:
-            moving(pos_x, pos_y, SWIPE)
+            # moving(pos_x, pos_y, SWIPE)
+            moving_new(n_best_route_xy, key1, key2)
         if input_test_word == 4:
-            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0)
+            # pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
         elif input_test_word == 5:
-            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-            moving(pos_x, pos_y, SWIPE)
+            # pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            # moving(pos_x, pos_y, SWIPE)
+            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            moving_new(n_best_route_xy, key1, key2)
         elif input_test_word == 6:
-            board = getting_screenshot(device_path, path, WIDTH, HEIGHT)
-            pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-            moving(pos_x, pos_y, SWIPE)
+            # pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            # moving(pos_x, pos_y, SWIPE)
+            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            moving_new(n_best_route_xy, key1, key2)
         elif input_test_word == 7:
             PARMS = select_parms_pattern(PARMS)
         elif input_test_word == 8:
