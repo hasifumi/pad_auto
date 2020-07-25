@@ -3,8 +3,20 @@
 
 ROW = 5
 COL = 6
+# MAX_TURN = 60
 MAX_TURN = 60
-BEAM_WIDTH = 5000
+BEAM_WIDTH = 10000
+# MAX_TURN = 10
+# BEAM_WIDTH = 20
+
+if length(ARGS) >= 2
+    COL=parse(Int, ARGS[2])
+end
+if length(ARGS) >= 3
+    ROW=parse(Int, ARGS[3])
+end
+# println(COL)
+# println(ROW)
 
 field = zeros(Int8, ROW, COL)
 f_field = zeros(Int8, ROW, COL)
@@ -258,6 +270,18 @@ function beam_search()#={{{=#
                     cand.nowR = temp.nowR + dy[j]
                     #cand.movei[i, :] = [cand.nowC cand.nowR;]
                     cand.movei[i, :] = [temp.nowC+dx[j] temp.nowR+dy[j]]
+                    if i > 4
+                        if cand.movei[i, :] == cand.movei[i-4, :]
+                        #     println("cand.movei[i, :]:", cand.movei[i, :])
+                        #     println("cand.movei[i-4, :]:", cand.movei[i-4, :])
+                            continue
+                        end
+                        # println("cand.movei:", cand.movei)
+                        # println("i:", i)
+                        # println("length(cand.movei):", length(cand.movei))
+                        # println("cand.movei[i, :]:", cand.movei[i, :])
+                        # println("cand.movei[i-3, :]:", cand.movei[i-3, :])
+                    end
                     #println("temp.nowC:", temp.nowC, ", temp.nowR:", temp.nowR, ", dx[j]:", dx[j], ", dy[j]:", dy[j])
                     #println("temp.nowC + dx[j]:", temp.nowC + dx[j])
                     #println("temp.nowR + dy[j]:", temp.nowR + dy[j])
@@ -317,7 +341,7 @@ function main()#={{{=#
     show(field)
 end#=}}}=#
 
-function get_args()
+function get_args()#={{{=#
     println(length(ARGS))
     if length(ARGS) > 0
         println(ARGS)
@@ -325,9 +349,9 @@ function get_args()
             println(x)
         end
     end
-end
+end#=}}}=#
 
-function main1()
+function main1()#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
     # get_args()
     set(ARGS[1])
@@ -335,14 +359,27 @@ function main1()
     # show(field)
     f_field = copy(field)
     best_member = beam_search()
+
+    # println("best_member:",  best_member)
+    # route[1:size(best_member.movei, 1), : ] = best_member.movei
+    # field = copy(f_field)
+    # operation()
+    # println("after operation")
+    # show(field)
+    # combo = sum_e()
+    # println("combo:", combo)
+    # println("after sum_e")
+    # show(field)
+
     # mvi = string(best_member.movei[1, 1]) * "," * string(best_member.movei[1, 2])
     # println(mvi)
     # println(length(best_member.movei))
+
     for b in 1:MAX_TURN
         #print(b)
         println(string(best_member.movei[b, 1]) * "," * string(best_member.movei[b, 2]))
     end
-end
+end#=}}}=#
 
 # main()
 # get_args()

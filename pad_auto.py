@@ -202,6 +202,8 @@ PARMS_PATTERN = {# {{{
             },
         }# }}}
 
+ANDROID_TERM = "SC-03L"
+
 import padboard
 import uiautomator
 import time
@@ -258,21 +260,56 @@ def set_activeWindow(window_id):# {{{
         win32api.keybd_event(VK_MENU, 0, KEYEVENTF_KEYUP)
         time.sleep(0.1)# }}}
 
-def get_screenshot_new(path):# {{{
-    a = win32gui.FindWindow(None, "SC-03L")
+def get_screenshot_new(path, android_term):# {{{
+    a = win32gui.FindWindow(None, android_term)
     print(a)
     print(win32gui.GetWindowText(a))
     if a != 0:
         win32gui.SetActiveWindow(a)
         win32gui.BringWindowToTop(a)
         set_activeWindow(a)
-        win32gui.MoveWindow(a, 700, 50, 392, 839, True)
+        if android_term == "SHV32":
+            win32gui.MoveWindow(a, 700, 50, 464, 839, True)
+        else:
+            win32gui.MoveWindow(a, 700, 50, 392, 839, True)
     time.sleep(2)
     # win32gui.MoveWindow(a, 700, 50, 392, 839, True)
     rect = win32gui.GetWindowRect(a)
     print(rect)
     ImageGrab.grab(rect).save(path)
     print("get screenshot")# }}}
+
+def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0, android_term="SC-03L"):# {{{
+    if use_old == 0:
+        print "getting screenshot ..."
+        start_time = time.time()
+        get_screenshot_new(path, android_term)
+    else:
+        print "using old screenshot ..."
+        start_time = time.time()
+
+    elapsed_time = time.time() - start_time
+    print("getting time:{0}".format(elapsed_time)) + "[sec]"
+
+    print "checking board ..."
+    start_time = time.time()
+    if WIDTH == 5:
+        board, key1, key2 = padboard.check_board(path, WIDTH, HEIGHT, 0)
+        board = pazdracombo.convert_h_w_5x4(board)
+    elif WIDTH == 6:
+        board, key1, key2 = padboard.check_board(path, WIDTH, HEIGHT, 0)
+        board = pazdracombo.convert_h_w_6x5(board)
+    elif WIDTH == 7:
+        board, key1, key2 = padboard.check_board(path, WIDTH, HEIGHT, 0)
+        board = pazdracombo.convert_h_w_7x6(board)
+        #print "7x6 board: " + str(board)
+        #print " sorry, no implement 7x6 board"
+        #return (WIDTH, HEIGHT)
+    elapsed_time = time.time() - start_time
+    print("checking time:{0}".format(elapsed_time)) + "[sec]"
+    print("key1:"+key1)
+    print("key2:"+key2)
+    return board, key1, key2 # }}}
 
 def is_nexus(path):# {{{
     pic = Image.open(path, 'r')
@@ -361,56 +398,6 @@ def get_route(route, is_nexus, width):# {{{
     pos_y = calc_i("y", y, is_nexus, width)
     return (pos_x, pos_y)# }}}
 
-def move_drop(pos_x, pos_y, swipe_time):# {{{
-    uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y, "-e","\"t\"", swipe_time]
-    subprocess.check_call(uiautomator_cmd, shell=True)# }}}
-
-def move_drop_new(route, dur):# {{{
-    a = win32gui.FindWindow(None, "SC-03L")
-    print(win32gui.GetWindowText(a))
-    if a != 0:
-        win32gui.SetActiveWindow(a)
-        win32gui.BringWindowToTop(a)
-        set_activeWindow(a)
-    time.sleep(2)
-
-    pyautogui.mouseDown(route[0][0], route[0][1], button='left')
-    for r in route:
-        pyautogui.moveTo(r[0], r[1], duration=dur)
-    pyautogui.mouseUp(r[0], r[1], button='left')# }}}
-
-def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0):# {{{
-    if use_old == 0:
-        print "getting screenshot ..."
-        start_time = time.time()
-        # get_screenshot(device_path)
-        get_screenshot_new(path)
-    else:
-        print "using old screenshot ..."
-        start_time = time.time()
-
-    elapsed_time = time.time() - start_time
-    print("getting time:{0}".format(elapsed_time)) + "[sec]"
-
-    print "checking board ..."
-    start_time = time.time()
-    if WIDTH == 5:
-        board = pazdracombo.convert_h_w_5x4(padboard.check_board(path, WIDTH, HEIGHT, 0))
-    elif WIDTH == 6:
-        # board = pazdracombo.convert_h_w_6x5(padboard.check_board(path, WIDTH, HEIGHT, 0))
-        board, key1, key2 = padboard.check_board(path, WIDTH, HEIGHT, 0)
-        board = pazdracombo.convert_h_w_6x5(board)
-    elif WIDTH == 7:
-        board = pazdracombo.convert_h_w_7x6(padboard.check_board(path, WIDTH, HEIGHT, 0))
-        #print "7x6 board: " + str(board)
-        #print " sorry, no implement 7x6 board"
-        #return (WIDTH, HEIGHT)
-    elapsed_time = time.time() - start_time
-    print("checking time:{0}".format(elapsed_time)) + "[sec]"
-    print("key1:"+key1)
-    print("key2:"+key2)
-    return board, key1, key2 # }}}
-
 def board_a2i(board):# {{{
     board_i = ""
     for i in board:
@@ -429,9 +416,9 @@ def board_a2i(board):# {{{
     # print board_i
     return board_i# }}}
 
-def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{
+def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term):# {{{
     if board is None:
-        board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)  # すでに取得済みのscreenshotを利用する
+        board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1, android_term)  # すでに取得済みのscreenshotを利用する
     print "searching ..."
     start_time = time.time()
 
@@ -454,7 +441,7 @@ def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS):# {{{
     # # print(pos_y)
     # # print ""
 
-    n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board))
+    n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT)
 
     elapsed_time = time.time() - start_time
     print("searching time:{0}".format(elapsed_time)) + "[sec]"
@@ -471,13 +458,31 @@ def moving(pos_x, pos_y, SWIPE):# {{{
     elapsed_time = time.time() - start_time
     print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
 
-def moving_new(route_xy, key1_size_width, key2_cols_rows):# {{{
+def moving_new(route_xy, key1_size_width, key2_cols_rows, android_term):# {{{
     print "moving drops ..."
     start_time = time.time()
     route = calc_i_new(route_xy, key1_size_width, key2_cols_rows)
-    move_drop_new(route, 0.1)
+    move_drop_new(route, 0.1, android_term)
     elapsed_time = time.time() - start_time
     print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
+
+def move_drop(pos_x, pos_y, swipe_time):# {{{
+    uiautomator_cmd = ["adb", "shell", "uiautomator", "runtest", "UiAutomator.jar", "-c", "com.hahahassy.android.UiAutomator#swipe", "-e",  "\"x\"", pos_x, "-e","\"y\"", pos_y, "-e","\"t\"", swipe_time]
+    subprocess.check_call(uiautomator_cmd, shell=True)# }}}
+
+def move_drop_new(route, dur, android_term):# {{{
+    a = win32gui.FindWindow(None, android_term)
+    print(win32gui.GetWindowText(a))
+    if a != 0:
+        win32gui.SetActiveWindow(a)
+        win32gui.BringWindowToTop(a)
+        set_activeWindow(a)
+    time.sleep(2)
+
+    pyautogui.mouseDown(route[0][0], route[0][1], button='left')
+    for r in route:
+        pyautogui.moveTo(r[0], r[1], duration=dur)
+    pyautogui.mouseUp(r[0], r[1], button='left')# }}}
 
 def select_board(WIDTH, HEIGHT):# {{{
     print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
@@ -562,6 +567,16 @@ def select_parms_pattern(PARMS):# {{{
                 PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
     return PARMS# }}}
 
+def select_android_term(android_term):# {{{
+    print "current android_term name = " + android_term
+    print "select android_term (1: SC-03L(galaxy),  2: SHV32(aquos), ... else:default(galaxy s10) )"
+    input_test_word = input(">>>  ")
+    if input_test_word == 1:
+        return "SC-03L"
+    elif input_test_word == 2:
+        return "SHV32"
+    else:
+        return "SC-03L"# }}}
 
 if __name__ == '__main__':
 
@@ -575,46 +590,47 @@ if __name__ == '__main__':
     device_path = "/sdcard/screen.png"
     path = ".\screen.png"
     board = None
+    android_term = ANDROID_TERM
 
     # main routine
 
     end_flg = True
 
+    android_term = select_android_term(android_term)
+    print " android_term: " + android_term
+
     while(end_flg):
 
         print "press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, "
-        print "           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, 99: exit )"
+        print "           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, "
+        print "           9: select android_term,   99: exit )"
         input_test_word = input(">>>  ")
         if input_test_word == 1:
-            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0)
+            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0, android_term)
         elif input_test_word == 2:
-            # pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1, android_term)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term)
         elif input_test_word == 3:
-            # moving(pos_x, pos_y, SWIPE)
             moving_new(n_best_route_xy, key1, key2)
         if input_test_word == 4:
-            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0)
-            # pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
+            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0, android_term)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term)
         elif input_test_word == 5:
-            # pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-            # moving(pos_x, pos_y, SWIPE)
-            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-            moving_new(n_best_route_xy, key1, key2)
+            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1, android_term)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term)
+            moving_new(n_best_route_xy, key1, key2, android_term)
         elif input_test_word == 6:
-            # pos_x, pos_y = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-            # moving(pos_x, pos_y, SWIPE)
-            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
-            moving_new(n_best_route_xy, key1, key2)
+            board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0, android_term)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term)
+            moving_new(n_best_route_xy, key1, key2, android_term)
         elif input_test_word == 7:
             PARMS = select_parms_pattern(PARMS)
         elif input_test_word == 8:
             WIDTH, HEIGHT = select_board(WIDTH, HEIGHT)
             print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
+        elif input_test_word == 9:
+            android_term = select_android_term(android_term)
+            print " android_term: " + android_term
         elif input_test_word == 99:
             print "pad_auto exit!!"
             end_flg = False

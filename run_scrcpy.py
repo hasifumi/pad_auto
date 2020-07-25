@@ -1,0 +1,23 @@
+# -*- coding: utf-8 -*-
+
+import subprocess
+
+GALAXY_IP = "192.168.1.67"
+AQUOS_SHV32_IP = "192.168.1.24"
+
+print "select android (1: galaxy s10,  2: aquos shv32, ... else:default(galaxy s10) )"
+input_test_word = input(">>>  ")
+if input_test_word == 1:
+    command_adb_connect = ["adb", "connect", GALAXY_IP ]
+    command_scrcpy = ["C:\\Program Files\\scrcpy\\scrcpy.exe", "-s "+GALAXY_IP+":5555", "-b2M", "-m800"]
+elif input_test_word == 2:
+    command_adb_connect = ["adb", "connect", AQUOS_SHV32_IP ]
+    command_scrcpy = ["C:\\Program Files\\scrcpy\\scrcpy.exe", "-s "+AQUOS_SHV32_IP+":5555", "-b2M", "-m800"]
+else:
+    command_adb_connect = ["adb", "connect", GALAXY_IP ]
+    command_scrcpy = ["C:\\Program Files\\scrcpy\\scrcpy.exe", "-s "+GALAXY_IP+":5555", "-b2M", "-m800"]
+
+subprocess.call(command_adb_connect)
+# subprocess.call(command_scrcpy)
+subprocess.Popen(command_scrcpy)
+
