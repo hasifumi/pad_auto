@@ -3,17 +3,20 @@
 
 ROW = 5
 COL = 6
-# MAX_TURN = 60
 MAX_TURN = 60
 BEAM_WIDTH = 10000
-# MAX_TURN = 10
-# BEAM_WIDTH = 20
+# MAX_TURN = 5
+# BEAM_WIDTH = 5
+eval_param = 0
 
 if length(ARGS) >= 2
     COL=parse(Int, ARGS[2])
 end
 if length(ARGS) >= 3
     ROW=parse(Int, ARGS[3])
+end
+if length(ARGS) >= 4
+    eval_param=parse(Int, ARGS[4])
 end
 # println(COL)
 # println(ROW)
@@ -221,6 +224,41 @@ function sum_e()#={{{=#
     return combo
 end#=}}}=#
 
+function check_delete_row()
+    global field, f_field, chainflag, dummy, t_erace, max_count, route
+    count_row = 0
+    for i in 1:ROW
+        flg_row = 0
+        for j in 1:COL
+            if j <= COL-1
+                if field[i, j] != 0 && field[i, j] == field[i, j+1]
+                    flg_row += 1
+                    #println("flg_row:", flg_row)
+                end
+            end
+        end
+        if flg_row == COL-1
+            count_row += 1
+        end
+    end
+    return count_row * 5
+end
+
+function add_evaluate(score, eval_param="")
+    global field, f_field, chainflag, dummy, t_erace, max_count, route
+    new_score = score
+    if length(eval_param) != 0
+        #println("length(eval_param):", length(eval_param))
+        field = copy(f_field)
+        operation()
+        if eval_param[1] == "1"   # if flg_delete_row is on("1") then ...
+            new_score += check_delete_row()
+        end
+    end
+    #println("new_score:", new_score)
+    return new_score
+end
+
 function beam_search()#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
 
@@ -290,6 +328,8 @@ function beam_search()#={{{=#
                     #println("route in beam_search:", route)
                     operation()
                     cand.score = sum_e()
+                    temp_score = cand.score
+                    cand.score = add_evaluate(temp_score, eval_param)
                     #println("cand.score in beam_search:", cand.score)
                     cand.prev = j
                     push!(pque_member, cand)

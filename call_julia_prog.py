@@ -1,8 +1,9 @@
 import subprocess
 
-def call_julia_prog(board="315211554451322114424566531621", width=6, height=5):
+def call_julia_prog(board="315211554451322114424566531621", width=6, height=5, eval_param=""):
 
-    command = "julia pd_combo.jl " + board + " " + str(width) + " " + str(height)
+    command = "julia pd_combo.jl " + board + " " + str(width) + " " + str(height) + " " + str(eval_param)
+    print(command)
 
     proc = subprocess.Popen(
             command,

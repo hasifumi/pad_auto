@@ -442,6 +442,7 @@ def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term):# {{
     # # print ""
 
     n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT)
+    # n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT, "1") # flg_delete_row is on(1)
 
     elapsed_time = time.time() - start_time
     print("searching time:{0}".format(elapsed_time)) + "[sec]"

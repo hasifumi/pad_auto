@@ -3,6 +3,7 @@ import subprocess
 # command = "julia pd_combo.jl 315211554451322114424566531621"
 
 command = "julia pd_combo.jl 315211554451322114424566531621 6 5"
+# command = "julia pd_combo.jl 315211554451322114424566531621 6 5 1"
 
 # command = "julia pd_combo.jl 251152214335411145466646655524351443131665 7 6"
 
