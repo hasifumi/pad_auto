@@ -3,11 +3,13 @@
 
 import numpy as np
 import random
+import copy
+# from numba import jit
 
 COL = 6
 ROW = 5
-MAX_TURN = 10
-BEAM_COL = 10
+MAX_TURN = 60
+BEAM_COL = 10000
 DROPS = 6
 DROP = [" rbgldcop*    "]
 # DROP = {{{{
@@ -24,13 +26,12 @@ DROP = [" rbgldcop*    "]
 #     }}}}
 
 field = np.zeros((ROW, COL), dtype=int)
-f_field = np.zeros((ROW, COL), dtype=int)
-chainflg = np.zeros((ROW, COL), dtype=int)
+# f_field = np.zeros((ROW, COL), dtype=int)
+chainflag = np.zeros((ROW, COL), dtype=int)
 dummy = np.zeros((ROW, COL), dtype=int)
 t_erace = np.zeros((ROW, COL), dtype=int)
 max_count = 0
 route = np.full((MAX_TURN, 2), -1, dtype=int)  # example [[r1 c1], [r2 c2], [r3 c3],,,,]
-# print(route)
 
 def set_field(field, field1=""):# {{{
     fld = field.copy()
@@ -55,11 +56,6 @@ def show_field(field1):# {{{
             print(drps)
     print("\n")# }}}
 
-field = set_field(field)
-show_field(field)
-# field = set_field(field, "123456789012345678901234567890")
-# show_field(field)
-
 def fall_field(field1):# {{{
     fld = field1.copy()
     for r in np.arange(ROW):
@@ -72,18 +68,12 @@ def fall_field(field1):# {{{
                     fld[k, c] = 0
     return fld# }}}
 
-# field = fall_field(field)
-# show_field(field)
-
 def swap(field1, r1, c1, r2, c2): # waring! zero origin!!  {{{
     fld = field1.copy()
     temp = fld[r1, c1]
     fld[r1, c1] = fld[r2, c2]
     fld[r2, c2] = temp
     return fld# }}}
-
-# field = swap(field, 0, 0, 1, 0)
-# show_field(field)
 
 def operation(field1, route1):# {{{
     fld = field1.copy()
@@ -100,354 +90,224 @@ def operation(field1, route1):# {{{
         now_col = route1[t, 1]
     return fld# }}}
 
-# route[0] = [0, 0]
-# route[1] = [0, 1]
-# route[2] = [1, 1]
-# route[3] = [1, 2]
-# print(route)
-# field = operation(field, route)
+def chain(field1, chainf, dummyf, now_row, now_col, drop, count):# {{{
+    fld = field1.copy()
+    global max_count
+    if now_row == -1 or now_row == ROW or now_col == -1 or now_col == COL:
+        return
+    if fld[now_row, now_col] == drop and chainf[now_row, now_col] == 0:
+        chainf[now_row, now_col] = -1
+        if max_count < count:
+            max_count = count
+        dummyf[now_row, now_col] = -1
+
+        chain(fld, chainf, dummyf, now_row-1, now_col, drop, count+1)
+        chain(fld, chainf, dummyf, now_row+1, now_col, drop, count+1)
+        chain(fld, chainf, dummyf, now_row, now_col-1, drop, count+1)
+        chain(fld, chainf, dummyf, now_row, now_col+1, drop, count+1)# }}}
+
+# field = set_field(field, "123412341234")
 # show_field(field)
+# max_count = 0
+# chain(field, chainflag, dummy, 0, 3, 3, 0)
+# print("max_count:"+str(max_count))
+# show_field(chainflag)
+# show_field(dummy)
 
-def chain(field1, now_row, now_col, drop, count):
-    fld = filed1.copy()
-    if now_row == -1 or now_row  > ROW or now_col == -1 now_col > COL:
+def check(field1, dummyf, t_eracef):# {{{
+    fld = field1.copy()
+    v = 0
+    for r in np.arange(ROW):
+        for c in np.arange(COL-2):
+            if dummyf[r, c] == -1 and dummyf[r, c+1] == -1 and dummyf[r, c+2] == -1 and fld[r, c] == fld[r, c+1] and fld[r, c] == fld[r, c+2]:
+                t_eracef[r, c] = -1
+                t_eracef[r, c+1] = -1
+                t_eracef[r, c+2] = -1
+                v = 1
+    for r in np.arange(ROW-2):
+        for c in np.arange(COL):
+            if dummyf[r, c] == -1 and dummyf[r+1, c] == -1 and dummyf[r+2, c] == -1 and fld[r, c] == fld[r+1, c] and fld[r, c] == fld[r+2, c]:
+                t_eracef[r, c] = -1
+                t_eracef[r+1, c] = -1
+                t_eracef[r+2, c] = -1
+                v = 1
+    return v# }}}
+
+# field = set_field(field, "123412341234")
+# show_field(field)
+# chain(field, chainflag, dummy, 0, 0, 0, 0)
+# value = check(field, dummy, t_erace)
+# print("value:"+str(value))
+# show_field(chainflag)
+# show_field(dummy)
+# show_field(t_erace)
+
+def evaluate(field1):# {{{
+    global max_count
+    fld = field1.copy()
+    value = 0
+    chainflag = np.zeros((ROW, COL), dtype=int)
+    for r in np.arange(ROW):
+        for c in np.arange(COL):
+            if chainflag[r, c] == 0 and fld[r, c] != 0:
+                max_count = 0
+                dummy = np.zeros((ROW, COL), dtype=int)
+                chain(fld, chainflag, dummy, r, c, fld[r, c], 1)
+                if max_count >= 3:
+                    if check(fld, dummy, t_erace) == 1:
+                        value += 1
+    return value# }}}
+
+# # field = set_field(field, "123412341234")
+# field = set_field(field, "123456123456234561654321654321")
+# show_field(field)
+# value = evaluate(field)
+# print("value:"+str(value))
+# show_field(chainflag)
+# show_field(dummy)
+# show_field(t_erace)
+
+def sum_e(field1):# {{{
+    global t_erace
+    fld = field1.copy()
+    combo = 0
+    while 1==1:
+        a = evaluate(fld)
+        # show_field(fld)
+        # show_field(t_erace)
+        if a == 0:
+            break
+        for r in np.arange(ROW):
+            for c in np.arange(COL):
+                if t_erace[r, c] == -1:
+                    fld[r, c] = 0
+        fld = fall_field(fld)
+        combo += a
+        t_erace = np.zeros((ROW, COL), dtype=int)
+    return combo, fld# }}}
+
+# # field = set_field(field, "123412341234")
+# field = set_field(field, "123456125456234561654621654561")
+# show_field(field)
+# combo, fld = sum_e(field)
+# print("combo:"+str(combo))
+# show_field(fld)
+# show_field(chainflag)
+# show_field(dummy)
+# show_field(t_erace)
 
 
-#    if length(ARGS) >= 2{{{
-#        COL=parse(Int, ARGS[2])
-#    end
-#    if length(ARGS) >= 3
-#        ROW=parse(Int, ARGS[3])
-#    end
-#    if length(ARGS) >= 4
-#        eval_param=parse(Int, ARGS[4])
-#    end}}}
-#
-#    mutable struct member#={{{=#
-#        score::Int8
-#        nowR::Int8
-#        nowC::Int8
-#        prev::Int8
-#        movei
-#    end#=}}}=#
-#
-#    function sort_member(a, b)#={{{=#
-#        if a.score < b.score
-#            return true
-#        end
-#        return false
-#    end#=}}}=#
-#
-#    # sort example{{{{{{
-#    #    m1 = member(1, 1, 3, 4, [1 1; 2 2;])
-#    #    m2 = member(3, 2, 3, 4, [])
-#    #    m3 = member(2, 3, 3, 4, [])
-#    #    arr_member = Array{member}(undef, 3)
-#    #    arr_member[1] = m1
-#    #    arr_member[2] = m2
-#    #    arr_member[3] = m3
-#    #    sort!(arr_member, lt=sort_member, rev=true)
-#    #}}}}}}
-#
-#    function chain(now_row, now_col, drop, count)#={{{=#
-#        global field, f_field, chainflag, dummy, t_erace, max_count, route
-#        if now_row == 0 || now_row > ROW || now_col == 0 || now_col > COL
-#            return
-#        end
-#        if field[now_row, now_col] == drop && chainflag[now_row, now_col] == 0
-#            global chainflag[now_row, now_col] = -1
-#            if max_count < count
-#                global max_count = count
-#            end
-#            global dummy[now_row, now_col] = -1
-#
-#            chain(now_row-1, now_col, drop, count+1)
-#            chain(now_row+1, now_col, drop, count+1)
-#            chain(now_row, now_col-1, drop, count+1)
-#            chain(now_row, now_col+1, drop, count+1)
-#        end
-#    end#=}}}=#
-#
-#    function evaluate()#={{{=#
-#        global field, f_field, chainflag, dummy, t_erace, max_count, route
-#        value = 0
-#        chainflag = zeros(Int8, ROW, COL)
-#        for i in 1:ROW
-#            flg_row = 0
-#            for j in 1:COL
-#                if chainflag[i, j] == 0 && field[i, j] != 0
-#                    global max_count = 0
-#                    global dummy = zeros(Int8, ROW, COL)
-#                    chain(i, j, field[i, j], 1)
-#                    if max_count >= 3
-#                        if check() == 1
-#                            value += 1
-#                        end
-#                    end
-#                end
-#                if j <= COL-1
-#                    if field[i, j] != 0 && field[i, j] == field[i, j+1]
-#                        flg_row += 1
-#                        #println("flg_row:", flg_row)
-#                    end
-#                end
-#            end
-#            if flg_row == COL-1
-#                value += 10
-#            end
-#        end
-#        return value
-#    end#=}}}=#
-#
-#    function check()#={{{=#
-#        global field, f_field, chainflag, dummy, t_erace, max_count, route
-#        v = 0
-#        for i in 1:ROW
-#            for j in 1:COL-2
-#                if dummy[i, j] == -1 && dummy[i, j+1] == -1 && dummy[i, j+2] == -1 && field[i, j] == field[i, j+1] && field[i, j] == field[i, j+2]
-#                    global t_erace[i, j] = -1
-#                    global t_erace[i, j+1] = -1
-#                    global t_erace[i, j+2] = -1
-#                    v = 1
-#                end
-#            end
-#        end
-#
-#        for i in 1:ROW-2
-#            for j in 1:COL
-#                if dummy[i, j] == -1 && dummy[i+1, j] == -1 && dummy[i+2, j] == -1 && field[i, j] == field[i+1, j] && field[i, j] == field[i+2, j]
-#                    global t_erace[i, j] = -1
-#                    global t_erace[i+1, j] = -1
-#                    global t_erace[i+2, j] = -1
-#                    v = 1
-#                end
-#            end
-#        end
-#        return v
-#    end#=}}}=#
-#
-#    function sum_e()#={{{=#
-#        global field, f_field, chainflag, dummy, t_erace, max_count, route
-#        combo = 0
-#        while(1==1)
-#            global t_erace = zeros(Int8, ROW, COL)
-#            a = evaluate()
-#            if a == 0
-#                break
-#            end
-#            for i in 1:ROW
-#                for j in 1:COL
-#                    if t_erace[i, j] == -1
-#                        global field[i, j] = 0
-#                    end
-#                end
-#            end
-#            fall()
-#            combo += a
-#        end
-#        return combo
-#    end#=}}}=#
-#
-#    function check_delete_row()
-#        global field, f_field, chainflag, dummy, t_erace, max_count, route
-#        count_row = 0
-#        for i in 1:ROW
-#            flg_row = 0
-#            for j in 1:COL
-#                if j <= COL-1
-#                    if field[i, j] != 0 && field[i, j] == field[i, j+1]
-#                        flg_row += 1
-#                        #println("flg_row:", flg_row)
-#                    end
-#                end
-#            end
-#            if flg_row == COL-1
-#                count_row += 1
-#            end
-#        end
-#        return count_row * 5
-#    end
-#
-#    function add_evaluate(score, eval_param="")
-#        global field, f_field, chainflag, dummy, t_erace, max_count, route
-#        new_score = score
-#        if length(eval_param) != 0
-#            #println("length(eval_param):", length(eval_param))
-#            field = copy(f_field)
-#            operation()
-#            if eval_param[1] == "1"   # if flg_delete_row is on("1") then ...
-#                new_score += check_delete_row()
-#            end
-#        end
-#        #println("new_score:", new_score)
-#        return new_score
-#    end
-#
-#    function beam_search()#={{{=#
-#        global field, f_field, chainflag, dummy, t_erace, max_count, route
-#
-#        que_member = member[]
-#        temp_que = member[]
-#        i = 1
-#        for i in 1:ROW
-#            for j in 1:COL
-#                cand = member(0, i, j, -1, [])
-#                cand.movei = fill(-1, MAX_TURN, 2)
-#                cand.movei[1, :] = [i j]
-#                push!(que_member, cand)
-#            end
-#        end
-#        #println("size(que_member, 1):", size(que_member, 1))
-#        #println("que_member[1]:", que_member[1])
-#
-#        dx = [-1;  0; 0; 1]
-#        dy = [ 0; -1; 1; 0]
-#        max_value = 0
-#        width = 0
-#
-#        for i in 1:MAX_TURN
-#            #pque_member = Array{member}(undef, 1)
-#            pque_member = member[]
-#            while length(que_member) != 0
-#                #temp = pop!(que_member)
-#                temp = que_member[1]
-#                #println("before length(que_member)", length(que_member))
-#                temp_que = copy(que_member[2:end])
-#                que_member = copy(temp_que)
-#                #println("after length(que_member)", length(que_member))
-#                #println("temp:", temp)
-#                for j in 1:length(dx)
-#                    field = copy(f_field)
-#                    cand = member(0, i, j, -1, [])
-#                    cand.score = temp.score
-#                    cand.nowC = temp.nowC
-#                    cand.nowR = temp.nowR
-#                    cand.prev = temp.prev
-#                    cand.movei = copy(temp.movei)
-#                    if ( 1 <= temp.nowC + dx[j] <= COL && 1 <= temp.nowR + dy[j] <= ROW )
-#                        if cand.prev + j == 5
-#                            continue
-#                        end
-#                        cand.nowC = temp.nowC + dx[j]
-#                        cand.nowR = temp.nowR + dy[j]
-#                        #cand.movei[i, :] = [cand.nowC cand.nowR;]
-#                        cand.movei[i, :] = [temp.nowC+dx[j] temp.nowR+dy[j]]
-#                        if i > 4
-#                            if cand.movei[i, :] == cand.movei[i-4, :]
-#                            #     println("cand.movei[i, :]:", cand.movei[i, :])
-#                            #     println("cand.movei[i-4, :]:", cand.movei[i-4, :])
-#                                continue
-#                            end
-#                            # println("cand.movei:", cand.movei)
-#                            # println("i:", i)
-#                            # println("length(cand.movei):", length(cand.movei))
-#                            # println("cand.movei[i, :]:", cand.movei[i, :])
-#                            # println("cand.movei[i-3, :]:", cand.movei[i-3, :])
-#                        end
-#                        #println("temp.nowC:", temp.nowC, ", temp.nowR:", temp.nowR, ", dx[j]:", dx[j], ", dy[j]:", dy[j])
-#                        #println("temp.nowC + dx[j]:", temp.nowC + dx[j])
-#                        #println("temp.nowR + dy[j]:", temp.nowR + dy[j])
-#                        #println("cand.movei[i, :] in beam_search:", cand.movei[i, :])
-#                        route = copy(cand.movei)
-#                        #println("route in beam_search:", route)
-#                        operation()
-#                        cand.score = sum_e()
-#                        temp_score = cand.score
-#                        cand.score = add_evaluate(temp_score, eval_param)
-#                        #println("cand.score in beam_search:", cand.score)
-#                        cand.prev = j
-#                        push!(pque_member, cand)
-#                    end
-#                end
-#            end
-#            sort!(pque_member, lt=sort_member, rev=true)
-#
-#            if MAX_TURN < length(pque_member)
-#                width = MAX_TURN
-#            else
-#                width = length(pque_member)
-#            end
-#            que_member = Array{member}(undef, width)
-#            que_member[1:width, : ] = pque_member[1:width, : ]
-#        end
-#
-#        #println(que_member[1:10, : ])
-#        return que_member[1]  # return best_member
-#
-#        best_member = que_member[1]
-#        return best_member
-#    end#=}}}=#
-#
-#    function main()#={{{=#
-#        global field, f_field, chainflag, dummy, t_erace, max_count, route
-#    	#set()
-#        set("315211554451322114424566531621")  # 15 combo
-#        println("initial field.")
-#        global field, f_field, route
-#        show(field)
-#        f_field = copy(field)
-#        #route[1:6 , : ] = [1 1; 2 1; 3 1; 4 1; 5 1; 6 1;]
-#        #print(route[1:6, :], "\n")
-#
-#        #best_member = member()
-#        best_member = beam_search()
-#        println("best_member:",  best_member)
-#        #println(size(best_member.movei, 1))
-#        route[1:size(best_member.movei, 1), : ] = best_member.movei
-#        #println("route:",  route)
-#        field = copy(f_field)
-#        operation()
-#        println("after operation")
-#        show(field)
-#        combo = sum_e()
-#        println("combo:", combo)
-#        println("after sum_e")
-#        show(field)
-#    end#=}}}=#
-#
-#    function get_args()#={{{=#
-#        println(length(ARGS))
-#        if length(ARGS) > 0
-#            println(ARGS)
-#            for x in ARGS
-#                println(x)
-#            end
-#        end
-#    end#=}}}=#
-#
-#    function main1()#={{{=#
-#        global field, f_field, chainflag, dummy, t_erace, max_count, route
-#        # get_args()
-#        set(ARGS[1])
-#        global field, f_field, route
-#        # show(field)
-#        f_field = copy(field)
-#        best_member = beam_search()
-#
-#        # println("best_member:",  best_member)
-#        # route[1:size(best_member.movei, 1), : ] = best_member.movei
-#        # field = copy(f_field)
-#        # operation()
-#        # println("after operation")
-#        # show(field)
-#        # combo = sum_e()
-#        # println("combo:", combo)
-#        # println("after sum_e")
-#        # show(field)
-#
-#        # mvi = string(best_member.movei[1, 1]) * "," * string(best_member.movei[1, 2])
-#        # println(mvi)
-#        # println(length(best_member.movei))
-#
-#        for b in 1:MAX_TURN
-#            #print(b)
-#            println(string(best_member.movei[b, 1]) * "," * string(best_member.movei[b, 2]))
-#        end
-#    end#=}}}=#
-#
-#    # main()
-#    # get_args()
-#
-#    main1()
-#
-#
+# @jit
+def beam_search(field1):  # {{{
+    global max_count, t_erace
+    # fld = field1.copy()
+
+    que_member = []
+    # que_movei = np.full((MAX_TURN, 2), -1, dtype=int)
+    # que_member.append([0, 0, 0, -1, que_movei])  # score, nowR, nowC, prev, movei(route)
+
+    for r in np.arange(ROW):
+        for c in np.arange(COL):
+            que_movei = np.full((MAX_TURN, 2), [r, c], dtype=int)
+            que_member.append([0, r, c, -1, que_movei])
+    # print("1:len(que_member):"+str(len(que_member)))
+    # print("que_member[10]:")
+    # print(que_member[10])
+
+    dx = [-1,  0, 0, 1]
+    dy = [ 0, -1, 1, 0]
+    # max_value = 0
+    width = 0
+
+    for i in np.arange(MAX_TURN):
+        pque_member = []
+        while len(que_member) > 0:
+            temp = que_member.pop(0)
+            # print("temp:")
+            # print(temp)
+            # print("after temp, 2:len(que_member):"+str(len(que_member)))
+            for j in np.arange(len(dx)):
+                cand = []
+                cand.append(temp[0])  # score
+                cand.append(temp[1])  # nowR
+                cand.append(temp[2])  # nowC
+                cand.append(temp[3])  # prev
+                cand.append(temp[4])  # movei
+                # print("j:"+str(j))
+                # print("cand:")
+                # print(cand)
+                if ( 0 <= temp[1]+dy[j] and temp[1]+dy[j] <= ROW-1 and 0 <= temp[2]+dx[j] and temp[2]+dx[j] <= COL-1 ):
+                    if cand[3] + j == 3:
+                        continue
+                    cand[1] = temp[1]+dy[j]
+                    cand[2] = temp[2]+dx[j]
+                    # print("cand[1]:"+str(cand[1]))
+                    # print("cand[2]:"+str(cand[2]))
+                    cand[4][i] = [temp[1]+dy[j], temp[2]+dx[j]]
+                    # if i > 3:  # loop check movei
+                    #     if cand[4][i] == cand[4][i-4]:
+                    #         continue
+                    route = copy.deepcopy(cand[4])
+                    # print("route:")
+                    # print(route)
+                    fld = operation(field1, route)
+                    combo, fld = sum_e(fld)
+                    cand[0] = combo
+                    cand[3] = j
+                    # print("cand[0](combo):")
+                    # print(cand[0])
+                    # print("cand[3](j):")
+                    # print(cand[3])
+                    pque_member.append(cand)
+                    # print("len(pque_member):"+str(len(pque_member)))
+                    # print("3:len(que_member):"+str(len(que_member)))
+        pque_member.sort(key=lambda x: x[0], reverse=True)
+
+        # if MAX_TURN < len(pque_member): ,,,,,
+        # que_member = copy.deepcopy(pque_member)
+        if MAX_TURN <= len(pque_member):
+            width = MAX_TURN
+        else:
+            width = len(pque_member)
+        que_member = copy.deepcopy(pque_member[:width])
+        # print("4:len(que_member):"+str(len(que_member)))
+        # print("que_member[0][0]:"+str(que_member[0][0]))
+
+    best_member = que_member[0]
+    # print("best_member:")
+    # print(best_member)
+
+    return best_member  # }}}
+
+
+# field = set_field(field, "123456125456234561654621654561")
+field = set_field(field)
+show_field(field)
+best_member = beam_search(field)
+route = best_member[4]
+print(route)
+field = operation(field, route)
+combo, field = sum_e(field)
+print("combo:"+str(combo))
+show_field(field)
+
+def main(field):# {{{
+    field = set_field(field)
+    show_field(field)
+    # field = set_field(field, "123456789012345678901234567890")
+    # show_field(field)
+    # field = fall_field(field)
+    # show_field(field)
+
+    f_field = field.copy()
+    best_member = beam_search(field)
+    # route = best_member[4]
+    # field = operation(f_field, route)
+    # print("after operation")
+    # show_field(field)
+    # combo, field = sum_e(field)
+    # print("combo:"+combo)
+    # print("after sum_e")
+    # show_field(field)# }}}
+# if __name__ == '__main__':
+#     main(field)
