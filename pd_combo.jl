@@ -19,10 +19,11 @@ if length(ARGS) >= 4
     debug_flg=parse(Int, ARGS[4])
 end
 if length(ARGS) >= 5
-    eval_param=parse(Int, ARGS[5])
+    eval_param=ARGS[5]
 end
 # println(COL)
 # println(ROW)
+
 
 field = zeros(Int8, ROW, COL)
 f_field = zeros(Int8, ROW, COL)
@@ -164,16 +165,16 @@ function evaluate()#={{{=#
                     end
                 end
             end
-            if j <= COL-1
-                if field[i, j] != 0 && field[i, j] == field[i, j+1]
-                    flg_row += 1
-                    #println("flg_row:", flg_row)
-                end
-            end
+            # if j <= COL-1
+            #     if field[i, j] != 0 && field[i, j] == field[i, j+1]
+            #         flg_row += 1
+            #         #println("flg_row:", flg_row)
+            #     end
+            # end
         end
-        if flg_row == COL-1
-            value += 10
-        end
+        # if flg_row == COL-1
+        #     value += 10
+        # end
     end
     return value
 end#=}}}=#
@@ -232,33 +233,167 @@ function check_delete_row()#={{{=#
     count_row = 0
     for i in 1:ROW
         flg_row = 0
-        for j in 1:COL
-            if j <= COL-1
-                if field[i, j] != 0 && field[i, j] == field[i, j+1]
-                    flg_row += 1
-                    #println("flg_row:", flg_row)
-                end
+        for j in 1:COL-1
+            if field[i, j] != field[i, j+1]
+                flg_row = 1
             end
         end
-        if flg_row == COL-1
+        if flg_row == 0
             count_row += 1
         end
     end
-    return count_row * 5
+    # println("count_row:", count_row)
+    return count_row * 6
+end#=}}}=#
+
+function check_l_ji()#={{{=#
+    global field, f_field, chainflag, dummy, t_erace, max_count, route
+    count_l_ji = 0
+    for i in 1:ROW
+        for j in 1:COL
+            if i > 2 && j+2 <= COL # case " |_ " #={{{=#
+
+                if ( field[i, j] == field[i, j+1] == field[i, j+2] ) && ( field[i, j] == field[i-1, j] == field[i-2, j] )
+                    flg_ng = 0
+                    if  i > 3
+                        if ( field[i, j] == field[i-3, j] )
+                            flg_ng = 1
+                        end
+                    end
+                    if i+1 <= ROW
+                        if (field[i, j] == field[i+1, j]) || ((field[i, j] == field[i+1, j+1]) && (field[i, j] == field[i-1, j+1])) || ((field[i, j] == field[i+1, j+2] ) && (field[i, j] == field[i-1, j+2]))
+                            flg_ng = 1
+                        end
+                    end
+                    if j+3 <= COL
+                        if ( field[i, j] == field[i, j+3] )
+                            flg_ng = 1
+                        end
+                    end
+                    if j > 1
+                        if ( field[i, j] == field[i, j-1] ) || ((field[i, j] == field[i-1, j-1]) && (field[i, j] == field[i-1, j+1])) || ((field[i, j] == field[i-2, j-1]) && (field[i, j] == field[i-2, j+1]))
+                            flg_ng = 1
+                        end
+                    end
+                    if flg_ng == 0
+                        count_l_ji += 1
+                    end
+                end
+            end#=}}}=#
+
+            if i+2 <= ROW && j+2 <= COL # case " |- " #={{{=#
+
+                if ( field[i, j] == field[i, j+1] == field[i, j+2] ) && ( field[i, j] == field[i+1, j] == field[i+2, j] )
+                    flg_ng = 0
+                    if  i+3 <= ROW
+                        if ( field[i, j] == field[i+3, j] )
+                            flg_ng = 1
+                        end
+                    end
+                    if i > 1
+                        if (field[i, j] == field[i-1, j]) || ((field[i, j] == field[i-1, j+1]) && (field[i, j] == field[i+1, j+1])) || ((field[i, j] == field[i-1, j+2] ) && (field[i, j] == field[i+1, j+2]))
+                            flg_ng = 1
+                        end
+                    end
+                    if j+3 <= COL
+                        if ( field[i, j] == field[i, j+3] )
+                            flg_ng = 1
+                        end
+                    end
+                    if j > 1
+                        if ( field[i, j] == field[i, j-1] ) || ((field[i, j] == field[i+1, j-1]) && (field[i, j] == field[i+1, j+1])) || ((field[i, j] == field[i+2, j-1]) && (field[i, j] == field[i+2, j+1]))
+                            flg_ng = 1
+                        end
+                    end
+                    if flg_ng == 0
+                        count_l_ji += 1
+                    end
+                end
+            end#=}}}=#
+
+            if i+2 <= ROW && j+2 <= COL # case " -| " #={{{=#
+
+                if ( field[i, j] == field[i, j+1] == field[i, j+2] ) && ( field[i, j] == field[i+1, j+2] == field[i+2, j+2] )
+                    flg_ng = 0
+                    if  i+3 <= ROW
+                        if ( field[i, j] == field[i+3, j+2] )
+                            flg_ng = 1
+                        end
+                    end
+                    if i > 1
+                        if (field[i, j] == field[i-1, j+2]) || ((field[i, j] == field[i-1, j]) && (field[i, j] == field[i+1, j])) || ((field[i, j] == field[i-1, j+1] ) && (field[i, j] == field[i+1, j+1]))
+                            flg_ng = 1
+                        end
+                    end
+                    if j > 1
+                        if ( field[i, j] == field[i, j-1] )
+                            flg_ng = 1
+                        end
+                    end
+                    if j+3 <= COL
+                        if ( field[i, j] == field[i, j+3] ) || ((field[i, j] == field[i+1, j+1]) && (field[i, j] == field[i+1, j+3])) || ((field[i, j] == field[i+2, j+1]) && (field[i, j] == field[i+2, j+3]))
+                            flg_ng = 1
+                        end
+                    end
+                    if flg_ng == 0
+                        count_l_ji += 1
+                    end
+                end
+            end#=}}}=#
+
+            if i > 2 && j+2 <= COL # case " _| " #={{{=#
+
+                if ( field[i, j] == field[i, j+1] == field[i, j+2] ) && ( field[i, j] == field[i-1, j+2] == field[i-2, j+2] )
+                    flg_ng = 0
+                    if  i > 3
+                        if ( field[i, j] == field[i-3, j+2] )
+                            flg_ng = 1
+                        end
+                    end
+                    if i+1 <= ROW
+                        if (field[i, j] == field[i+1, j+2]) || ((field[i, j] == field[i+1, j]) && (field[i, j] == field[i-1, j])) || ((field[i, j] == field[i+1, j+1] ) && (field[i, j] == field[i-1, j+1]))
+                            flg_ng = 1
+                        end
+                    end
+                    if j > 1
+                        if ( field[i, j] == field[i, j-1] )
+                            flg_ng = 1
+                        end
+                    end
+                    if j+3 <= COL
+                        if ( field[i, j] == field[i, j+3] ) || ((field[i, j] == field[i-1, j+1]) && (field[i, j] == field[i-1, j+3])) || ((field[i, j] == field[i-2, j+1]) && (field[i, j] == field[i-2, j+3]))
+                            flg_ng = 1
+                        end
+                    end
+                    if flg_ng == 0
+                        count_l_ji += 1
+                    end
+                end
+            end#=}}}=#
+
+        end
+    end
+    return count_l_ji * 5
 end#=}}}=#
 
 function add_evaluate(score, eval_param="")#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
+    # println("add_evaluate")
+    # println("eval_param[2]:", eval_param[2])
+    # println("typeof(eval_param[2]):", typeof(eval_param[2]))
     new_score = score
     if length(eval_param) != 0
         #println("length(eval_param):", length(eval_param))
         field = copy(f_field)
         operation()
-        if eval_param[1] == "1"   # if flg_delete_row is on("1") then ...
+        if eval_param[1] == '1'   # if flg_delete_row is on('1') then ...
             new_score += check_delete_row()
         end
+        if eval_param[2] == '1'   # if flg_l_ji is on('1') then ...
+            # println("check_l_ji()")
+            new_score += check_l_ji()
+        end
     end
-    #println("new_score:", new_score)
     return new_score
 end#=}}}=#
 
@@ -400,7 +535,7 @@ function main1()#={{{=#
     set(ARGS[1])
     global field, f_field, route
 
-    if debug_flg == 1
+    if debug_flg != 0
         show(field)
     end
 
@@ -415,6 +550,13 @@ function main1()#={{{=#
         println("after operation")
         show(field)
         combo = sum_e()
+        combo = add_evaluate(combo, eval_param)
+        println("combo:", combo)
+        println("after sum_e")
+        show(field)
+    elseif  debug_flg == 2
+        combo = sum_e()
+        combo = add_evaluate(combo, eval_param)
         println("combo:", combo)
         println("after sum_e")
         show(field)

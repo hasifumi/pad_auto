@@ -4,7 +4,15 @@ import time
 # command = "julia pd_combo.jl 315211554451322114424566531621"
 
 command = "julia pd_combo.jl 315211554451322114424566531621 6 5 0"
-# ARGS 1:field, 2:ROW, 3:COL, 4:debug_flg(0:off, 1:on), 5:eval_param(1:delete_row, ...)
+command = "julia pd_combo.jl 312211354451333114424566531621 6 5 2 01"  # debug_flg:on, L-ji eval_param:(delete_row:off, l_ji:on)
+command = "julia pd_combo.jl 113211143451333114424566531621 6 5 2 01"  # debug_flg:on, L-ji eval_param:(delete_row:off, l_ji:on)
+command = "julia pd_combo.jl 333211346451345114424566531621 6 5 2 01"  # debug_flg:on, L-ji eval_param:(delete_row:off, l_ji:on)
+command = "julia pd_combo.jl 333211443451453114424566531621 6 5 2 01"  # debug_flg:on, L-ji eval_param:(delete_row:off, l_ji:on)
+command = "julia pd_combo.jl      +     +     +     +     + 6 5 2 01"
+command = "julia pd_combo.jl 212211134451135614433366531621 6 5 2 01"
+command = "julia pd_combo.jl 222222134451135614433366531621 6 5 2 11"
+
+# ARGS 1:field, 2:ROW, 3:COL, 4:debug_flg(0:off, 1:on, 2:sum_e only), 5:eval_param(1:delete_row, 2:l_ji...)
 
 # command = "julia pd_combo.jl 315211554451322114424566531621 6 5 1"
 
