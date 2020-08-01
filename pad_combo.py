@@ -8,8 +8,8 @@ import copy
 
 COL = 6
 ROW = 5
-MAX_TURN = 60
-BEAM_COL = 10000
+MAX_TURN = 50
+BEAM_WIDTH = 1000
 DROPS = 6
 DROP = [" rbgldcop*    "]
 # DROP = {{{{
@@ -202,14 +202,14 @@ def beam_search(field1):  # {{{
     global max_count, t_erace
     # fld = field1.copy()
 
-    que_member = []
+    que_member = []  # numpy array
     # que_movei = np.full((MAX_TURN, 2), -1, dtype=int)
     # que_member.append([0, 0, 0, -1, que_movei])  # score, nowR, nowC, prev, movei(route)
 
     for r in np.arange(ROW):
         for c in np.arange(COL):
             que_movei = np.full((MAX_TURN, 2), [r, c], dtype=int)
-            que_member.append([0, r, c, -1, que_movei])
+            que_member.append([0, r, c, -1, que_movei])  # numpy array
     # print("1:len(que_member):"+str(len(que_member)))
     # print("que_member[10]:")
     # print(que_member[10])
@@ -220,7 +220,7 @@ def beam_search(field1):  # {{{
     width = 0
 
     for i in np.arange(MAX_TURN):
-        pque_member = []
+        pque_member = []  # numpy array
         while len(que_member) > 0:
             temp = que_member.pop(0)
             # print("temp:")
@@ -265,17 +265,18 @@ def beam_search(field1):  # {{{
 
         # if MAX_TURN < len(pque_member): ,,,,,
         # que_member = copy.deepcopy(pque_member)
-        if MAX_TURN <= len(pque_member):
-            width = MAX_TURN
+        if BEAM_WIDTH <= len(pque_member):
+            width = BEAM_WIDTH
         else:
             width = len(pque_member)
         que_member = copy.deepcopy(pque_member[:width])
         # print("4:len(que_member):"+str(len(que_member)))
         # print("que_member[0][0]:"+str(que_member[0][0]))
 
+    best_member = que_member[len(que_member)-1]
+    print("best_member:")
+    print(best_member)
     best_member = que_member[0]
-    # print("best_member:")
-    # print(best_member)
 
     return best_member  # }}}
 
@@ -285,6 +286,7 @@ field = set_field(field)
 show_field(field)
 best_member = beam_search(field)
 route = best_member[4]
+print(best_member[0])
 print(route)
 field = operation(field, route)
 combo, field = sum_e(field)

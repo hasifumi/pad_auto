@@ -37,19 +37,19 @@ GAME_PARMS_PATTERN = {# {{{
         }# }}}
 
 def show_game_parms():# {{{
-    print "show game parms ... "
-    print " MAX_TURN : " + str(MAX_TURN)
-    print " PLAYNUM  : " + str(PLAYNUM)
-    print " SWIPE    : " + str(SWIPE)# }}}
+    print("show game parms ... ")
+    print(" MAX_TURN : " + str(MAX_TURN))
+    print(" PLAYNUM  : " + str(PLAYNUM))
+    print(" SWIPE    : " + str(SWIPE)) # }}}
 
 def set_game_parms(pattern):# {{{
     if GAME_PARMS_PATTERN.has_key(pattern):
         if GAME_PARMS_PATTERN[pattern].has_key('MAX_TURN') and GAME_PARMS_PATTERN[pattern].has_key('PLAYNUM') and GAME_PARMS_PATTERN[pattern].has_key('SWIPE'):
-            print "set game parms ... "
-            print " name     : " + str(pattern)
-            print " MAX_TURN : " + str(GAME_PARMS_PATTERN[pattern]['MAX_TURN'])
-            print " PLAYNUM  : " + str(GAME_PARMS_PATTERN[pattern]['PLAYNUM'])
-            print " SWIPE    : " + str(GAME_PARMS_PATTERN[pattern]['SWIPE'])
+            print("set game parms ... ")
+            print(" name     : " + str(pattern))
+            print(" MAX_TURN : " + str(GAME_PARMS_PATTERN[pattern]['MAX_TURN']))
+            print(" PLAYNUM  : " + str(GAME_PARMS_PATTERN[pattern]['PLAYNUM']))
+            print(" SWIPE    : " + str(GAME_PARMS_PATTERN[pattern]['SWIPE']))
             return (GAME_PARMS_PATTERN[pattern]['MAX_TURN'], GAME_PARMS_PATTERN[pattern]['PLAYNUM'], GAME_PARMS_PATTERN[pattern]['SWIPE'])
     else:
         return (40, 500, 4)# }}}
@@ -205,7 +205,7 @@ PARMS_PATTERN = {# {{{
 ANDROID_TERM = "SC-03L"
 
 import padboard
-import uiautomator
+# import uiautomator
 import time
 import subprocess
 import os
@@ -220,7 +220,7 @@ import call_julia_prog
 
 def print_board(width, height, board):# {{{
     for h in range(height):
-        print board[h*width:h*width+width]
+        print(board[h*width:h*width+width])
     return 1# }}}
 
 # device_path = "/sdcard/screen.png"
@@ -281,17 +281,17 @@ def get_screenshot_new(path, android_term):# {{{
 
 def getting_screenshot(device_path, path, WIDTH, HEIGHT, use_old=0, android_term="SC-03L"):# {{{
     if use_old == 0:
-        print "getting screenshot ..."
+        print("getting screenshot ...")
         start_time = time.time()
         get_screenshot_new(path, android_term)
     else:
-        print "using old screenshot ..."
+        print("using old screenshot ...")
         start_time = time.time()
 
     elapsed_time = time.time() - start_time
     print("getting time:{0}".format(elapsed_time)) + "[sec]"
 
-    print "checking board ..."
+    print("checking board ...")
     start_time = time.time()
     if WIDTH == 5:
         board, key1, key2 = padboard.check_board(path, WIDTH, HEIGHT, 0)
@@ -419,7 +419,7 @@ def board_a2i(board):# {{{
 def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term):# {{{
     if board is None:
         board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1, android_term)  # すでに取得済みのscreenshotを利用する
-    print "searching ..."
+    print("searching ...")
     start_time = time.time()
 
     # n_best = pad_search.Nbeam(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS)
@@ -451,16 +451,16 @@ def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term):# {{
     return (n_best_route_xy)# }}}
 
 def moving(pos_x, pos_y, SWIPE):# {{{
-    print "moving drops ..."
+    print("moving drops ...")
     start_time = time.time()
-    print "pos_x: " + str(pos_x)
-    print "pos_y: " + str(pos_y)
+    print("pos_x: " + str(pos_x))
+    print("pos_y: " + str(pos_y))
     move_drop(pos_x, pos_y, str(SWIPE))
     elapsed_time = time.time() - start_time
     print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
 
 def moving_new(route_xy, key1_size_width, key2_cols_rows, android_term):# {{{
-    print "moving drops ..."
+    print("moving drops ...")
     start_time = time.time()
     route = calc_i_new(route_xy, key1_size_width, key2_cols_rows)
     move_drop_new(route, 0.1, android_term)
@@ -486,8 +486,8 @@ def move_drop_new(route, dur, android_term):# {{{
     pyautogui.mouseUp(r[0], r[1], button='left')# }}}
 
 def select_board(WIDTH, HEIGHT):# {{{
-    print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
-    print "select WIDTH x HEIGHT (1: 5x4, 2: 6x5, 3: 7x6, ... 99: cancel, else:default(6x5) )"
+    print(" WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT))
+    print("select WIDTH x HEIGHT (1: 5x4, 2: 6x5, 3: 7x6, ... 99: cancel, else:default(6x5) )")
     input_test_word = input(">>>  ")
     if input_test_word == 1:
         return (5, 4)
@@ -496,13 +496,13 @@ def select_board(WIDTH, HEIGHT):# {{{
     elif input_test_word == 3:
         return (7, 6)
     elif input_test_word == 99:
-        print "canceled changing board"
+        print("canceled changing board")
         return (WIDTH, HEIGHT)
     else:
         return (6, 5)# }}}
 
 def show_parms(PARMS):# {{{
-    print "show current parms ..."
+    print("show current parms ...")
     details = [# {{{
         'name',
         'red',
@@ -539,12 +539,12 @@ def show_parms(PARMS):# {{{
     for k in details:
         if PARMS.has_key(k):
             if isinstance(PARMS[k], float) and PARMS[k] != 0.0:
-                print " " + str(k) + ": " + str(PARMS[k])
+                print(" " + str(k) + ": " + str(PARMS[k]))
             elif isinstance(PARMS[k], str):
-                print " " + str(k) + ": " + str(PARMS[k])# }}}
+                print(" " + str(k) + ": " + str(PARMS[k])) # }}}
 
 def select_parms_pattern(PARMS):# {{{
-    print "current pattern name = " + PARMS['name']
+    print("current pattern name = " + PARMS['name'])
     cnt = 0
     patterns = {}
     patterns_str = ""
@@ -553,24 +553,24 @@ def select_parms_pattern(PARMS):# {{{
         patterns_str = patterns_str + str(cnt + 1) + ": " + k + ", "
         cnt += 1
     patterns_str = patterns_str + ", 98: show parm detail, 99: cancel"
-    print "select parms pattern (" + patterns_str + ")"
+    print("select parms pattern (" + patterns_str + ")")
     input_test_word = input(">>>  ")
     input_test_word -= 1
     if input_test_word == 98 - 1:
         show_parms(PARMS)
     elif input_test_word == 99 - 1:
-        print "canceled changing parms"
+        print("canceled changing parms")
     elif PARMS_PATTERN.has_key(patterns[input_test_word]):
         PARMS['name'] = patterns[input_test_word]
-        print "changed pattern name = " + PARMS['name']
+        print("changed pattern name = " + PARMS['name'])
         for k in PARMS_PATTERN[patterns[input_test_word]].keys():
             if PARMS.has_key(k):
                 PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
     return PARMS# }}}
 
 def select_android_term(android_term):# {{{
-    print "current android_term name = " + android_term
-    print "select android_term (1: SC-03L(galaxy),  2: SHV32(aquos), ... else:default(galaxy s10) )"
+    print("current android_term name = " + android_term)
+    print("select android_term (1: SC-03L(galaxy),  2: SHV32(aquos), ... else:default(galaxy s10) )")
     input_test_word = input(">>>  ")
     if input_test_word == 1:
         return "SC-03L"
@@ -587,7 +587,7 @@ if __name__ == '__main__':
     PARMS['name'] = 'default'
     for k in PARMS_PATTERN['default'].keys():
         PARMS[k] = PARMS_PATTERN['default'][k]
-    print "initail pattern name = " + PARMS['name']
+    print("initail pattern name = " + PARMS['name'])
     device_path = "/sdcard/screen.png"
     path = ".\screen.png"
     board = None
@@ -598,13 +598,13 @@ if __name__ == '__main__':
     end_flg = True
 
     android_term = select_android_term(android_term)
-    print " android_term: " + android_term
+    print(" android_term: " + android_term)
 
     while(end_flg):
 
-        print "press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, "
-        print "           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, "
-        print "           9: select android_term,   99: exit )"
+        print("press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, ")
+        print("           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, ")
+        print("           9: select android_term,   99: exit )")
         input_test_word = input(">>>  ")
         if input_test_word == 1:
             board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0, android_term)
@@ -628,14 +628,14 @@ if __name__ == '__main__':
             PARMS = select_parms_pattern(PARMS)
         elif input_test_word == 8:
             WIDTH, HEIGHT = select_board(WIDTH, HEIGHT)
-            print " WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT)
+            print(" WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT))
         elif input_test_word == 9:
             android_term = select_android_term(android_term)
-            print " android_term: " + android_term
+            print(" android_term: " + android_term)
         elif input_test_word == 99:
-            print "pad_auto exit!!"
+            print("pad_auto exit!!")
             end_flg = False
         else:
-            print "press correct key!!"
+            print("press correct key!!")
             #end_flg = False
 

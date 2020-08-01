@@ -3,8 +3,8 @@
 
 ROW = 5
 COL = 6
-MAX_TURN = 60
-BEAM_WIDTH = 10000
+MAX_TURN = 50
+BEAM_WIDTH = 400
 # MAX_TURN = 5
 # BEAM_WIDTH = 5
 eval_param = 0
@@ -16,7 +16,10 @@ if length(ARGS) >= 3
     ROW=parse(Int, ARGS[3])
 end
 if length(ARGS) >= 4
-    eval_param=parse(Int, ARGS[4])
+    debug_flg=parse(Int, ARGS[4])
+end
+if length(ARGS) >= 5
+    eval_param=parse(Int, ARGS[5])
 end
 # println(COL)
 # println(ROW)
@@ -224,7 +227,7 @@ function sum_e()#={{{=#
     return combo
 end#=}}}=#
 
-function check_delete_row()
+function check_delete_row()#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
     count_row = 0
     for i in 1:ROW
@@ -242,9 +245,9 @@ function check_delete_row()
         end
     end
     return count_row * 5
-end
+end#=}}}=#
 
-function add_evaluate(score, eval_param="")
+function add_evaluate(score, eval_param="")#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
     new_score = score
     if length(eval_param) != 0
@@ -257,7 +260,7 @@ function add_evaluate(score, eval_param="")
     end
     #println("new_score:", new_score)
     return new_score
-end
+end#=}}}=#
 
 function beam_search()#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
@@ -338,8 +341,8 @@ function beam_search()#={{{=#
         end
         sort!(pque_member, lt=sort_member, rev=true)
 
-        if MAX_TURN < length(pque_member)
-            width = MAX_TURN
+        if BEAM_WIDTH < length(pque_member)
+            width = BEAM_WIDTH
         else
             width = length(pque_member)
         end
@@ -392,33 +395,44 @@ function get_args()#={{{=#
 end#=}}}=#
 
 function main1()#={{{=#
-    global field, f_field, chainflag, dummy, t_erace, max_count, route
+    global field, f_field, chainflag, dummy, t_erace, max_count, route, debug_flg
     # get_args()
     set(ARGS[1])
     global field, f_field, route
-    # show(field)
-    f_field = copy(field)
-    best_member = beam_search()
 
-    # println("best_member:",  best_member)
-    # route[1:size(best_member.movei, 1), : ] = best_member.movei
-    # field = copy(f_field)
-    # operation()
-    # println("after operation")
-    # show(field)
-    # combo = sum_e()
-    # println("combo:", combo)
-    # println("after sum_e")
-    # show(field)
+    if debug_flg == 1
+        show(field)
+    end
+
+    f_field = copy(field)
+
+    if debug_flg == 1
+        @time best_member = beam_search()
+        println("best_member:",  best_member)
+        route[1:size(best_member.movei, 1), : ] = best_member.movei
+        field = copy(f_field)
+        operation()
+        println("after operation")
+        show(field)
+        combo = sum_e()
+        println("combo:", combo)
+        println("after sum_e")
+        show(field)
+    else
+        best_member = beam_search()
+    end
 
     # mvi = string(best_member.movei[1, 1]) * "," * string(best_member.movei[1, 2])
     # println(mvi)
     # println(length(best_member.movei))
 
-    for b in 1:MAX_TURN
-        #print(b)
-        println(string(best_member.movei[b, 1]) * "," * string(best_member.movei[b, 2]))
+    if debug_flg == 0
+        for b in 1:MAX_TURN
+            #print(b)
+            println(string(best_member.movei[b, 1]) * "," * string(best_member.movei[b, 2]))
+        end
     end
+
 end#=}}}=#
 
 # main()

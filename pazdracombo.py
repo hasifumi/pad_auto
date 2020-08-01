@@ -484,7 +484,7 @@ clllll
 
         strs = "".join(list(itertools.chain.from_iterable(lst)))
         for h in range(self.height):
-            print strs[h*self.width:h*self.width+self.width]
+            print(strs[h*self.width:h*self.width+self.width])
         #return# }}}
 
     def print_combo(self):# {{{
@@ -499,7 +499,7 @@ clllll
         # strs = "".join(cmb_l)
         strs = "".join(self.erase2_l)
         for h in range(self.height):
-            print strs[h*self.width:h*self.width+self.width]
+            print(strs[h*self.width:h*self.width+self.width])
         return# }}}
 
     def calc_combo(self):# {{{

@@ -334,7 +334,7 @@ if __name__ == "__main__":
     #print "len(argvs):" + str(len(argvs))
 
     if len(argvs) != 7:
-        print "Usage: # python %s width height board max_turn playnum pattern_name" % argvs[0]
+        print( "Usage: # python %s width height board max_turn playnum pattern_name" % argvs[0])
         quit()
 
     PARMS = {}
@@ -351,4 +351,4 @@ if __name__ == "__main__":
     best_route = ""
     for i in range(len(n_best.route)):
         best_route = best_route + str(n_best.route[i]) + ","
-    print best_route[:len(best_route)-1]
+    print( best_route[:len(best_route)-1])
