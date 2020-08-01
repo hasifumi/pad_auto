@@ -4,7 +4,7 @@
 ROW = 5
 COL = 6
 MAX_TURN = 50
-BEAM_WIDTH = 400
+BEAM_WIDTH = 800
 # MAX_TURN = 5
 # BEAM_WIDTH = 5
 eval_param = 0
@@ -61,7 +61,7 @@ end#=}}}=#
 
 function set(field1=[])#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
-    if field1 == []
+    if length(field1) < 12
 	    for i in 1:ROW
 	    	for j in 1:COL
 	    		if field[i, j] == 0
@@ -205,6 +205,30 @@ function check()#={{{=#
     end
     return v
 end#=}}}=#
+
+function analyze_board(field1)
+    global field, f_field, chainflag, dummy, t_erace, max_count, route
+    cnt_drops = zeros(Int8, 6)  # number of drops ( 1:red, 2:blue, 3:green, 4:light, 5:dark, 6:cure )
+
+    for i in 1:length(field1)
+        cnt_drops[field1[i]] += 1
+    end
+    for i in 1:length(cnt_drops)
+        println("cnt_drops["*string(i)*"]:", cnt_drops[i])
+    end
+    c = findfirst(x->x==maximum(cnt_drops), cnt_drops)
+    println("color index of max drops:"*string(c)*", max:"*string(cnt_drops[c]))
+    cnt_drops[c] = cnt_drops[c] - 5
+    println("L-ji:"*string(c)*", remaining:"*string(cnt_drops[c]))
+
+    cnt_cmbs = map(x-> Int(floor(x/3)), cnt_drops)
+    for i in 1:length(cnt_cmbs)
+        println("cnt_cmbs["*string(i)*"]:", cnt_cmbs[i])
+    end
+    sum_cmbs = sum(cnt_cmbs)+1
+    println("sum combo(add L-ji):"*string(sum_cmbs))
+
+end
 
 function sum_e()#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
@@ -373,7 +397,12 @@ function check_l_ji()#={{{=#
 
         end
     end
-    return count_l_ji * 5
+    if count_l_ji == 0
+        return 0
+    else
+        return 10
+    end
+    # return count_l_ji * 5
 end#=}}}=#
 
 function add_evaluate(score, eval_param="")#={{{=#
@@ -494,7 +523,7 @@ end#=}}}=#
 
 function main()#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
-	#set()
+	#set(0)
     set("315211554451322114424566531621")  # 15 combo
     println("initial field.")
     global field, f_field, route
@@ -532,6 +561,7 @@ end#=}}}=#
 function main1()#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route, debug_flg
     # get_args()
+    # print(ARGS[1])
     set(ARGS[1])
     global field, f_field, route
 
@@ -560,6 +590,8 @@ function main1()#={{{=#
         println("combo:", combo)
         println("after sum_e")
         show(field)
+    elseif  debug_flg == 3
+        analyze_board(field)
     else
         best_member = beam_search()
     end

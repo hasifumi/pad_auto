@@ -11,6 +11,7 @@ command = "julia pd_combo.jl 333211443451453114424566531621 6 5 2 01"  # debug_f
 command = "julia pd_combo.jl      +     +     +     +     + 6 5 2 01"
 command = "julia pd_combo.jl 212211134451135614433366531621 6 5 2 01"
 command = "julia pd_combo.jl 222222134451135614433366531621 6 5 2 11"
+command = "julia pd_combo.jl 0 6 5 3"
 
 # ARGS 1:field, 2:ROW, 3:COL, 4:debug_flg(0:off, 1:on, 2:sum_e only), 5:eval_param(1:delete_row, 2:l_ji...)
 

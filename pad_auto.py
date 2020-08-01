@@ -441,13 +441,15 @@ def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term):# {{
     # # print(pos_y)
     # # print ""
 
-    n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT)
+    debug_flg = 0 # 0:debug off, 1:debug on(beam_search), 2:debug on(sum_e, add_evaluate, only)
+    eval_param = "01" # col_1:delete_row, col_2:l_ji
+
+    n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT, debug_flg, eval_param)
     # n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT, "1") # flg_delete_row is on(1)
 
     elapsed_time = time.time() - start_time
     print("searching time:{0}".format(elapsed_time)) + "[sec]"
-    #return (pos_x, pos_y)
-    # print(n_best_route_xy)
+    print(n_best_route_xy)
     return (n_best_route_xy)# }}}
 
 def moving(pos_x, pos_y, SWIPE):# {{{
