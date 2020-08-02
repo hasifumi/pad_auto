@@ -43,7 +43,7 @@ if a != 0:
     win32gui.SetActiveWindow(a)
     win32gui.BringWindowToTop(a)
     set_activeWindow(a)
-    win32gui.MoveWindow(a, 700, 50, 392, 839, True)
+    win32gui.MoveWindow(a, 200, 50, 392, 839, True)
 
 time.sleep(2)
 

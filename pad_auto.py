@@ -269,9 +269,11 @@ def get_screenshot_new(path, android_term):# {{{
         win32gui.BringWindowToTop(a)
         set_activeWindow(a)
         if android_term == "SHV32":
-            win32gui.MoveWindow(a, 700, 50, 464, 839, True)
+            win32gui.MoveWindow(a, 100, 50, 464, 839, True)
+        elif android_term == "KFKAWI":  # Kindle FireHD8
+            win32gui.MoveWindow(a, 100, 50, 520, 839, True)
         else:
-            win32gui.MoveWindow(a, 700, 50, 392, 839, True)
+            win32gui.MoveWindow(a, 100, 50, 392, 839, True)
     time.sleep(2)
     # win32gui.MoveWindow(a, 700, 50, 392, 839, True)
     rect = win32gui.GetWindowRect(a)
@@ -467,7 +469,7 @@ def moving(pos_x, pos_y, SWIPE):# {{{
 def moving_new(route_xy, key1_size_width, key2_cols_rows, android_term):# {{{
     print("moving drops ...")
     start_time = time.time()
-    route = calc_i_new(route_xy, key1_size_width, key2_cols_rows)
+    route = calc_i_new(route_xy, key1_size_width, key2_cols_rows, 100)
     move_drop_new(route, 0.1, android_term)
     elapsed_time = time.time() - start_time
     print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
@@ -573,13 +575,13 @@ def select_parms_pattern(PARMS):# {{{
                 PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
     return PARMS# }}}
 
-def show_eval_param(eval_param):
+def show_eval_param(eval_param):# {{{
     current = ""
     for e in eval_param:
         current += str(e)
-    print("current eval_param: " + current)
+    print("current eval_param: " + current)# }}}
 
-def select_eval_param(eval_param):
+def select_eval_param(eval_param):# {{{
     show_eval_param(eval_param)
     print("toggle(on:1, off:0) eval_param ( column 1:delete row, 2:L-ji, 3:oiuchi, ,,, 99:cancel )")
     input_test_word = input(">>> ")
@@ -612,16 +614,18 @@ def select_eval_param(eval_param):
         show_eval_param(eval_param)
     else:
         print("input_test_word:"+str(input_test_word))
-    return eval_param
+    return eval_param# }}}
 
 def select_android_term(android_term):# {{{
     print("current android_term name = " + android_term)
-    print("select android_term (1: SC-03L(galaxy),  2: SHV32(aquos), ... else:default(galaxy s10) )")
+    print("select android_term (1: SC-03L(galaxy),  2: SHV32(aquos), 3: KindleFireHD8 ... else:default(galaxy s10) )")
     input_test_word = input(">>>  ")
     if input_test_word == 1:
         return "SC-03L"
     elif input_test_word == 2:
         return "SHV32"
+    elif input_test_word == 3:
+        return "KFKAWI"
     else:
         return "SC-03L"# }}}
 

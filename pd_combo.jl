@@ -444,7 +444,12 @@ function check_delete_col()#={{{=#
         end
     end
     # println("count_col:", count_col)
-    return count_col * 5
+    if count_col == 0
+        return 0
+    else
+        return 15
+    end
+    # return count_col * 5
 end#=}}}=#
 
 function add_evaluate(score, eval_param="")#={{{=#
