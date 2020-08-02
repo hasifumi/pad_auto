@@ -206,7 +206,7 @@ function check()#={{{=#
     return v
 end#=}}}=#
 
-function analyze_board(field1)
+function analyze_board(field1)#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
     cnt_drops = zeros(Int8, 6)  # number of drops ( 1:red, 2:blue, 3:green, 4:light, 5:dark, 6:cure )
 
@@ -228,7 +228,7 @@ function analyze_board(field1)
     sum_cmbs = sum(cnt_cmbs)+1
     println("sum combo(add L-ji):"*string(sum_cmbs))
 
-end
+end#=}}}=#
 
 function sum_e()#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
@@ -405,9 +405,52 @@ function check_l_ji()#={{{=#
     # return count_l_ji * 5
 end#=}}}=#
 
+function check_delete_col()#={{{=#
+    global field, f_field, chainflag, dummy, t_erace, max_count, route
+    count_col = 0
+    for j in 1:COL
+        flg_col = 0
+        for i in 1:ROW
+            if field[i, j] != 6  # 6:cure && "oiuchi"
+                flg_col = 1
+                # println("break j:", j)
+                # break
+            end
+            if i+1 <= ROW
+                if field[i, j] != field[i+1, j]
+                    flg_col = 1
+                end
+            end
+            if j+2 <= COL
+                if (field[i, j] == field[i, j+1]) && (field[i, j] == field[i, j+2])
+                    flg_col = 1
+                end
+            end
+            if j > 1 && j+1 <= COL
+                if (field[i, j] == field[i, j-1]) && (field[i, j] == field[i, j+1])
+                    flg_col = 1
+                end
+            end
+            if j > 2
+                if (field[i, j] == field[i, j-1]) && (field[i, j] == field[i, j-2])
+                    flg_col = 1
+                end
+            end
+        end
+        if flg_col == 0
+            count_col += 1
+            # println("j:", j)
+            # println("count_col:", count_col)
+        end
+    end
+    # println("count_col:", count_col)
+    return count_col * 5
+end#=}}}=#
+
 function add_evaluate(score, eval_param="")#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
     # println("add_evaluate")
+    # println("eval_param:", eval_param)
     # println("eval_param[2]:", eval_param[2])
     # println("typeof(eval_param[2]):", typeof(eval_param[2]))
     new_score = score
@@ -421,6 +464,9 @@ function add_evaluate(score, eval_param="")#={{{=#
         if eval_param[2] == '1'   # if flg_l_ji is on('1') then ...
             # println("check_l_ji()")
             new_score += check_l_ji()
+        end
+        if eval_param[3] == '1'   # if flg_delete_col is on('1') then ...
+            new_score += check_delete_col()
         end
     end
     return new_score

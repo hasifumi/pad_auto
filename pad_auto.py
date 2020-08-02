@@ -416,7 +416,7 @@ def board_a2i(board):# {{{
     # print board_i
     return board_i# }}}
 
-def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term):# {{{
+def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param):# {{{
     if board is None:
         board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1, android_term)  # すでに取得済みのscreenshotを利用する
     print("searching ...")
@@ -442,9 +442,12 @@ def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term):# {{
     # # print ""
 
     debug_flg = 0 # 0:debug off, 1:debug on(beam_search), 2:debug on(sum_e, add_evaluate, only)
-    eval_param = "01" # col_1:delete_row, col_2:l_ji
+    # eval_param = "01" # col_1:delete_row, col_2:l_ji
+    eval_params = ""
+    for e in eval_param:
+        eval_params += str(e)
 
-    n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT, debug_flg, eval_param)
+    n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT, debug_flg, eval_params)
     # n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT, "1") # flg_delete_row is on(1)
 
     elapsed_time = time.time() - start_time
@@ -570,6 +573,47 @@ def select_parms_pattern(PARMS):# {{{
                 PARMS[k] = PARMS_PATTERN[patterns[input_test_word]][k]
     return PARMS# }}}
 
+def show_eval_param(eval_param):
+    current = ""
+    for e in eval_param:
+        current += str(e)
+    print("current eval_param: " + current)
+
+def select_eval_param(eval_param):
+    show_eval_param(eval_param)
+    print("toggle(on:1, off:0) eval_param ( column 1:delete row, 2:L-ji, 3:oiuchi, ,,, 99:cancel )")
+    input_test_word = input(">>> ")
+    #input_test_word -= 1
+    if input_test_word == 1:
+        if eval_param[1 - 1] == 0:
+            eval_param[1 - 1] = 1
+            eval_param[3 - 1] = 0
+        else:
+            eval_param[1 - 1] = 0
+        print("toggled delete_row (maybe oiuchi too...)")
+        show_eval_param(eval_param)
+    elif input_test_word == 2:
+        if eval_param[2 - 1] == 0:
+            eval_param[2 - 1] = 1
+        else:
+            eval_param[2 - 1] = 0
+        print("toggled L-ji")
+        show_eval_param(eval_param)
+    elif input_test_word == 3:
+        if eval_param[3 - 1] == 0:
+            eval_param[3 - 1] = 1
+            eval_param[1 - 1] = 0
+        else:
+            eval_param[3 - 1] = 0
+        print("toggled oiuchi (maybe delete_row too...)")
+        show_eval_param(eval_param)
+    elif input_test_word == 99:
+        print("canceled changing eval_param")
+        show_eval_param(eval_param)
+    else:
+        print("input_test_word:"+str(input_test_word))
+    return eval_param
+
 def select_android_term(android_term):# {{{
     print("current android_term name = " + android_term)
     print("select android_term (1: SC-03L(galaxy),  2: SHV32(aquos), ... else:default(galaxy s10) )")
@@ -594,6 +638,7 @@ if __name__ == '__main__':
     path = ".\screen.png"
     board = None
     android_term = ANDROID_TERM
+    eval_param =  [0, 0, 0, 0, 0]
 
     # main routine
 
@@ -605,29 +650,31 @@ if __name__ == '__main__':
     while(end_flg):
 
         print("press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, ")
-        print("           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, ")
+        # print("           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, ")
+        print("           6: get_ss & search & move, 7: toggle eval_param, 8: change WIDTH & HEIGHT, ")
         print("           9: select android_term,   99: exit )")
         input_test_word = input(">>>  ")
         if input_test_word == 1:
             board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0, android_term)
         elif input_test_word == 2:
             board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1, android_term)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param)
         elif input_test_word == 3:
             moving_new(n_best_route_xy, key1, key2)
         if input_test_word == 4:
             board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0, android_term)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param)
         elif input_test_word == 5:
             board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1, android_term)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param)
             moving_new(n_best_route_xy, key1, key2, android_term)
         elif input_test_word == 6:
             board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0, android_term)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param)
             moving_new(n_best_route_xy, key1, key2, android_term)
         elif input_test_word == 7:
-            PARMS = select_parms_pattern(PARMS)
+            # PARMS = select_parms_pattern(PARMS)
+            eval_param = select_eval_param(eval_param)
         elif input_test_word == 8:
             WIDTH, HEIGHT = select_board(WIDTH, HEIGHT)
             print(" WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT))
