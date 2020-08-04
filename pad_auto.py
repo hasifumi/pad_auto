@@ -479,6 +479,7 @@ def move_drop(pos_x, pos_y, swipe_time):# {{{
     subprocess.check_call(uiautomator_cmd, shell=True)# }}}
 
 def move_drop_new(route, dur, android_term):# {{{
+    x, y = pyautogui.position()
     a = win32gui.FindWindow(None, android_term)
     print(win32gui.GetWindowText(a))
     if a != 0:
@@ -491,6 +492,8 @@ def move_drop_new(route, dur, android_term):# {{{
     for r in route:
         pyautogui.moveTo(r[0], r[1], duration=dur)
     pyautogui.mouseUp(r[0], r[1], button='left')# }}}
+    pyautogui.moveTo(x, y)
+    pyautogui.click()
 
 def select_board(WIDTH, HEIGHT):# {{{
     print(" WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT))
