@@ -418,7 +418,7 @@ def board_a2i(board):# {{{
     # print board_i
     return board_i# }}}
 
-def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param):# {{{
+def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param, max_turn, beam_width):# {{{
     if board is None:
         board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1, android_term)  # すでに取得済みのscreenshotを利用する
     print("searching ...")
@@ -449,7 +449,7 @@ def searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval
     for e in eval_param:
         eval_params += str(e)
 
-    n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT, debug_flg, eval_params)
+    n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT, debug_flg, eval_params, max_turn, beam_width)
     # n_best_route_xy = call_julia_prog.call_julia_prog(board_a2i(board), WIDTH, HEIGHT, "1") # flg_delete_row is on(1)
 
     elapsed_time = time.time() - start_time
@@ -466,11 +466,11 @@ def moving(pos_x, pos_y, SWIPE):# {{{
     elapsed_time = time.time() - start_time
     print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
 
-def moving_new(route_xy, key1_size_width, key2_cols_rows, android_term):# {{{
+def moving_new(route_xy, key1_size_width, key2_cols_rows, android_term, dur):# {{{
     print("moving drops ...")
     start_time = time.time()
     route = calc_i_new(route_xy, key1_size_width, key2_cols_rows, 100)
-    move_drop_new(route, 0.1, android_term)
+    move_drop_new(route, dur, android_term)
     elapsed_time = time.time() - start_time
     print("moving time:{0}".format(elapsed_time)) + "[sec]"# }}}
 
@@ -491,9 +491,10 @@ def move_drop_new(route, dur, android_term):# {{{
     pyautogui.mouseDown(route[0][0], route[0][1], button='left')
     for r in route:
         pyautogui.moveTo(r[0], r[1], duration=dur)
-    pyautogui.mouseUp(r[0], r[1], button='left')# }}}
+    pyautogui.mouseUp(r[0], r[1], button='left')
     pyautogui.moveTo(x, y)
     pyautogui.click()
+# }}}
 
 def select_board(WIDTH, HEIGHT):# {{{
     print(" WIDTH: " + str(WIDTH) + ", HEIGHT: " + str(HEIGHT))
@@ -619,6 +620,69 @@ def select_eval_param(eval_param):# {{{
         print("input_test_word:"+str(input_test_word))
     return eval_param# }}}
 
+def select_during_time(dur):# {{{
+    print("current during_time: " + str(dur))
+    print("select during_time 1:0.1 2:0.15, 3:0.2, 4:0.25, ... 99:cancel )")
+    input_test_word = input(">>> ")
+    #input_test_word -= 1
+    if input_test_word == 1:
+        dur = 0.1
+        print("changed during_time:0.1")
+    elif input_test_word == 2:
+        dur = 0.15
+        print("changed during_time:0.15")
+    elif input_test_word == 3:
+        dur = 0.2
+        print("changed during_time:0.2")
+    elif input_test_word == 4:
+        dur = 0.25
+        print("changed during_time:0.25")
+    else:
+        print("input_test_word:"+str(input_test_word))
+    return dur# }}}
+
+def select_max_turn(max_turn):# {{{
+    print("current max_turn: " + str(max_turn))
+    print("select max_turn 1:30, 2:40, 3:50, 4:60, ... 99:cancel )")
+    input_test_word = input(">>> ")
+    #input_test_word -= 1
+    if input_test_word == 1:
+        max_turn = 30
+        print("changed max_turn:30")
+    elif input_test_word == 2:
+        max_turn = 40
+        print("changed max_turn:40")
+    elif input_test_word == 3:
+        max_turn = 50
+        print("changed max_turn:50")
+    elif input_test_word == 4:
+        max_turn = 60
+        print("changed max_turn:60")
+    else:
+        print("input_test_word:"+str(input_test_word))
+    return max_turn# }}}
+
+def select_beam_width(beam_width):# {{{
+    print("current beam_width: " + str(beam_width))
+    print("select beam_width 1:800, 2:1000, 3:1500, 4:2000, ... 99:cancel )")
+    input_test_word = input(">>> ")
+    #input_test_word -= 1
+    if input_test_word == 1:
+        beam_width = 800
+        print("changed beam_width:800")
+    elif input_test_word == 2:
+        beam_width = 1000
+        print("changed beam_width:1000")
+    elif input_test_word == 3:
+        beam_width = 1500
+        print("changed beam_width:1500")
+    elif input_test_word == 4:
+        beam_width = 2000
+        print("changed beam_width:2000")
+    else:
+        print("input_test_word:"+str(input_test_word))
+    return beam_width# }}}
+
 def select_android_term(android_term):# {{{
     print("current android_term name = " + android_term)
     print("select android_term (1: SC-03L(galaxy),  2: SHV32(aquos), 3: KindleFireHD8 ... else:default(galaxy s10) )")
@@ -646,7 +710,9 @@ if __name__ == '__main__':
     board = None
     android_term = ANDROID_TERM
     eval_param =  [0, 0, 0, 0, 0]
-
+    dur = 0.1
+    max_turn = 50
+    beam_width = 800
     # main routine
 
     end_flg = True
@@ -657,28 +723,28 @@ if __name__ == '__main__':
     while(end_flg):
 
         print("press key (1: get_ss, 2: search, 3: move,  4: get_ss & search, 5: search & move, ")
-        # print("           6: get_ss & search & move, 7: select pattern, 8: change WIDTH & HEIGHT, ")
         print("           6: get_ss & search & move, 7: toggle eval_param, 8: change WIDTH & HEIGHT, ")
-        print("           9: select android_term,   99: exit )")
+        print("           9: select android_term, 10: change during_time, 11: change MAX_TURN, ")
+        print("           12: change BEAM_WIDTH,   99: exit )")
         input_test_word = input(">>>  ")
         if input_test_word == 1:
             board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0, android_term)
         elif input_test_word == 2:
             board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1, android_term)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param, max_turn, beam_width)
         elif input_test_word == 3:
             moving_new(n_best_route_xy, key1, key2)
         if input_test_word == 4:
             board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0, android_term)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param, max_turn, beam_width)
         elif input_test_word == 5:
             board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 1, android_term)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param, max_turn, beam_width)
             moving_new(n_best_route_xy, key1, key2, android_term)
         elif input_test_word == 6:
             board, key1, key2 = getting_screenshot(device_path, path, WIDTH, HEIGHT, 0, android_term)
-            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param)
-            moving_new(n_best_route_xy, key1, key2, android_term)
+            n_best_route_xy = searching(WIDTH, HEIGHT, board, MAX_TURN, PLAYNUM, PARMS, android_term, eval_param, max_turn, beam_width)
+            moving_new(n_best_route_xy, key1, key2, android_term, dur)
         elif input_test_word == 7:
             # PARMS = select_parms_pattern(PARMS)
             eval_param = select_eval_param(eval_param)
@@ -688,6 +754,15 @@ if __name__ == '__main__':
         elif input_test_word == 9:
             android_term = select_android_term(android_term)
             print(" android_term: " + android_term)
+        elif input_test_word == 10:
+            dur = select_during_time(dur)
+            print(" during_time: " + str(dur))
+        elif input_test_word == 11:
+            max_turn = select_max_turn(max_turn)
+            print(" max_turn: " + str(max_turn))
+        elif input_test_word == 12:
+            beam_width = select_beam_width(beam_width)
+            print(" beam_width: " + str(beam_width))
         elif input_test_word == 99:
             print("pad_auto exit!!")
             end_flg = False

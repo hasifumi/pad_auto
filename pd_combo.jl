@@ -3,7 +3,7 @@
 
 ROW = 5
 COL = 6
-MAX_TURN = 50
+MAX_TURN = 35
 BEAM_WIDTH = 800
 # MAX_TURN = 5
 # BEAM_WIDTH = 5
@@ -20,6 +20,12 @@ if length(ARGS) >= 4
 end
 if length(ARGS) >= 5
     eval_param=ARGS[5]
+end
+if length(ARGS) >= 6
+    MAX_TURN=parse(Int, ARGS[6])
+end
+if length(ARGS) >= 7
+    BEAM_WIDTH=parse(Int, ARGS[7])
 end
 # println(COL)
 # println(ROW)
