@@ -302,7 +302,7 @@ def color(array, flg=1):# {{{
 
     max = 0
     result = ""
-    for k, c in col.items():
+    for k, c in list(col.items()):
        tmp = numpy.corrcoef(numpy.array(array), numpy.array(c))[0][1]
        if max < tmp:
            result = k
@@ -344,9 +344,9 @@ def check_board(path, cols, rows, flg=1):# {{{
             'ys': 0,
         }
 
-    if pic_parm.has_key(key1):
-        if pic_parm[key1].has_key(key2):
-            for k in edges.keys():
+    if key1 in pic_parm:
+        if key2 in pic_parm[key1]:
+            for k in list(edges.keys()):
                 edges[k] = pic_parm[key1][key2][k]
 
     board = ""
@@ -358,7 +358,7 @@ def check_board(path, cols, rows, flg=1):# {{{
 
 def print_board(width, height, board):# {{{
     for h in range(height):
-        print(board[h*width:h*width+width])
+        print((board[h*width:h*width+width]))
     return 1# }}}
 
 if __name__ == "__main__":
@@ -366,7 +366,7 @@ if __name__ == "__main__":
     argvs = sys.argv
 
     if (len(argvs) != 4):
-        print("Usage: # python %s path width height" % argvs[0])
+        print(("Usage: # python %s path width height" % argvs[0]))
         quit()
 
     #board = check_board(argvs[1], int(argvs[2]), int(argvs[3]), 0)

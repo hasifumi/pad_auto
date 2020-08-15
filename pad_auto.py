@@ -368,7 +368,7 @@ def calc_i(flag, ary, is_nexus, width):# {{{
     pos_i += "\""
     return pos_i# }}}
 
-def calc_i_new(ary, key1_size_width, key2_cols_rows, sc03l_x=700, sc03l_y=50):# {{{
+def calc_i_new(ary, key1_size_width, key2_cols_rows, sc03l_x=100, sc03l_y=50):# {{{
     route = []
     if key1_size_width in padboard.pic_parm:
         if key2_cols_rows in padboard.pic_parm[key1_size_width]:
@@ -381,8 +381,8 @@ def calc_i_new(ary, key1_size_width, key2_cols_rows, sc03l_x=700, sc03l_y=50):# 
     print(("xs:"+str(xs)))
     print(("ys:"+str(ys)))
     for a in ary:
-        ary_x = xa + (xs/2) + (xs * a[0]) + sc03l_x
-        ary_y = ya + (ys/2) + (ys * a[1]) + sc03l_y
+        ary_x = int(xa + (xs/2) + (xs * a[0]) + sc03l_x)
+        ary_y = int(ya + (ys/2) + (ys * a[1]) + sc03l_y)
         route.append([ary_x, ary_y])
     print("route:")
     print(route)

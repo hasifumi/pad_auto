@@ -14,8 +14,18 @@ def call_julia_prog(board="315211554451322114424566531621", width=6, height=5, d
             )
 
     stdout_data, stderr_data = proc.communicate()
+    #print("stdout_data:")
+    #print(stdout_data)
+    stdout_data = stdout_data.decode()
+    #print("decoded:")
+    #print(stdout_data)
+    #print("len:"+str(len(stdout_data)))
     ary = []
-    for i in range(len(stdout_data)/4):
+    for i in range(int(len(stdout_data)/4)):
+        #print("i:"+str(i))
+        #print("out1:"+str(stdout_data[i]))
+        #print("out2:"+str(stdout_data[i+2]))
+        # ary.append([stdout_data[4*i]-1, stdout_data[4*i+2]-1])
         ary.append([int(stdout_data[4*i])-1, int(stdout_data[4*i+2])-1])
     # print ary
     return ary
