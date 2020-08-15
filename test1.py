@@ -12,5 +12,5 @@ HEIGHT = "5"
 
 cmd = ["python", "padboard2.py", png_file_name, WIDTH, HEIGHT]
 p = subprocess.check_output(cmd)
-print p
+print(p)
 

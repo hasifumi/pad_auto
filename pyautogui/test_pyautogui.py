@@ -45,12 +45,12 @@ if a != 0:
     set_activeWindow(a)
     win32gui.MoveWindow(a, 200, 50, 392, 839, True)
 
-time.sleep(2)
-
-rect = win32gui.GetWindowRect(a)
-print(rect)
-ImageGrab.grab(rect).save("SC-03L_screenshot.png")
-print("get screenshot")
+# time.sleep(2)
+#
+# rect = win32gui.GetWindowRect(a)
+# print(rect)
+# ImageGrab.grab(rect).save("SC-03L_screenshot.png")
+# print("get screenshot")
 
 # pyautogui.mouseDown(920, 650, button='left')
 # pyautogui.moveTo(920, 700, duration=0.1)

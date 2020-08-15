@@ -8,8 +8,8 @@ import copy
 
 COL = 6
 ROW = 5
-MAX_TURN = 50
-BEAM_WIDTH = 1000
+MAX_TURN = 20
+BEAM_WIDTH = 200
 DROPS = 6
 DROP = [" rbgldcop*    "]
 # DROP = {{{{
@@ -196,8 +196,6 @@ def sum_e(field1):# {{{
 # show_field(dummy)
 # show_field(t_erace)
 
-
-# @jit
 def beam_search(field1):  # {{{
     global max_count, t_erace
     # fld = field1.copy()
@@ -280,36 +278,21 @@ def beam_search(field1):  # {{{
 
     return best_member  # }}}
 
-
 # field = set_field(field, "123456125456234561654621654561")
-field = set_field(field)
-show_field(field)
-best_member = beam_search(field)
-route = best_member[4]
-print(best_member[0])
-print(route)
-field = operation(field, route)
-combo, field = sum_e(field)
-print("combo:"+str(combo))
-show_field(field)
 
-def main(field):# {{{
+def main():# {{{
+    global field, f_field, chainflag, dummy, t_erace, max_count, route
     field = set_field(field)
     show_field(field)
-    # field = set_field(field, "123456789012345678901234567890")
-    # show_field(field)
-    # field = fall_field(field)
-    # show_field(field)
-
-    f_field = field.copy()
     best_member = beam_search(field)
-    # route = best_member[4]
-    # field = operation(f_field, route)
-    # print("after operation")
-    # show_field(field)
-    # combo, field = sum_e(field)
-    # print("combo:"+combo)
-    # print("after sum_e")
-    # show_field(field)# }}}
-# if __name__ == '__main__':
-#     main(field)
+    route = best_member[4]
+    print(best_member[0])
+    print(route)
+    field = operation(field, route)
+    combo, field = sum_e(field)
+    print("combo:"+str(combo))
+    show_field(field)
+
+
+if __name__ == '__main__':
+    main()
