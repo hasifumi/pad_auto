@@ -6,7 +6,7 @@ GALAXY_IP = "192.168.1.67"
 AQUOS_SHV32_IP = "192.168.1.24"
 FIREHD8_IP = "192.168.1.43"
 
-print "select android (1: galaxy s10,  2: aquos shv32, 3: kindle fire hd8 ... else:default(galaxy s10) )"
+print("select android (1: galaxy s10,  2: aquos shv32, 3: kindle fire hd8 ... else:default(galaxy s10) )")
 input_test_word = input(">>>  ")
 if input_test_word == 1:
     command_adb_connect = ["adb", "connect", GALAXY_IP ]
