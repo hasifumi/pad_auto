@@ -458,6 +458,32 @@ function check_delete_col()#={{{=#
     # return count_col * 5
 end#=}}}=#
 
+function check_0_combo(score)#={{{=#
+    if score == 0
+        return 30
+    else
+        return 0
+    end
+end#=}}}=#
+
+function check_all_delete()#={{{=#
+    global field, f_field, chainflag, dummy, t_erace, max_count, route
+    flg_not_delete = 0
+    for i in 1:ROW
+        for j in 1:COL
+            if field[i, j] != 0 # not 0 means drop is left.
+                flg_not_delete = 1
+                break
+            end
+        end
+    end
+    if flg_not_delete == 0
+        return 30
+    else
+        return 0
+    end
+end#=}}}=#
+
 function add_evaluate(score, eval_param="")#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
     # println("add_evaluate")
@@ -478,6 +504,12 @@ function add_evaluate(score, eval_param="")#={{{=#
         end
         if eval_param[3] == '1'   # if flg_delete_col is on('1') then ...
             new_score += check_delete_col()
+        end
+        if eval_param[4] == '1'   # if flg_0_combo is on('1') then ...
+            new_score += check_0_combo(score)
+        end
+        if eval_param[5] == '1'   # if flg_all_delete is on('1') then ...
+            new_score += check_all_delete()
         end
     end
     return new_score

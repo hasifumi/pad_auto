@@ -211,7 +211,7 @@ import subprocess
 import os
 import pad_search
 import pazdracombo
-from PIL import Image
+#from PIL import Image
 from PIL import ImageGrab
 import pyautogui
 import win32gui
@@ -587,7 +587,7 @@ def show_eval_param(eval_param):# {{{
 
 def select_eval_param(eval_param):# {{{
     show_eval_param(eval_param)
-    print("toggle(on:1, off:0) eval_param ( column 1:delete row, 2:L-ji, 3:oiuchi, ,,, 99:cancel )")
+    print("toggle(on:1, off:0) eval_param ( column 1:delete row, 2:L-ji, 3:oiuchi, 4:0combo, 5:all delete, ,,, 99:cancel )")
     input_test_word = eval(input(">>> "))
     #input_test_word -= 1
     if input_test_word == 1:
@@ -612,6 +612,28 @@ def select_eval_param(eval_param):# {{{
         else:
             eval_param[3 - 1] = 0
         print("toggled oiuchi (maybe delete_row too...)")
+        show_eval_param(eval_param)
+    elif input_test_word == 4:
+        if eval_param[4 - 1] == 0:
+            eval_param[4 - 1] = 1
+            eval_param[1 - 1] = 0
+            eval_param[2 - 1] = 0
+            eval_param[3 - 1] = 0
+            eval_param[5 - 1] = 0
+        else:
+            eval_param[4 - 1] = 0
+        print("toggled 0 combo")
+        show_eval_param(eval_param)
+    elif input_test_word == 5:
+        if eval_param[5 - 1] == 0:
+            eval_param[5 - 1] = 1
+            eval_param[1 - 1] = 0
+            eval_param[2 - 1] = 0
+            eval_param[3 - 1] = 0
+            eval_param[4 - 1] = 0
+        else:
+            eval_param[5 - 1] = 0
+        print("toggled all delete")
         show_eval_param(eval_param)
     elif input_test_word == 99:
         print("canceled changing eval_param")
@@ -643,7 +665,7 @@ def select_during_time(dur):# {{{
 
 def select_max_turn(max_turn):# {{{
     print(("current max_turn: " + str(max_turn)))
-    print("select max_turn 1:30, 2:40, 3:50, 4:60, ... 99:cancel )")
+    print("select max_turn 1:30, 2:40, 3:50, 4:60, 5:10, 6:20, ... 99:cancel )")
     input_test_word = eval(input(">>> "))
     #input_test_word -= 1
     if input_test_word == 1:
@@ -658,6 +680,12 @@ def select_max_turn(max_turn):# {{{
     elif input_test_word == 4:
         max_turn = 60
         print("changed max_turn:60")
+    elif input_test_word == 5:
+        max_turn = 10
+        print("changed max_turn:10")
+    elif input_test_word == 6:
+        max_turn = 20
+        print("changed max_turn:20")
     else:
         print(("input_test_word:"+str(input_test_word)))
     return max_turn# }}}
@@ -685,7 +713,7 @@ def select_beam_width(beam_width):# {{{
 
 def select_android_term(android_term):# {{{
     print(("current android_term name = " + android_term))
-    print("select android_term (1: SC-03L(galaxy),  2: SHV32(aquos), 3: KindleFireHD8 ... else:default(galaxy s10) )")
+    print("select android_term (1: SC-03L(galaxy),  2: SHV32(aquos), 3: KindleFireHD8 ... 99:default(galaxy s10) )")
     input_test_word = eval(input(">>>  "))
     if input_test_word == 1:
         return "SC-03L"
@@ -693,6 +721,9 @@ def select_android_term(android_term):# {{{
         return "SHV32"
     elif input_test_word == 3:
         return "KFKAWI"
+    elif input_test_word == 99:
+        print("canceled changing android_term")
+        return "SC-03L"
     else:
         return "SC-03L"# }}}
 
@@ -709,7 +740,7 @@ if __name__ == '__main__':
     path = ".\screen.png"
     board = None
     android_term = ANDROID_TERM
-    eval_param =  [0, 0, 0, 0, 0]
+    eval_param =  [0, 0, 0, 0, 0, 0, 0]
     dur = 0.1
     max_turn = 50
     beam_width = 800
