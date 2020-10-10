@@ -484,6 +484,24 @@ function check_all_delete()#={{{=#
     end
 end#=}}}=#
 
+function check_lucifer_delete()#={{{=#
+    global field, f_field, chainflag, dummy, t_erace, max_count, route
+    flg_not_delete = 0
+    for i in 1:ROW
+        for j in 1:COL
+            if field[i, j] == 1 || field[i, j] == 2 || field[i, j] == 3
+                flg_not_delete = 1
+                break
+            end
+        end
+    end
+    if flg_not_delete == 0
+        return 30
+    else
+        return 0
+    end
+end#=}}}=#
+
 function add_evaluate(score, eval_param="")#={{{=#
     global field, f_field, chainflag, dummy, t_erace, max_count, route
     # println("add_evaluate")
@@ -510,6 +528,9 @@ function add_evaluate(score, eval_param="")#={{{=#
         end
         if eval_param[5] == '1'   # if flg_all_delete is on('1') then ...
             new_score += check_all_delete()
+        end
+        if eval_param[6] == '1'   # if flg_lucifer_delete is on('1') then ...
+            new_score += check_lucifer_delete()
         end
     end
     return new_score

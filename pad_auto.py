@@ -587,7 +587,7 @@ def show_eval_param(eval_param):# {{{
 
 def select_eval_param(eval_param):# {{{
     show_eval_param(eval_param)
-    print("toggle(on:1, off:0) eval_param ( column 1:delete row, 2:L-ji, 3:oiuchi, 4:0combo, 5:all delete, ,,, 99:cancel )")
+    print("toggle(on:1, off:0) eval_param ( column 1:delete row, 2:L-ji, 3:oiuchi, 4:0combo, 5:all delete, 6:lucifer delete, ,,, 99:cancel )")
     input_test_word = eval(input(">>> "))
     #input_test_word -= 1
     if input_test_word == 1:
@@ -620,6 +620,7 @@ def select_eval_param(eval_param):# {{{
             eval_param[2 - 1] = 0
             eval_param[3 - 1] = 0
             eval_param[5 - 1] = 0
+            eval_param[6 - 1] = 0
         else:
             eval_param[4 - 1] = 0
         print("toggled 0 combo")
@@ -631,9 +632,22 @@ def select_eval_param(eval_param):# {{{
             eval_param[2 - 1] = 0
             eval_param[3 - 1] = 0
             eval_param[4 - 1] = 0
+            eval_param[6 - 1] = 0
         else:
             eval_param[5 - 1] = 0
         print("toggled all delete")
+        show_eval_param(eval_param)
+    elif input_test_word == 6:
+        if eval_param[6 - 1] == 0:
+            eval_param[6 - 1] = 1
+            eval_param[1 - 1] = 0
+            eval_param[2 - 1] = 0
+            eval_param[3 - 1] = 0
+            eval_param[4 - 1] = 0
+            eval_param[5 - 1] = 0
+        else:
+            eval_param[6 - 1] = 0
+        print("toggled lucifer delete")
         show_eval_param(eval_param)
     elif input_test_word == 99:
         print("canceled changing eval_param")
